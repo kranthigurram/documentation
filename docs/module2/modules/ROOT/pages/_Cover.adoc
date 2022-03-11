@@ -1,0 +1,53 @@
+= Dodeca Workbook Script Documentation
+Applied OLAP, Inc.
+ifdef::backend-pdf[:notitle:]
+ifdef::backend-pdf[:noheader:]
+ifdef::backend-pdf[:nofooter:]
+ifndef::imagesdir[:imagesdir: images]
+
+image::image1.png[image,395,143,align="center"]
+
+{empty} +
+{empty} +
+
+[discrete]
+== Dodeca(R)
+[discrete]
+== Workbook Script Documentation
+
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+
+Copyright © 1998-{year} Applied OLAP, Inc. All Rights Reserved.
+
+[.text-justify]
+Dodeca is a registered trademark of Applied OLAP, Inc. Microsoft,
+Windows, Office, Excel, and Internet Explorer are registered trademarks
+of Microsoft Corporation. Oracle is a registered trademark of Oracle
+Corporation and Essbase is a trademark of Oracle. All other product and
+company names mentioned herein are trademarks of their respective
+owners.
+
+[.text-justify]
+Information in this document is subject to change without notice. The
+software described in this document is furnished under a license
+agreement or nondisclosure agreement. The software and this
+documentation may be used only in accordance with the terms of those
+agreements.
+
+Applied OLAP, Inc. 120 Holmes Ave. NE Suite 405 Huntsville, AL 35801
+U.S.A.
