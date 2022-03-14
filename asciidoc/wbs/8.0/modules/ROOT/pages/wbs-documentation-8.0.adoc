@@ -1,4 +1,4 @@
-= WBS Documentation, Dodeca 8.2
+= WBS Documentation, Dodeca 8.0
 // apply the front cover image
 :front-cover-image: image:../_Cover.pdf[]
 //
@@ -13,7 +13,7 @@
 :icons: font
 // suppress caption label (Figure x.) displayed for image titles
 :figure-caption!:
-//:toc:
+:toc:
 
 == Methods
 
@@ -37,8 +37,8 @@ Build a DataCache based on the cartesian product of values from two or more deli
 | DataCacheName | The name of the table will be used to lookup values from it.
 | Initialize | Whether to initiaze the DataCache.
 | AllowDuplicates | Whether the value of the first column in each row must be unique.  If left blank then FALSE will be used.
-| TrimLeft | Whether to trim whitespace from the left of all values. If blank FALSE will be used.
-| TrimRight | Whether to trim whitespace from the right of all values. If blank FALSE will be used.
+| TrimLeft | Whether to trim whitespace from the left of cell values.
+| TrimRight | Whether to trim whitespace from the right of cell values.
 | ScriptText | The text of the script that will be run.\\n\\r\\n\\rThe script will receive token replacement before being run.
 | Shared | Whether to carry the DataCache forward when opening one view from another.
 | ListDelimiter | The delimiter to use to define the end of each List. The default is ",".
@@ -63,8 +63,8 @@ Build a DataCache from a list of values specified by a delimited string.
 | DataCacheName | The name of the table will be used to lookup values from it.
 | Initialize | Whether to initiaze the DataCache.
 | AllowDuplicates | Whether the value of the first column in each row must be unique.  If left blank then FALSE will be used.
-| TrimLeft | Whether to trim whitespace from the left of all values. If blank FALSE will be used.
-| TrimRight | Whether to trim whitespace from the right of all values. If blank FALSE will be used.
+| TrimLeft | Whether to trim whitespace from the left of cell values.
+| TrimRight | Whether to trim whitespace from the right of cell values.
 | Shared | Whether to carry the DataCache forward when opening one view from another.
 | ScriptText | The text of the script that will be run.\\n\\r\\n\\rThe script will receive token replacement before being run.
 | Delimiter | The delimiter to use to define the end of each value. The default is ";".
@@ -91,8 +91,8 @@ Add information about a list of Essbase members, determined by whether they are 
 | DataCacheName | The name of the table will be used to lookup values from it.
 | Initialize | Whether to initiaze the DataCache.
 | AllowDuplicates | Whether the value of the first column in each row must be unique.  If left blank then FALSE will be used.
-| TrimLeft | Whether to trim whitespace from the left of all values. If blank FALSE will be used.
-| TrimRight | Whether to trim whitespace from the right of all values. If blank FALSE will be used.
+| TrimLeft | Whether to trim whitespace from the left of cell values.
+| TrimRight | Whether to trim whitespace from the right of cell values.
 | Shared | Whether to carry the DataCache forward when opening one view from another.
 | BaseMember | Member used as the root of the search.  Typically, this will be a dimension, but may be any member in the hierarchy.
 | Descendant | Member name or alias for which to search (including wildcards).
@@ -122,8 +122,8 @@ Add information about Essbase dynamic-time-series members to a DataCache.
 | DataCacheName | The name of the table will be used to lookup values from it.
 | Initialize | Whether to initiaze the DataCache.
 | AllowDuplicates | Whether the value of the first column in each row must be unique.  If left blank then FALSE will be used.
-| TrimLeft | Whether to trim whitespace from the left of all values. If blank FALSE will be used.
-| TrimRight | Whether to trim whitespace from the right of all values. If blank FALSE will be used.
+| TrimLeft | Whether to trim whitespace from the left of cell values.
+| TrimRight | Whether to trim whitespace from the right of cell values.
 | Shared | Whether to carry the DataCache forward when opening one view from another.
 | AliasTableName | The Alias table from which alias names are returned.
 | ReturnType | Specifies what information is retrieved for each member.
@@ -152,8 +152,8 @@ Add the results of an Essbase MDX script to a DataCache.
 | AliasTableName | The Alias table from which alias names are returned.
 | Initialize | Whether to initiaze the DataCache.
 | AllowDuplicates | Whether the value of the first column in each row must be unique.  If left blank then FALSE will be used.
-| TrimLeft | Whether to trim whitespace from the left of all values. If blank FALSE will be used.
-| TrimRight | Whether to trim whitespace from the right of all values. If blank FALSE will be used.
+| TrimLeft | Whether to trim whitespace from the left of cell values.
+| TrimRight | Whether to trim whitespace from the right of cell values.
 | Shared | Whether to carry the DataCache forward when opening one view from another.
 | ScriptText | The text of the script that will be run.\\n\\r\\n\\rThe script will receive token replacement before being run.
 | EssbaseScriptID | The ID of the Essbase Script that represents the script to run.
@@ -179,8 +179,8 @@ Add the results of an Essbase member query to a DataCache.
 | DataCacheName | The name of the table will be used to lookup values from it.
 | Initialize | Whether to initiaze the DataCache.
 | AllowDuplicates | Whether the value of the first column in each row must be unique.  If left blank then FALSE will be used.
-| TrimLeft | Whether to trim whitespace from the left of all values. If blank FALSE will be used.
-| TrimRight | Whether to trim whitespace from the right of all values. If blank FALSE will be used.
+| TrimLeft | Whether to trim whitespace from the left of cell values.
+| TrimRight | Whether to trim whitespace from the right of cell values.
 | Shared | Whether to carry the DataCache forward when opening one view from another.
 | EssbaseScriptID | The ID of the Essbase Script that represents the script to run.
 | ScriptText | The text of the script that will be run.\\n\\r\\n\\rThe script will receive token replacement before being run.
@@ -206,8 +206,8 @@ Add the results of multiple Essbase member-queries to a DataCache.
 | DataCacheName | The name of the table will be used to lookup values from it.
 | Initialize | Whether to initiaze the DataCache.
 | AllowDuplicates | Whether the value of the first column in each row must be unique.  If left blank then FALSE will be used.
-| TrimLeft | Whether to trim whitespace from the left of all values. If blank FALSE will be used.
-| TrimRight | Whether to trim whitespace from the right of all values. If blank FALSE will be used.
+| TrimLeft | Whether to trim whitespace from the left of cell values.
+| TrimRight | Whether to trim whitespace from the right of cell values.
 | Shared | Whether to carry the DataCache forward when opening one view from another.
 | Queries | Query strings used to retrieve member information.
 | AliasTableName | The Alias table from which alias names are returned.
@@ -233,8 +233,8 @@ Add information about a list of Essbase members, generated from an Essbase repor
 | DataCacheName | The name of the table will be used to lookup values from it.
 | Initialize | Whether to initiaze the DataCache.
 | AllowDuplicates | Whether the value of the first column in each row must be unique.  If left blank then FALSE will be used.
-| TrimLeft | Whether to trim whitespace from the left of all values. If blank FALSE will be used.
-| TrimRight | Whether to trim whitespace from the right of all values. If blank FALSE will be used.
+| TrimLeft | Whether to trim whitespace from the left of cell values.
+| TrimRight | Whether to trim whitespace from the right of cell values.
 | Shared | Whether to carry the DataCache forward when opening one view from another.
 | EssbaseScriptID | The ID of the Essbase Script that represents the script to run.
 | ScriptText | The text of the script that will be run.\\n\\r\\n\\rThe script will receive token replacement before being run.
@@ -263,8 +263,8 @@ Add information about Essbase members of a specified generation to a DataCache.
 | DataCacheName | The name of the table will be used to lookup values from it.
 | Initialize | Whether to initiaze the DataCache.
 | AllowDuplicates | Whether the value of the first column in each row must be unique.  If left blank then FALSE will be used.
-| TrimLeft | Whether to trim whitespace from the left of all values. If blank FALSE will be used.
-| TrimRight | Whether to trim whitespace from the right of all values. If blank FALSE will be used.
+| TrimLeft | Whether to trim whitespace from the left of cell values.
+| TrimRight | Whether to trim whitespace from the right of cell values.
 | Shared | Whether to carry the DataCache forward when opening one view from another.
 | Dimension | Dimension to search.
 | GenerationName | Generation name from which to collect members.
@@ -295,8 +295,8 @@ Add information about Essbase members of a specified level to a DataCache.
 | DataCacheName | The name of the table will be used to lookup values from it.
 | Initialize | Whether to initiaze the DataCache.
 | AllowDuplicates | Whether the value of the first column in each row must be unique.  If left blank then FALSE will be used.
-| TrimLeft | Whether to trim whitespace from the left of all values. If blank FALSE will be used.
-| TrimRight | Whether to trim whitespace from the right of all values. If blank FALSE will be used.
+| TrimLeft | Whether to trim whitespace from the left of cell values.
+| TrimRight | Whether to trim whitespace from the right of cell values.
 | Shared | Whether to carry the DataCache forward when opening one view from another.
 | Dimension | Dimension to search.
 | LevelName | Level name from which to collect members.
@@ -327,8 +327,8 @@ Add information about a list of Essbase members, determined by their relationshi
 | DataCacheName | The name of the table will be used to lookup values from it.
 | Initialize | Whether to initiaze the DataCache.
 | AllowDuplicates | Whether the value of the first column in each row must be unique.  If left blank then FALSE will be used.
-| TrimLeft | Whether to trim whitespace from the left of all values. If blank FALSE will be used.
-| TrimRight | Whether to trim whitespace from the right of all values. If blank FALSE will be used.
+| TrimLeft | Whether to trim whitespace from the left of cell values.
+| TrimRight | Whether to trim whitespace from the right of cell values.
 | Shared | Whether to carry the DataCache forward when opening one view from another.
 | BaseMember | Member used as the root of the search.  Typically, this will be a dimension, but may be any member in the hierarchy.
 | Relationship | Relationship to base member to determine related members.
@@ -360,8 +360,8 @@ Add information about a list of Essbase members, determined by a search of the o
 | DataCacheName | The name of the table will be used to lookup values from it.
 | Initialize | Whether to initiaze the DataCache.
 | AllowDuplicates | Whether the value of the first column in each row must be unique.  If left blank then FALSE will be used.
-| TrimLeft | Whether to trim whitespace from the left of all values. If blank FALSE will be used.
-| TrimRight | Whether to trim whitespace from the right of all values. If blank FALSE will be used.
+| TrimLeft | Whether to trim whitespace from the left of cell values.
+| TrimRight | Whether to trim whitespace from the right of cell values.
 | Shared | Whether to carry the DataCache forward when opening one view from another.
 | SearchString | Member name to search for. [ex: "new*" will find "new york", "new hampshire", and "new mexico"]
 | SearchScope | Indicates whether member and/or alias names are searched.
@@ -393,8 +393,8 @@ Add information about a list of Essbase members, determined by whether they have
 | DataCacheName | The name of the table will be used to lookup values from it.
 | Initialize | Whether to initiaze the DataCache.
 | AllowDuplicates | Whether the value of the first column in each row must be unique.  If left blank then FALSE will be used.
-| TrimLeft | Whether to trim whitespace from the left of all values. If blank FALSE will be used.
-| TrimRight | Whether to trim whitespace from the right of all values. If blank FALSE will be used.
+| TrimLeft | Whether to trim whitespace from the left of cell values.
+| TrimRight | Whether to trim whitespace from the right of cell values.
 | Shared | Whether to carry the DataCache forward when opening one view from another.
 | Dimension | Dimension to search.
 | UDA | Finds members with this user-defined attribute.
@@ -425,8 +425,8 @@ Add information about a specified list of Essbase members to a DataCache.
 | DataCacheName | The name of the table will be used to lookup values from it.
 | Initialize | Whether to initiaze the DataCache.
 | AllowDuplicates | Whether the value of the first column in each row must be unique.  If left blank then FALSE will be used.
-| TrimLeft | Whether to trim whitespace from the left of all values. If blank FALSE will be used.
-| TrimRight | Whether to trim whitespace from the right of all values. If blank FALSE will be used.
+| TrimLeft | Whether to trim whitespace from the left of cell values.
+| TrimRight | Whether to trim whitespace from the right of cell values.
 | Shared | Whether to carry the DataCache forward when opening one view from another.
 | Members | Member names used as search criteria, delimited by semicolon.
 | ReturnType | Specifies what information is retrieved for each member.
@@ -455,8 +455,8 @@ Add the results of an Essbase report script to a DataCache.
 | DataCacheName | The name of the table will be used to lookup values from it.
 | Initialize | Whether to initiaze the DataCache.
 | AllowDuplicates | Whether the value of the first column in each row must be unique.  If left blank then FALSE will be used.
-| TrimLeft | Whether to trim whitespace from the left of all values. If blank FALSE will be used.
-| TrimRight | Whether to trim whitespace from the right of all values. If blank FALSE will be used.
+| TrimLeft | Whether to trim whitespace from the left of cell values.
+| TrimRight | Whether to trim whitespace from the right of cell values.
 | Shared | Whether to carry the DataCache forward when opening one view from another.
 | EssbaseScriptID | The ID of the Essbase Script that represents the script to run.
 | ScriptText | The text of the script that will be run.\\n\\r\\n\\rThe script will receive token replacement before being run.
@@ -479,8 +479,8 @@ Build a DataCache from a Dodeca SQLPassthroughDataSet.
 | DataCacheName | The name of the table will be used to lookup values from it.
 | Initialize | Whether to initiaze the DataCache.
 | AllowDuplicates | Whether the value of the first column in each row must be unique.  If left blank then FALSE will be used.
-| TrimLeft | Whether to trim whitespace from the left of all values. If blank FALSE will be used.
-| TrimRight | Whether to trim whitespace from the right of all values. If blank FALSE will be used.
+| TrimLeft | Whether to trim whitespace from the left of cell values.
+| TrimRight | Whether to trim whitespace from the right of cell values.
 | Shared | Whether to carry the DataCache forward when opening one view from another.
 | DataSetID | The QueryName of the SQLPassthroughDataSet to run.
 |===
@@ -502,8 +502,8 @@ Add the results of a SQL query to a DataCache.
 | DataCacheName | The name of the table will be used to lookup values from it.
 | Initialize | Whether to initiaze the DataCache.
 | AllowDuplicates | Whether the value of the first column in each row must be unique.  If left blank then FALSE will be used.
-| TrimLeft | Whether to trim whitespace from the left of all values. If blank FALSE will be used.
-| TrimRight | Whether to trim whitespace from the right of all values. If blank FALSE will be used.
+| TrimLeft | Whether to trim whitespace from the left of cell values.
+| TrimRight | Whether to trim whitespace from the right of cell values.
 | Shared | Whether to carry the DataCache forward when opening one view from another.
 | ScriptText | The text of the script that will be run.\\n\\r\\n\\rThe script will receive token replacement before being run.
 | Username | The username to use.
@@ -535,8 +535,8 @@ Build a DataCache from the values returned in XML format from a URL.  Specify th
 | DataCacheName | The name of the table will be used to lookup values from it.
 | Initialize | Whether to initiaze the DataCache.
 | AllowDuplicates | Whether the value of the first column in each row must be unique.  If left blank then FALSE will be used.
-| TrimLeft | Whether to trim whitespace from the left of all values. If blank FALSE will be used.
-| TrimRight | Whether to trim whitespace from the right of all values. If blank FALSE will be used.
+| TrimLeft | Whether to trim whitespace from the left of cell values.
+| TrimRight | Whether to trim whitespace from the right of cell values.
 | Shared | Whether to carry the DataCache forward when opening one view from another.
 | ScriptText | The text of the script that will be run.\\n\\r\\n\\rThe script will receive token replacement before being run.
 |===
@@ -787,7 +787,6 @@ Add an application token to the Dodeca application.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
 | TokenName | The name of the new token.
 | Value | The value of the new token.
-| SyncTokens | Whether to sync the token table after adding the token. If not specified TRUE will be used.
 |===
 
 ==== General
@@ -824,7 +823,6 @@ Add a view token to the target view.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
 | TokenName | The name of the new token.
 | Value | The value of the new token.
-| SyncTokens | Whether to sync the token table after adding the token. If not specified TRUE will be used.
 |===
 
 ==== View
@@ -843,7 +841,6 @@ Add a view token to the Dodeca view.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
 | TokenName | The name of the new token.
 | Value | The value of the new token.
-| SyncTokens | Whether to sync the token table after adding the token. If not specified TRUE will be used.
 |===
 
 
@@ -872,7 +869,6 @@ Add a token for one or more Essbase substitution variables.
 | Scope | Specifies the scope of the substitution variables for which tokens are added.  The default scope is Any, which queries for the most locally scoped variables.
 | TokenName | The name of the token to create, like [T.Product].  If TokenName contains "<VarName>", like "[T.<VarName>]" then it will be replaced with the name of the substitution variable.
 | TokenType | Specify whether to create an application or view token.
-| SyncTokens | Whether to sync the token table after adding the tokens. If not specified TRUE will be used.
 |===
 
 
@@ -950,242 +946,7 @@ Add a new worksheet as the last sheet.
 |===
 
 
-=== AttachmentOperations *(8.2)*
-Operations related to Dodeca Attachments.
-
-==== AttachFile
-
-Attaches the specified file.
-
-|===
-| Argument | Description
-
-| SpecifySheetBy | Select how to specify which worksheet to select while the method is being executed.
-| SheetSpec | Specify the sheet-name or sheet-number, depending on SpecifySheetBy.  If SpecifySheetBy is AllSheets then SheetSpec can be left empty.
-| Address | The address of a range to select for the execution of the method.
-| CellByCell | Whether to execute the method on a cell-by-cell basis, or on the range specified by the address.
-| ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
-| MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
-| CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| Filename | The name of the file to attach.
-| Folder | The path to the folder that contains the specified file.
-| Description | The description of the new attachment.
-| IncrementName | 
-        Whether to add a subscript, such as (2), to the name of the attachment if the comment being attached to already has an attachment with the same name.
-        If blank TRUE will be used.
-        If FALSE attachments with the same name will be overwritten.
-      
-| KeyItems | 
-        A semicolon delimited list of key-value pairs such as "Year=Jan;Market=East;Scenario=Budget".
-        Each key item must be expressed as <key>=<value>, where neither <key> nor <value> are blank.
-        The @KeyItems(<Address>) function can be used to specify the KeyItems of a specific cell.
-        If KeyItems is blank the KeyItems of the active cell (if any) will be used.
-      
-| AllowedFileTypes | A semicolon delimited string of file types. ex: ".xlsx;.txt;.docx".
-        Only attachments of the file types specified will be allowed to be attached.
-        If not specified then all types are allowed except for restricted types.
-| MaximumFileSize | The maximum allowed file size of attachments in KB. If left blank the MaximumFileSize property of the associated CommentRange will be used.
-| MaximumAttachments | The maximum number of files that can be attached to a comment. If left blank the MaximumAttachments property of the associated CommentRange will be used.
-| UseDialog | Whether to use a file dialog to specify the file. If left blank FALSE will be used.
-| DialogTitle | A caption to use at the title of the file dialog.
-| DialogResultPropertyName | If specified a script property with the specified name will be created with result of the file dialog. The @PVal(<prpoperty-name>) function can be used to get the value.
-| IdPropertyName | If specified a script property with the specified name will be created with the exported attachmentId. The @PVal(<prpoperty-name>) function can be used to get the value.
-| FullFilePathPropertyName | If specified a script property with the specified name will be created with full path of the attached file. The @PVal(<prpoperty-name>) function can be used to get the value.
-|===
-
-==== AttachFileShortcut
-
-Creates a shortcut to the specified file and attaches the shortcut. This would typically be a file on a network drive.
-
-|===
-| Argument | Description
-
-| SpecifySheetBy | Select how to specify which worksheet to select while the method is being executed.
-| SheetSpec | Specify the sheet-name or sheet-number, depending on SpecifySheetBy.  If SpecifySheetBy is AllSheets then SheetSpec can be left empty.
-| Address | The address of a range to select for the execution of the method.
-| CellByCell | Whether to execute the method on a cell-by-cell basis, or on the range specified by the address.
-| ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
-| MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
-| CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| Filename | The name of the file to attach.
-| Folder | The path to the folder that contains the specified file.
-| Description | The description of the new attachment.
-| IncrementName | 
-        Whether to add a subscript, such as (2), to the name of the attachment if the comment being attached to already has an attachment with the same name.
-        If blank TRUE will be used.
-        If FALSE attachments with the same name will be overwritten.
-      
-| KeyItems | 
-        A semicolon delimited list of key-value pairs such as "Year=Jan;Market=East;Scenario=Budget".
-        Each key item must be expressed as <key>=<value>, where neither <key> nor <value> are blank.
-        The @KeyItems(<Address>) function can be used to specify the KeyItems of a specific cell.
-        If KeyItems is blank the KeyItems of the active cell (if any) will be used.
-      
-| AllowedFileTypes | A semicolon delimited string of file types. ex: ".xlsx;.txt;.docx".
-        Only attachments of the file types specified will be allowed to be attached.
-        If not specified then all types are allowed except for restricted types.
-| MaximumAttachments | The maximum number of files that can be attached to a comment. If left blank the MaximumAttachments property of the associated CommentRange will be used.
-| UseDialog | Whether to use a file dialog to specify the file. If left blank FALSE will be used.
-| DialogTitle | A caption to use at the title of the file dialog.
-| DialogResultPropertyName | If specified a script property with the specified name will be created with result of the file dialog. The @PVal(<prpoperty-name>) function can be used to get the value.
-| IdPropertyName | If specified a script property with the specified name will be created with the exported attachmentId. The @PVal(<prpoperty-name>) function can be used to get the value.
-| FullFilePathPropertyName | If specified a script property with the specified name will be created with full path of the attached file. The @PVal(<prpoperty-name>) function can be used to get the value.
-|===
-
-==== AttachUrlShortcut
-
-Creates a shortcut to the specified Url and attaches the shortcut.
-
-|===
-| Argument | Description
-
-| SpecifySheetBy | Select how to specify which worksheet to select while the method is being executed.
-| SheetSpec | Specify the sheet-name or sheet-number, depending on SpecifySheetBy.  If SpecifySheetBy is AllSheets then SheetSpec can be left empty.
-| Address | The address of a range to select for the execution of the method.
-| CellByCell | Whether to execute the method on a cell-by-cell basis, or on the range specified by the address.
-| ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
-| MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
-| CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| URL | The URL to create the shortcut for.
-| Name | The name of the attachment.
-| Description | The description of the new attachment.
-| IncrementName | 
-        Whether to add a subscript, such as (2), to the name of the attachment if the comment being attached to already has an attachment with the same name.
-        If blank TRUE will be used.
-        If FALSE attachments with the same name will be overwritten.
-      
-| KeyItems | 
-        A semicolon delimited list of key-value pairs such as "Year=Jan;Market=East;Scenario=Budget".
-        Each key item must be expressed as <key>=<value>, where neither <key> nor <value> are blank.
-        The @KeyItems(<Address>) function can be used to specify the KeyItems of a specific cell.
-        If KeyItems is blank the KeyItems of the active cell (if any) will be used.
-      
-| MaximumAttachments | The maximum number of files that can be attached to a comment. If left blank the MaximumAttachments property of the associated CommentRange will be used.
-| UseDialog | Whether to use a file dialog to specify the file. If left blank FALSE will be used.
-| DialogTitle | A caption to use at the title of the file dialog.
-| DialogResultPropertyName | If specified a script property with the specified name will be created with result of the file dialog. The @PVal(<prpoperty-name>) function can be used to get the value.
-| UrlPropertyName | If specified a script property with the specified name will be created with a value of the new attachment's URL. The @PVal(<prpoperty-name>) function can be used to get the value.
-| NamePropertyName | If specified a script property with the specified name will be created with a value of the name of the attachment that was opened. The @PVal(<prpoperty-name>) function can be used to get the value.
-| DescriptionPropertyName | If specified a script property with the specified name will be created with a value of the new attachment's Description. The @PVal(<prpoperty-name>) function can be used to get the value.
-| IdPropertyName | If specified a script property with the specified name will be created with the exported attachmentId. The @PVal(<prpoperty-name>) function can be used to get the value.
-|===
-
-==== Delete
-
-Deletes one or more attachments. AttachmentID or KeyItems must be specified.
-        If AttachmentID is specified one attachment may be deleted. KeyItems will be ignored.
-        If KeyItems is specified more than one attachments may be deleted depending on the number of items that are attached to the intersection specified by the KeyItems.
-        If Name is specified with KeyItems then all attachments at the intersection specified by the KeyItems having the specified name will be deleted.
-
-|===
-| Argument | Description
-
-| SpecifySheetBy | Select how to specify which worksheet to select while the method is being executed.
-| SheetSpec | Specify the sheet-name or sheet-number, depending on SpecifySheetBy.  If SpecifySheetBy is AllSheets then SheetSpec can be left empty.
-| Address | The address of a range to select for the execution of the method.
-| CellByCell | Whether to execute the method on a cell-by-cell basis, or on the range specified by the address.
-| ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
-| MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
-| CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| AttachmentID | The AttachmentID.
-| Name | The name of the attachment.
-| KeyItems | 
-        A semicolon delimited list of key-value pairs such as "Year=Jan;Market=East;Scenario=Budget".
-        Each key item must be expressed as <key>=<value>, where neither <key> nor <value> are blank.
-        The @KeyItems(<Address>) function can be used to specify the KeyItems of a specific cell.
-        If KeyItems is blank the KeyItems of the active cell (if any) will be used.
-      
-| CountPropertyName | If specified a script property with the specified name will be created with count of the exported attachments. The @PVal(<prpoperty-name>) function can be used to get the value.
-| IdListPropertyName | If specified a script property with the specified name will be created with a semicolon delimited list of the effected attachment IDs.
-|===
-
-==== Export
-
-Exports one or more attachments. AttachmentID or KeyItems must be specified.
-        If AttachmentID is specified one attachment may be exported. KeyItems will be ignored.
-        If KeyItems is specified more than one attachments may be exported depending on the number of items that are attached to the intersection specified by the KeyItems.
-        If Name is specified with KeyItems then all attachments at the intersection specified by the KeyItems having the specified name will be exported.
-
-|===
-| Argument | Description
-
-| SpecifySheetBy | Select how to specify which worksheet to select while the method is being executed.
-| SheetSpec | Specify the sheet-name or sheet-number, depending on SpecifySheetBy.  If SpecifySheetBy is AllSheets then SheetSpec can be left empty.
-| Address | The address of a range to select for the execution of the method.
-| CellByCell | Whether to execute the method on a cell-by-cell basis, or on the range specified by the address.
-| ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
-| MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
-| CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| AttachmentID | The AttachmentID.
-| Name | The name of the attachment.
-| KeyItems | 
-        A semicolon delimited list of key-value pairs such as "Year=Jan;Market=East;Scenario=Budget".
-        Each key item must be expressed as <key>=<value>, where neither <key> nor <value> are blank.
-        The @KeyItems(<Address>) function can be used to specify the KeyItems of a specific cell.
-        If KeyItems is blank the KeyItems of the active cell (if any) will be used.
-      
-| Folder | The path to the folder that contains the specified file.
-| FileExistsPolicy | Determines what to do if there is an existing file with the same name. If not specified Increment will be used.
-        Increment = Add a sequence number to the file name like "FileName(1).txt".
-        Overwrite = Overwrite the existing file.
-        PromptForName = Prompt the user for a unique name.
-        PromptForOverwrite = Prompt the user for whether to overwrite the file.
-        SkipSilent = Do not export.
-        SkipWithMessage = Prompt user with message that file was not exported.
-| UseDialog | Whether to use a file dialog to specify the file. If left blank FALSE will be used.
-| DialogTitle | A caption to use at the title of the file dialog.
-| DialogResultPropertyName | If specified a script property with the specified name will be created with result of the file dialog. The @PVal(<prpoperty-name>) function can be used to get the value.
-| CountPropertyName | If specified a script property with the specified name will be created with count of the exported attachments. The @PVal(<prpoperty-name>) function can be used to get the value.
-| FolderPropertyName | If specified a script property with the specified name will be created with the path of the output folder.
-| FilePathsListPropertyName | If specified a script property with the specified name will be created with a semicolon delimited list of the full paths of each exported file. The @PVal(<prpoperty-name>) function can be used to get the value.
-| IdListPropertyName | If specified a script property with the specified name will be created with a semicolon delimited list of the effected attachment IDs.
-| NamesListPropertyName | If specified a script property with the specified name will be created with a semicolon delimited list of the exported attachment names. The @PVal(<prpoperty-name>) function can be used to get the value.
-|===
-
-==== Open
-
-Opens one attachments. AttachmentID or KeyItems must be specified.
-        If AttachmentID is specified one attachment may be opened. KeyItems will be ignored.
-        If KeyItems is specified the first attachment that is attached to the intersection specified by the KeyItems will be opened.
-        If Name is specified with KeyItems the first attachment that is attached to the intersection specified by the KeyItems and has the specified name will be opened.
-
-|===
-| Argument | Description
-
-| SpecifySheetBy | Select how to specify which worksheet to select while the method is being executed.
-| SheetSpec | Specify the sheet-name or sheet-number, depending on SpecifySheetBy.  If SpecifySheetBy is AllSheets then SheetSpec can be left empty.
-| Address | The address of a range to select for the execution of the method.
-| CellByCell | Whether to execute the method on a cell-by-cell basis, or on the range specified by the address.
-| ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
-| MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
-| CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| AttachmentID | The AttachmentID.
-| Name | The name of the attachment.
-| KeyItems | 
-        A semicolon delimited list of key-value pairs such as "Year=Jan;Market=East;Scenario=Budget".
-        Each key item must be expressed as <key>=<value>, where neither <key> nor <value> are blank.
-        The @KeyItems(<Address>) function can be used to specify the KeyItems of a specific cell.
-        If KeyItems is blank the KeyItems of the active cell (if any) will be used.
-      
-| Folder | The path to the folder that contains the specified file.
-| FileExistsPolicy | Determines what to do if there is an existing file with the same name. If not specified Increment will be used.
-        Increment = Add a sequence number to the file name like "FileName(1).txt".
-        Overwrite = Overwrite the existing file.
-        PromptForName = Prompt the user for a unique name.
-        PromptForOverwrite = Prompt the user for whether to overwrite the file.
-        SkipSilent = Do not export.
-        SkipWithMessage = Prompt user with message that file was not exported.
-| UseDialog | Whether to use a file dialog to specify the file. If left blank FALSE will be used.
-| DialogTitle | A caption to use at the title of the file dialog.
-| DialogResultPropertyName | If specified a script property with the specified name will be created with result of the file dialog. The @PVal(<prpoperty-name>) function can be used to get the value.
-| FolderPropertyName | If specified a script property with the specified name will be created with the path of the output folder.
-| FullFilePathPropertyName | If specified a script property with the specified name will be created with full path of the attached file. The @PVal(<prpoperty-name>) function can be used to get the value.
-| NamePropertyName | If specified a script property with the specified name will be created with a value of the name of the attachment that was opened. The @PVal(<prpoperty-name>) function can be used to get the value.
-| IdPropertyName | If specified a script property with the specified name will be created with the exported attachmentId. The @PVal(<prpoperty-name>) function can be used to get the value.
-|===
-
-
-=== BinaryArtifactOperations *(7.7)*
+=== BinaryArtifactOperations 
 Use this method to Create, Update, Delete, Import from binary artifacts
 
 ==== AddSheet
@@ -2023,149 +1784,12 @@ Closes the application.
 |===
 
 
-=== CommentOperations *(8.0)*
-Operations related to Dodeca Comments.
-
-==== Add
-
-Add a Dodeca comment.
-
-|===
-| Argument | Description
-
-| SpecifySheetBy | Select how to specify which worksheet to select while the method is being executed.
-| SheetSpec | Specify the sheet-name or sheet-number, depending on SpecifySheetBy.  If SpecifySheetBy is AllSheets then SheetSpec can be left empty.
-| Address | The address of a range to select for the execution of the method.
-| CellByCell | Whether to execute the method on a cell-by-cell basis, or on the range specified by the address.
-| ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
-| MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
-| CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| CommentText | The text of the new comment.
-| KeyItems | 
-        A semicolon delimited list of key-value pairs such as "Year=Jan;Market=East;Scenario=Budget".
-        Each key item must be expressed as <key>=<value>, where neither <key> nor <value> are blank.
-        The @KeyItems(<Address>) function can be used to specify the KeyItems of a specific cell.
-        If KeyItems is blank the KeyItems of the active cell (if any) will be used.
-      
-| Context | The Context of the Comment.
-| Subject | The Subject of the comment.
-| ParentCommentID | The ID of the comment's parent comment.  This would be used if the comment is a response to another.
-| NewCommentIdPropertyName | The name of a script property which will be set to the ID of the comment.
-| NewKeyHashPropertyName | The name of a script property which will be set to the KeyHash of the comment.
-|===
-
-==== Copy
-
-Copies comments from one or more sets of intersections to one or more other sets of intersections.
-
-|===
-| Argument | Description
-
-| SpecifySheetBy | Select how to specify which worksheet to select while the method is being executed.
-| SheetSpec | Specify the sheet-name or sheet-number, depending on SpecifySheetBy.  If SpecifySheetBy is AllSheets then SheetSpec can be left empty.
-| Address | The address of a range to select for the execution of the method.
-| CellByCell | Whether to execute the method on a cell-by-cell basis, or on the range specified by the address.
-| ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
-| MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
-| CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| Source | 
-        The set of key/value pairs that defines the filter for the source intersections from which comments will be copied.  The source is expressed as key/value pairs, in the form of Key=Value, where the pairs are separated by a semi-colon character.  Multiple sets of key/value pairs may be passed using a pipe delimiter to separate different sets.
-
-        Example: Scenario=Budget;Year=Jan|Scenario=Budget;Year=Feb
-
-        Note: The number of key/value pairs and the number of sets much exactly match the number of key/value pairs and the number of sets passed in the Target argument.
-      
-| Target | 
-        The set of key/value pairs that defines the filter for the target intersections where comments will be copied.  The target is expressed as key/value pairs, in the form of Key=Value, where the pairs are separated by a semi-colon character.  Multiple sets of key/value pairs may be passed using a pipe delimiter to separate different sets.
-
-        Example: Scenario=Forecast;Year=Jan|Scenario=Forecast;Year=Feb
-
-        Note: The number of key/value pairs and the number of sets much exactly match the number of key/value pairs and the number of sets passed in the Source argument.
-      
-| BackgroundExecute | Controls whether the method is executed asynchronous.
-|===
-
-==== DeleteByCommentID
-
-Delete the Dodeca comment that has the specified CommentID.
-
-|===
-| Argument | Description
-
-| SpecifySheetBy | Select how to specify which worksheet to select while the method is being executed.
-| SheetSpec | Specify the sheet-name or sheet-number, depending on SpecifySheetBy.  If SpecifySheetBy is AllSheets then SheetSpec can be left empty.
-| Address | The address of a range to select for the execution of the method.
-| CellByCell | Whether to execute the method on a cell-by-cell basis, or on the range specified by the address.
-| ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
-| MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
-| CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| CommentID | The ID of the comment.
-| DeletedCountPropertyName | The name of a script property which will be set to the count of deleted comments.
-|===
-
-==== DeleteByKeyHash
-
-Delete all Dodeca comments that have the specified KeyHash.
-
-|===
-| Argument | Description
-
-| SpecifySheetBy | Select how to specify which worksheet to select while the method is being executed.
-| SheetSpec | Specify the sheet-name or sheet-number, depending on SpecifySheetBy.  If SpecifySheetBy is AllSheets then SheetSpec can be left empty.
-| Address | The address of a range to select for the execution of the method.
-| CellByCell | Whether to execute the method on a cell-by-cell basis, or on the range specified by the address.
-| ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
-| MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
-| CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| KeyHash | 
-        The KeyHash to match for comments.  The KeyHash represents a specific set a KeyItems.  All comments with the specified KeyHash will be impacted.
-      
-| DeletedCountPropertyName | The name of a script property which will be set to the count of deleted comments.
-|===
-
-==== DeleteByKeyItems
-
-Delete all Dodeca comments that have the specified KeyItems.
-
-|===
-| Argument | Description
-
-| SpecifySheetBy | Select how to specify which worksheet to select while the method is being executed.
-| SheetSpec | Specify the sheet-name or sheet-number, depending on SpecifySheetBy.  If SpecifySheetBy is AllSheets then SheetSpec can be left empty.
-| Address | The address of a range to select for the execution of the method.
-| CellByCell | Whether to execute the method on a cell-by-cell basis, or on the range specified by the address.
-| ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
-| MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
-| CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| KeyItems | 
-        A semicolon delimited list of key-value pairs such as "Year=Jan;Market=East;Scenario=Budget".
-        Each key item must be expressed as <key>=<value>, where neither <key> nor <value> are blank.
-        The @KeyItems(<Address>) function can be used to specify the KeyItems of a specific cell.
-        If KeyItems is blank the KeyItems of the active cell (if any) will be used.
-      
-| MatchAny | If FALSE, then comments that have all of and ONLY the specified KeyItems will be matched.  SPECIFYING TRUE IS DANGEROUS.  If TRUE, then comments that have all of the specified KeyItems will be matched, even though they may also have other KeyItems as well.
-| DeletedCountPropertyName | The name of a script property which will be set to the count of deleted comments.
-|===
+=== CommentOperations 
+Operations related to Comments.
 
 ==== Load
 
 Load comments for the specified worksheet(s).
-
-|===
-| Argument | Description
-
-| SpecifySheetBy | Select how to specify which worksheet to select while the method is being executed.
-| SheetSpec | Specify the sheet-name or sheet-number, depending on SpecifySheetBy.  If SpecifySheetBy is AllSheets then SheetSpec can be left empty.
-| Address | The address of a range to select for the execution of the method.
-| CellByCell | Whether to execute the method on a cell-by-cell basis, or on the range specified by the address.
-| ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
-| MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
-| CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-|===
-
-==== Save
-
-Save the view's Dodeca comments.
 
 |===
 | Argument | Description
@@ -2215,7 +1839,7 @@ Copies comments from one or more sets of intersections to one or more other sets
 |===
 
 
-=== CopyFromBinaryArtifact *(7.3)*
+=== CopyFromBinaryArtifact 
 Copy from a specifed Excel Binary Artifact.
 
 ==== Range
@@ -2526,7 +2150,7 @@ Copy a worksheet.
 |===
 
 
-=== DeleteBinaryArtifact *(7.2)*
+=== DeleteBinaryArtifact 
 Delete a specified binary artifact or binary artifact version.
 
 ==== General
@@ -2549,7 +2173,7 @@ Delete a specified binary artifact or binary artifact version.
 |===
 
 
-=== DeleteBreak *(7.2)*
+=== DeleteBreak 
 Deletes a page break or breaks from one or all sheets.
 
 ==== All
@@ -2607,7 +2231,7 @@ Deletes rows from a DataTableRange's sheet range.
 |===
 
 
-=== DeleteFile *(7.2)*
+=== DeleteFile 
 Deletes a specified file.
 
 ==== General
@@ -2647,15 +2271,7 @@ Delete cells.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
 | DeleteRange | The address of the cells to delete.
-| ShiftDirection | The shift mode for the delete. 
-        Warning: ShiftEntireRow and ShiftEntireColumn do not work correctly. Use ShiftEntireRowExcel and ShiftEntireColumnExcel to get the correct result.
-        ShiftEntireColumn performs the same as ShiftLeft (incorrect).
-        ShiftEntireRow performs the same as ShiftUp (incorrect).
-
-        Using ShiftLeft will move the cells to the right of any cells in the specified range to the left.
-        Using ShiftUp will move the cells below of any cells in the specified range up.
-        Using ShiftEntireColumnExcel will delete the entire column of any cells in the sprecified range.
-        Using ShiftEntireRowExcel will delete the entire row of any cells in the sprecified range.
+| ShiftDirection | The shift mode for the delete. Warning: ShiftEntireColumn performs the same as ShiftLeft. ShiftEntireRow performs the same as ShiftUp. Use ShiftEntireColumnExcel to delete entire column(s). Use ShiftEntireRow to delete entire row(s).
 | VisibleOnly | Set this to TRUE to prohibit deleting hidden rows or columns.  The default is FALSE.
 |===
 
@@ -3015,11 +2631,6 @@ Performs an Essbase retrieve operation for an Ad-hoc Essbase view.
 | ReplaceTokens | Whether to do token replacement before the retrieve.
 | SynchronizeCharts | Whether to synchronize the chart, if any, associated with the retrieve range.
 | AliasTableName | The name of the alias table from which aliases are obtained.  The alias table is used only when the UseAliases setting is true.  See also: UseAliases
-| AutoAddRetrieveSubRanges | Controls whether named ranges are automatically added for the Essbase page, row, column, and data areas when any Essbase operation is performed that retrieves data.  These operations include retrieve, pivot, zoom in, zoom out, remove only, and keep only.
-        The names of the ranges are Ess.PageHeaderRange, Ess.RowHeaderRange, Ess.ColumnHeaderRange, and Ess.DataRange.
-        For an Excel Essbase view that contains named retrieve ranges, such as Ess.Retrieve.Range.1, the sub-range names are given an extension to uniquely identify and associate the sub-ranges with the retrieve range.  The extension is based on the retrieve range identifier.  For example, if the named retrieve range is Ess.Retrieve.Range.1, the sub-range names are Ess.PageHeaderRange.1, Ess.RowHeaderRange.1, Ess.ColumnHeaderRange.1, and Ess.DataRange.1.
-        The named ranges can be used by the view's workbook script to format the page, row, column, and/or data areas after an Essbase operation is performed.
-        If left blank the View's setting for AutoAddRetrieveSubRanges will be used.
 | DisplayUnknownMembers | Controls whether unknown members are displayed in the grid.
 | EnableHybridAnalysis | Controls whether Hybrid Analysis is enabled for Essbase operations.  If enabled, members from a Hybrid Analysis relational source are displayed.
 | Indentation | Indicates the indentation of member names.  None -- Prevents indentation of any member names.  SubItems -- Left-justifies ancestors and indents descendants.  Totals -- Left-justifies descendants and indents ancestors.
@@ -3053,11 +2664,6 @@ Performs an Essbase retrieve operation for an Excel Essbase view.
 | ReplaceTokens | Whether to do token replacement before the retrieve.
 | SynchronizeCharts | Whether to synchronize the chart, if any, associated with the retrieve range.
 | AliasTableName | The name of the alias table from which aliases are obtained.  The alias table is used only when the UseAliases setting is true.  See also: UseAliases
-| AutoAddRetrieveSubRanges | Controls whether named ranges are automatically added for the Essbase page, row, column, and data areas when any Essbase operation is performed that retrieves data.  These operations include retrieve, pivot, zoom in, zoom out, remove only, and keep only.
-        The names of the ranges are Ess.PageHeaderRange, Ess.RowHeaderRange, Ess.ColumnHeaderRange, and Ess.DataRange.
-        For an Excel Essbase view that contains named retrieve ranges, such as Ess.Retrieve.Range.1, the sub-range names are given an extension to uniquely identify and associate the sub-ranges with the retrieve range.  The extension is based on the retrieve range identifier.  For example, if the named retrieve range is Ess.Retrieve.Range.1, the sub-range names are Ess.PageHeaderRange.1, Ess.RowHeaderRange.1, Ess.ColumnHeaderRange.1, and Ess.DataRange.1.
-        The named ranges can be used by the view's workbook script to format the page, row, column, and/or data areas after an Essbase operation is performed.
-        If left blank the View's setting for AutoAddRetrieveSubRanges will be used.
 | DisplayUnknownMembers | Controls whether unknown members are displayed in the grid.
 | EnableHybridAnalysis | Controls whether Hybrid Analysis is enabled for Essbase operations.  If enabled, members from a Hybrid Analysis relational source are displayed.
 | Indentation | Indicates the indentation of member names.  None -- Prevents indentation of any member names.  SubItems -- Left-justifies ancestors and indents descendants.  Totals -- Left-justifies descendants and indents ancestors.
@@ -3093,11 +2699,6 @@ Performs an Essbase retrieve operation on a specific range for an Excel Essbase 
 | ReplaceTokens | Whether to do token replacement before the retrieve.
 | SynchronizeCharts | Whether to synchronize the chart, if any, associated with the retrieve range.
 | AliasTableName | The name of the alias table from which aliases are obtained.  The alias table is used only when the UseAliases setting is true.  See also: UseAliases
-| AutoAddRetrieveSubRanges | Controls whether named ranges are automatically added for the Essbase page, row, column, and data areas when any Essbase operation is performed that retrieves data.  These operations include retrieve, pivot, zoom in, zoom out, remove only, and keep only.
-        The names of the ranges are Ess.PageHeaderRange, Ess.RowHeaderRange, Ess.ColumnHeaderRange, and Ess.DataRange.
-        For an Excel Essbase view that contains named retrieve ranges, such as Ess.Retrieve.Range.1, the sub-range names are given an extension to uniquely identify and associate the sub-ranges with the retrieve range.  The extension is based on the retrieve range identifier.  For example, if the named retrieve range is Ess.Retrieve.Range.1, the sub-range names are Ess.PageHeaderRange.1, Ess.RowHeaderRange.1, Ess.ColumnHeaderRange.1, and Ess.DataRange.1.
-        The named ranges can be used by the view's workbook script to format the page, row, column, and/or data areas after an Essbase operation is performed.
-        If left blank the View's setting for AutoAddRetrieveSubRanges will be used.
 | DisplayUnknownMembers | Controls whether unknown members are displayed in the grid.
 | EnableHybridAnalysis | Controls whether Hybrid Analysis is enabled for Essbase operations.  If enabled, members from a Hybrid Analysis relational source are displayed.
 | Indentation | Indicates the indentation of member names.  None -- Prevents indentation of any member names.  SubItems -- Left-justifies ancestors and indents descendants.  Totals -- Left-justifies descendants and indents ancestors.
@@ -3238,7 +2839,7 @@ Run an Essbase Calc defined by the ScriptText argument.
 |===
 
 
-=== EssbaseRunMaxL *(7.7)*
+=== EssbaseRunMaxL 
 Run a MaxL script.
 
 ==== General
@@ -3568,55 +3169,6 @@ Execute a workbook script procedure.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
 | Procedure | The name of the procedure to execute.
-| Break | Use this argument to conditionally exit this procedure. This argument will be evaluated only after calling the specified procedure.
-|===
-
-==== ToolAction
-
-Use to execute a workbook script procedure for a specific tool. Use this overload in conjunction with the ToolClicked and/or ToolValueChanged eventlinks.
-
-|===
-| Argument | Description
-
-| SpecifySheetBy | Select how to specify which worksheet to select while the method is being executed.
-| SheetSpec | Specify the sheet-name or sheet-number, depending on SpecifySheetBy.  If SpecifySheetBy is AllSheets then SheetSpec can be left empty.
-| Address | The address of a range to select for the execution of the method.
-| CellByCell | Whether to execute the method on a cell-by-cell basis, or on the range specified by the address.
-| ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
-| MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
-| CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| Procedure | The name of the procedure to execute.
-| ToolKey | The key of the tool that the execution of the procedure depends on. If left blank the specified procedure will run for any tool.
-| Break | Use this argument to conditionally exit this procedure. This argument will be evaluated only after calling the specified procedure.
-|===
-
-
-=== ExecuteSQLTransaction *(8.2)*
-Execute one or more SQL statements.
-===== *Hidden in 8.0.0 - ExecuteSQLTransaction is no longer supported.*
-
-==== General
-
-Execute one or more SQL statements.
-
-|===
-| Argument | Description
-
-| SpecifySheetBy | Select how to specify which worksheet to select while the method is being executed.
-| SheetSpec | Specify the sheet-name or sheet-number, depending on SpecifySheetBy.  If SpecifySheetBy is AllSheets then SheetSpec can be left empty.
-| Address | The address of a range to select for the execution of the method.
-| CellByCell | Whether to execute the method on a cell-by-cell basis, or on the range specified by the address.
-| ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
-| MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
-| CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| Driver | The driver to use.
-| ServletPath | The servlet-path to use.
-| SQLConnectString | The SQL connect-string to use.
-| Username | The username to use.
-| Password | The password to use.
-| Statements | One or more SQL statements delimited with the specified delimiter.
-| StatementDelimiter | The delimiter to use to define the end of each statement.  The default is the "|" (pipe) character.
-| Inserts | One or more SQL statements delimited with the specified delimiter.  The insert statements are executed if the corresponding statement fails.  The number of insert statements must be zero or the same number as the number of Statements.
 |===
 
 
@@ -3685,7 +3237,7 @@ Export the view to an Excel file.
 |===
 
 
-=== Filter *(7.4)*
+=== Filter 
 Filter a specified range.
 
 ==== Between
@@ -4010,7 +3562,7 @@ Execute a Procedure for each row in a DataCache created using AddDataCache.SQLPa
 |===
 
 
-=== InsertBreak *(7.2)*
+=== InsertBreak 
 Insert a break or breaks into one or all sheets.
 
 ==== Dynamic
@@ -4067,15 +3619,7 @@ Insert cells.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
 | InsertAddress | The address to insert the range at.
-| ShiftDirection | The shift mode for the insert. 
-        Warning: ShiftEntireRow and ShiftEntireColumn do not work correctly. Use ShiftEntireRowExcel and ShiftEntireColumnExcel to get the correct result.
-        ShiftEntireColumn performs the same as ShiftRight (incorrect).
-        ShiftEntireRow performs the same as ShiftDown (incorrect).
-
-        Using ShiftRight will move the cells to the right of any cells in the specified range to the right.
-        Using ShiftDown will move the cells below of any cells in the specified range down.
-        Using ShiftEntireColumnExcel will insert the entire column of any cells in the sprecified range.
-        Using ShiftEntireRowExcel will insert the entire row of any cells in the sprecified range.
+| ShiftDirection | The shift mode for the insert. Warning: ShiftEntireColumn performs the same as ShiftRight. ShiftEntireRow performs the same as ShiftDown. Use ShiftEntireColumnExcel to insert entire column(s). Use ShiftEntireRow to insert entire row(s).
 |===
 
 
@@ -4128,7 +3672,7 @@ Move a worksheet.
 |===
 
 
-=== OpenBinaryArtifact *(7.2)*
+=== OpenBinaryArtifact 
 Open a specified binary artifact, using the default editor on the system.
 
 ==== General
@@ -4467,7 +4011,7 @@ Remove a defined name from one or all worksheets.
 |===
 
 
-=== RemoveDuplicates *(7.4)*
+=== RemoveDuplicates 
 Remove duplicate rows or columns.
 
 ==== Columns
@@ -4694,7 +4238,7 @@ Repaints the grid control.
 |===
 
 
-=== Replace *(7.4)*
+=== Replace 
 Find and replace a string.
 
 ==== General
@@ -4787,7 +4331,6 @@ Saves changes, including added, deleted, and modified rows, for a SQLPassthrough
 | ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| SaveAll | If TRUE all datasets will be saved and DataSetRangeName isn't necessary.  Defaults to FALSE if not entered.
 | DataSetRangeName | The name of the view's SQLPassthroughDataSetRange to save.
 |===
 
@@ -4918,7 +4461,7 @@ Save workbook specifying the file name, file type, and folder.
 |===
 
 
-=== SaveWorkbookAsCsv *(7.3)*
+=== SaveWorkbookAsCsv 
 Save the workbook to a CSV file.
 
 ==== Desktop
@@ -5119,10 +4662,7 @@ Send an e-mail message using Windows Simple MAPI, which supports the option to d
 | Prompt | Whether to prompt the user before sending the message.  The default is TRUE.
 | AttachView | Whether to attach the view to the e-mail message.  The default is FALSE.
 | AttachViewAsPDF | Whether to attach the view as a PDF to the e-mail message.  The default is FALSE.
-| AttachViewAsPDF_Compliance | Indicates whether to produce a PDF/A-1b compliant PDF. The default is PDF/A-1b.
-| AttachViewAsPDF_Optimization | Indicates whether to produce a standard or size-optimized PDF.  The default is Standard.
 | ZipAttachments | Whether to add all attachments to a .zip file when composing the message.  The default is FALSE.
-| ZipFileName | The name of the attached zip file if the ZipAttachments argument is TRUE. If ZipFileName is not specified then the view's name will be used.
 | ZipCompression | The compression level to use when sending attachments as a .zip file. The default is Normal.
 |===
 
@@ -5155,12 +4695,9 @@ Send an e-mail message via SMTP. This is the preferred overload.
 | Password | The password of the SMTP account used to send the email.
 | AttachView | Whether to attach the view to the e-mail message.  The default is FALSE.
 | AttachViewAsPDF | Whether to attach the view as a PDF to the e-mail message.  The default is FALSE.
-| AttachViewAsPDF_Compliance | Indicates whether to produce a PDF/A-1b compliant PDF. The default is PDF/A-1b.
-| AttachViewAsPDF_Optimization | Indicates whether to produce a standard or size-optimized PDF.  The default is Standard.
 | AttachmentFilenames | Specify the name(s) of the file(s) to attach. To attach multiple files, the filenames must be delimited with the vertical bar (|) character or each filename must be specified on a separate line.
 | AttachmentFolder | Specify the folder that contains the attachment file(s).
 | ZipAttachments | Whether to add all attachments to a .zip file when composing the message.  The default is FALSE.
-| ZipFileName | The name of the attached zip file if the ZipAttachments argument is TRUE. If ZipFileName is not specified then the view's name will be used.
 | ZipCompression | The compression level to use when sending attachments as a .zip file. The default is Normal.
 | SnapshotRange | The range or ranges (separated by comma) to snapshot.
 | SnapshotAttachOrEmbed | Whether to attach the snapshot images to the email message or embed them. If embed is used then IsHtmlMessage will be forced to TRUE.
@@ -5208,12 +4745,9 @@ Send an e-mail message via the Dodeca servlet using SMTP.
 | EnableLogging | Whether to log the message details in the server log.  The default is FALSE.
 | AttachView | Whether to attach the view to the e-mail message.  The default is FALSE.
 | AttachViewAsPDF | Whether to attach the view as a PDF to the e-mail message.  The default is FALSE.
-| AttachViewAsPDF_Compliance | Indicates whether to produce a PDF/A-1b compliant PDF. The default is PDF/A-1b.
-| AttachViewAsPDF_Optimization | Indicates whether to produce a standard or size-optimized PDF.  The default is Standard.
 | AttachmentFilenames | Specify the name(s) of the file(s) to attach. To attach multiple files, the filenames must be delimited with the vertical bar (|) character or each filename must be specified on a separate line.
 | AttachmentFolder | Specify the folder that contains the attachment file(s).
 | ZipAttachments | Whether to add all attachments to a .zip file when composing the message.  The default is FALSE.
-| ZipFileName | The name of the attached zip file if the ZipAttachments argument is TRUE. If ZipFileName is not specified then the view's name will be used.
 | ZipCompression | The compression level to use when sending attachments as a .zip file. The default is Normal.
 |===
 
@@ -5476,7 +5010,7 @@ Set calculation options.
 |===
 
 
-=== SetCameraFrame *(7.5)*
+=== SetCameraFrame 
 The SetCameraFrame method works similarly to Excel when Insert/Picture or Insert/Screenshot is used and the formula of the picture frame is set to a range on a worksheet.
         The range specified in the formula will be rendered as an image within the picture frame.
         The image is automatically updated with the contents of the rendered range whenever that range changes.
@@ -6390,13 +5924,9 @@ Add a Dodeca comment.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
 | CommentText | The text of the comment.
-| KeyItems | 
-        A semicolon delimited list of key-value pairs such as "Year=Jan;Market=East;Scenario=Budget".
-        Each key item must be expressed as <key>=<value>, where neither <key> nor <value> are blank.
-        The @KeyItems(<Address>) function can be used to specify the KeyItems of a specific cell.
-        If KeyItems is blank the KeyItems of the active cell (if any) will be used.
-      
+| KeyItems | The key-items list for the comment.  Example: "Scenario=Actual; Market=North; Product=100; Time=Jan; Measure=Sales".
 | Context | The Context string of the comment.
+| Subject | The Subject of the comment.
 | ParentCommentID | The ID of the comment's parent comment.  This would be used if the comment is a response to another.
 | PropertyNameForNewID | The name of a script property which will be set to the ID of the comment.
 | PropertyNameForKeyHash | The name of a script property which will be set to the KeyHash of the comment.
@@ -6450,12 +5980,7 @@ Delete all Dodeca comments that have the specified KeyItems.
 | ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| KeyItems | 
-        A semicolon delimited list of key-value pairs such as "Year=Jan;Market=East;Scenario=Budget".
-        Each key item must be expressed as <key>=<value>, where neither <key> nor <value> are blank.
-        The @KeyItems(<Address>) function can be used to specify the KeyItems of a specific cell.
-        If KeyItems is blank the KeyItems of the active cell (if any) will be used.
-      
+| KeyItems | The key-items list for the comment.  Example: "Scenario=Actual; Market=North; Product=100; Time=Jan; Measure=Sales".
 | MatchAny | If FALSE, then comments that have all of and ONLY the specified KeyItems will be matched.  SPECIFYING TRUE IS DANGEROUS.  If TRUE, then comments that have all of the specified KeyItems will be matched, even though they may also have other KeyItems as well.
 |===
 
@@ -7433,7 +6958,7 @@ Set the cursor.
 |===
 
 
-=== SetDataTableRangesModificationTracking *(8.0)*
+=== SetDataTableRangesModificationTracking 
 Any changes to cell values in existing data rows on the sheet, while modification tracking is disabled (FALSE), will not be detected as unsaved changes when the view is rebuilt or closed.
 
 ==== General
@@ -7835,7 +7360,7 @@ Set the text value of each cell.
 |===
 
 
-=== SetEssbaseSendRangeModificationTracking *(8.0)*
+=== SetEssbaseSendRangeModificationTracking 
 Set the value of the view's SendRangeModificationTrackingEnabled property.
 
 ==== General
@@ -9811,39 +9336,6 @@ Removes an existing selector configuration.
 | SelectorID | (Required) The ID of the Selector to be added to, modified, or removed from the view's selector configuration.
 |===
 
-==== ResetAllEssbase
-
-Modifies the connection settings for all Essbase selectors.
-
-|===
-| Argument | Description
-
-| SpecifySheetBy | Select how to specify which worksheet to select while the method is being executed.
-| SheetSpec | Specify the sheet-name or sheet-number, depending on SpecifySheetBy.  If SpecifySheetBy is AllSheets then SheetSpec can be left empty.
-| Address | The address of a range to select for the execution of the method.
-| CellByCell | Whether to execute the method on a cell-by-cell basis, or on the range specified by the address.
-| ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
-| MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
-| CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| ConnectionPolicy | 
-        Controls whether the view's Essbase connection or a specified Essbase connection is used for the selector.
-        If set to UseSpecifiedConnection, the EssbaseConnectionID argument must be specified.
-        For a non-Essbase view, the connection policy should be set to UseSpecifiedConnection.
-        By default, the argument is UseViewConnection.
-      
-| ConnectionID | If the ConnectionPolicy is UseSpecifiedConnection, indicates the Essbase connection ID.
-| EssbaseLoginServiceObjectTypeID | If the ConnectionPolicy is UseSpecifiedConnection, the name of the IEssbaseLoginService to use to prompt for Essbase credentials.
-| UseAliases | 
-        If the ConnectionPolicy is UseSpecifiedConnection, controls whether aliases are displayed instead of member names.
-        If true, the AliasTable specifies the name of the alias table used to obtain the aliases.
-        By default, the value is False.
-      
-| AliasTableName | 
-        If the ConnectionPolicy is UseSpecifiedConnection, indicates the name of the alias table used for the selector.
-        If not specified, the Default alias table is used.
-      
-|===
-
 
 === SetShape 
 Sets the specified properties of a Shape. The Shape is created if it doesn't exist.
@@ -10454,7 +9946,7 @@ Send a text box to the back.
 |===
 
 
-=== SetTimer *(7.2)*
+=== SetTimer 
 Starts a timer that executes a procedure at a specified interval until the timer is stopped.
 
 ==== General
@@ -10524,11 +10016,11 @@ Shows or hides a tool in the toolbars, enables or disables a tool, and/or sets t
 
 
 === SetToolbarVisible 
-Sets the Visible property of the specified toolbar (or group in a ribbon tab).
+Sets the Visble property of the specified toolbar.
 
 ==== ViewToolbar
 
-Sets the Visble property of the specified view toolbar (or group in a ribbon tab).
+Sets the Visble property of the specified view toolbar.
 
 |===
 | Argument | Description
@@ -10540,8 +10032,8 @@ Sets the Visble property of the specified view toolbar (or group in a ribbon tab
 | ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| ToolbarKey | The key of the toolbar (or group in a ribbon tab).
-| Visible | Whether toolbar (or group in a ribbon tab) is visible or not.
+| ToolbarKey | The key of the Toolbar.
+| Visible | Whether toolbar is visible or not.
 |===
 
 
@@ -10934,7 +10426,7 @@ Prompts the user to select a location for saving a file.
 |===
 
 
-=== ShowLoginDialog *(7.2)*
+=== ShowLoginDialog 
 Show a login dialog, optionally setting property values from the result.
 
 ==== General
@@ -11211,7 +10703,6 @@ Updates a binary artifact with a new .csv file.
 | FileConvertInMemory | (Optional) Specify whether a .csv file with a non-default list separator will be converted in memory or using a temporary file.
 | FileListSeparator | (Optional) Specify the list separator used by the source file that will be converted before updating the Binary Artifact.
 | FileHasFieldsEnclosedInQuotes | (Optional) Specify whether the file used has fields enclosed in quotes.
-| FileTrimWhitespace | (Optional) Specify whether field values will be trimmed during conversion.
 | BackgroundExecute | Controls whether the operation is executed asynchronously.
 | CoverDuringExecute | (Optional) Controls whether the view is covered while the .csv file is converted.  By default, the view is not covered.
 | DisableDuringExecute | (Optional) Controls whether the view's tools and selectors are disabled while the .csv file is converted.  By default, the view is not disabled.
@@ -11286,7 +10777,7 @@ Update the cache of selector values.
 |===
 
 
-=== Wait *(8.0)*
+=== Wait 
 Pauses execution of the current procedure.
 
 ==== General
@@ -11349,7 +10840,7 @@ Write a message to a log file.
 | Message | The message to write to the log.
 | IncludeTimestamp | If True, prepends the log file message with a timestamp.
 | Filename | Specify the name of the file.  Defaults to dodeca.log if left blank.
-| Folder | Specify the folder to write the log file.  Defaults to the user's Documents folder if left blank.
+| Folder | Specify the folder to write the log file.  Defaults to the user home directory if left blank.
 | AppendToFile | If True, appends the message to the log file.  Otherwise, overwrites the log file with a new file.
 | Encoding | The file encoding type. UTF-8 or ANSI, if left blank defaults to UTF-8.
 |===
@@ -11368,11 +10859,11 @@ Returns the address of the active cell.
 
 ==== Header
 
-This long-time Dodeca customer, has many examples of reports that save time and money.  One of their key management reports, which contains over 250 separate Essbase retrieval ranges, was automated saving weekend overtime for the corporate reporting department and bringing consistency and dependability to the process.  Another report, which was formerly generated daily at the store level, was automated using Dodeca and brought an estimated 1,500 man-hour per day time savings across the company.
-
 [#image1id]
 .Some Name
-image::abc.png["Alternate Text"]
+image::./examples/wbs-function-acell/images/test.png["Alternate Text"]
+
+This long-time Dodeca customer, has many examples of reports that save time and money.  One of their key management reports, which contains over 250 separate Essbase retrieval ranges, was automated saving weekend overtime for the corporate reporting department and bringing consistency and dependability to the process.  Another report, which was formerly generated daily at the store level, was automated using Dodeca and brought an estimated 1,500 man-hour per day time savings across the company.
 
 [.stretch]
 [width="73%"]
@@ -11394,6 +10885,9 @@ If you want to provide an inline link in the document use this, please replace t
 
 To use italic please use this way _italic_, if you want a bold text *bold*
 
+[#image2id]
+.Some Name 2
+image::./examples/wbs-function-acell/images/test1.png["Alternate Text"]
 
 If you want to highlight a text you want to show a user please use this.
 
@@ -11431,7 +10925,7 @@ Returns the address of the specified range.
 |===
 
 
-=== AliasTableExists *(7.5)*
+=== AliasTableExists 
 Returns whether the specified alias table exists for the view's connection or the specified connection.
 
     @AliasTableExists(<AliasTable>, [<ConnectionID>])
@@ -11449,18 +10943,6 @@ Returns the Dodeca Application's ID.
 
     @AppID()
 
-
-
-=== AttachmentCount *(8.2)*
-Returns the number of items attached to comments in the specified range.
-
-    @AttachmentCount([<Address>])
-
-|===
-| Argument Name | Description
-
-| Address | Optional (defaults to the selected range); The adddress of the cell or range that contains the comments.
-|===
 
 
 === AuthenticatedUserName 
@@ -11482,7 +10964,7 @@ Returns a delimited list of roles, based on the roles of the authenticated user.
 |===
 
 
-=== Base64Decode *(8.0)*
+=== Base64Decode 
 Returns a decoded representation of a given Base64-encoded string.
 
     @Base64Decode(<EncodedString>)
@@ -11494,7 +10976,7 @@ Returns a decoded representation of a given Base64-encoded string.
 |===
 
 
-=== Base64Encode *(8.0)*
+=== Base64Encode 
 Returns a Base64-encoded representation of a given string.
 
     @Base64Encode(<String>)
@@ -11506,7 +10988,7 @@ Returns a Base64-encoded representation of a given string.
 |===
 
 
-=== BinaryArtifactExistsFunction *(7.7)*
+=== BinaryArtifactExistsFunction 
 Determines whether the specified binary artifact exists.
 
     @BinaryArtifactExists(<BinaryArtifactID>, [<VersionNumber>])
@@ -11519,7 +11001,7 @@ Determines whether the specified binary artifact exists.
 |===
 
 
-=== CanConnect *(7.2)*
+=== CanConnect 
 Returns whether the specified Essbase connection can be connected to using the current crendentials or the specified credentials.
 
     @CanConnect(<ConnectionID>, [<Username>], [<Password>])
@@ -11647,7 +11129,7 @@ Returns the value of the specified comment property from the comment that trigge
 |===
 
 
-=== CommentPropertyForCell *(7.1)*
+=== CommentPropertyForCell 
 Returns the value of the specified comment property from the most recent comment associated with the specified cell.
 
     @CmtPropForCell(<PropertyName>, [<CellAddress>])
@@ -11660,7 +11142,7 @@ Returns the value of the specified comment property from the most recent comment
 |===
 
 
-=== Contains *(7.2)*
+=== Contains 
 Returns True or False, based on whether the first specified string contains the second specified string.
 
     @Contains(<Substring>, <WithinString>, [<IgnoreCase>], [<HonorWildcards>])
@@ -11721,7 +11203,7 @@ Returns the number of rows in the specified DataCache.
 |===
 
 
-=== DataCacheToString *(7.7)*
+=== DataCacheToString 
 Returns a string of values from the a column of specified DataCache.
 
     @DCString(<DataCacheName>, [ColumnIndex], [StringDelimiter], [StringDelimiterEscapeChar], [ValueDelimiter], [SortOrder])
@@ -11997,7 +11479,7 @@ Returns the zero-based index representing the relative position of the specified
 |===
 
 
-=== DataTableRangeColumnInfo *(8.0)*
+=== DataTableRangeColumnInfo 
 Returns the name or data type of a data table range column. The data must be retrieved before calling this function.
 
     @DataTableRangeColumnInfo(<Type>,[<Address>])
@@ -12010,7 +11492,7 @@ Returns the name or data type of a data table range column. The data must be ret
 |===
 
 
-=== DataTableRangeColumnInfoByIndex *(8.0)*
+=== DataTableRangeColumnInfoByIndex 
 Returns the name or data type of a data table range column. The data must be retrieved before calling this function.
 
     @DataTableRangeColumnInfoByIndex(<Type>,<SQLPassthroughDataSetID>,<DataTableName>,<Index>)
@@ -12078,7 +11560,7 @@ Returns TRUE if the specified DefinedName exists.
 |===
 
 
-=== DefinedNames *(7.7)*
+=== DefinedNames 
 Returns a list of defined names based on a specified scope.
 
     @DefinedNames([<MatchPattern>], [<Scope>], [<ReturnFormat>])
@@ -12107,7 +11589,7 @@ Returns a delimited string containing the values of a worksheet range.
 |===
 
 
-=== DimensionUDAs *(7.5)*
+=== DimensionUDAs 
 Returns a semicolon delimited list of UDA's for the specified dimension.
 
     @DimUDAs(<DimensionName>, [<ConnectionID>], [<DefaultValue>], [<Matching>], [<UseCache>])
@@ -12161,7 +11643,7 @@ Returns the database note attached to an Essbase cube.
 |===
 
 
-=== Evaluate *(8.0)*
+=== Evaluate 
 Evaluates a string as a Dodeca formula.
 ===== *Hidden in 8.0.0 - Added for internal testing purposes.*
 
@@ -12200,7 +11682,7 @@ Returns the Excel comment text, if any, for the specified cell.
 |===
 
 
-=== FileExists *(7.2)*
+=== FileExists 
 Returns True or False, based on whether the file exists on the client filesystem.
 
     @FileExists(<FileName>, [<SpecialFolder>])
@@ -12213,7 +11695,7 @@ Returns True or False, based on whether the file exists on the client filesystem
 |===
 
 
-=== FirstCell *(7.4)*
+=== FirstCell 
 Returns the address of the first cell of a range.
 
     @FCell([<Address>])
@@ -12237,7 +11719,7 @@ Returns the index of the first column of a range.
 |===
 
 
-=== FirstColumnLetter *(7.3)*
+=== FirstColumnLetter 
 Returns the letter value of the first column of a range.
 
     @FColL([<Address>], [<AdjustBy>])
@@ -12301,7 +11783,7 @@ Returns the address of the intersection of the two specified ranges.
 |===
 
 
-=== IsConnected *(7.2)*
+=== IsConnected 
 Returns whether the specified Essbase connection is connected.
 
     @IsConnected(<ConnectionID>)
@@ -12369,7 +11851,7 @@ Returns True or False, based on whether the authenticated user ID has the specif
 |===
 
 
-=== IsMember *(7.7)*
+=== IsMember 
 Returns whether the specified member exists.
 
     @IsMember(<MemberName>, [<AliasTable>], [<ConnectionID>])
@@ -12407,7 +11889,7 @@ Returns True/False indicating whether the specified number is odd.
 |===
 
 
-=== IsProtectedSheet *(7.2)*
+=== IsProtectedSheet 
 Returns True/False indicating whether the active (or specified) sheet is protected.
 
     @IsProtectedSheet([<SheetNameOrIndex>])
@@ -12426,14 +11908,14 @@ Returns True/False indicating whether the view is a SavedView.
 
 
 
-=== IsSharedView *(7.3)*
+=== IsSharedView 
 Returns True/False indicating whether the view was shared by another user.
 
     @IsSharedView()
 
 
 
-=== IsValidRange *(8.0)*
+=== IsValidRange 
 Returns True/False indicating whether the specified value can be resolved to a valid range address.
 
     @IsValidRange(<NameOrAddress>)
@@ -12445,19 +11927,7 @@ Returns True/False indicating whether the specified value can be resolved to a v
 |===
 
 
-=== KeyItems *(8.2)*
-Returns the Comment KeyItems of a specific cell. If the cell is not in a CommentRange nothing will be returned.
-
-    @KeyItems([<Address>])
-
-|===
-| Argument Name | Description
-
-| Address | Optional (defaults to the active cell); The address of the cell to get the KeyItems from. This requires the specified cell to be in a CommentsRange.
-|===
-
-
-=== LastCell *(7.4)*
+=== LastCell 
 Returns the address of the last cell of a range.
 
     @LCell([<Address>])
@@ -12481,7 +11951,7 @@ Returns the index of the last column of a range.
 |===
 
 
-=== LastColumnLetter *(7.3)*
+=== LastColumnLetter 
 Returns the letter value of the last column of a range.
 
     @LColL([<Address>], [<AdjustBy>])
@@ -12509,7 +11979,7 @@ Returns the index of the last row of a range.
 === LookupValue 
 Returns the first value of a specified column from the row specified by a row key, from a DataCache specified by the DataCacheName.
 
-    @LookupValue(<DataCacheName>, <Value>, <ColumnNumber>, [<KeyColumnNumber>], [<MatchType>], [<Trim>])
+    @LookupValue(<DataCacheName>, <Value>, <ColumnNumber>, [<KeyColumnNumber>], [<MatchType>])
 
 |===
 | Argument Name | Description
@@ -12518,7 +11988,6 @@ Returns the first value of a specified column from the row specified by a row ke
 | DataCacheName | The name of the data-cache to search.
 | KeyColumnNumber | Optional (default is 1); The column to inspect for the match.
 | MatchType | Optional (default is Exact); Valid values are Exact, Contains, StartsWith, and EndsWith.
-| Trim | Optional (default is TRUE); If TRUE the result will have trailing spaces removed.
 | Value | The value to search for.
 |===
 
@@ -12545,7 +12014,7 @@ Returns the Essbase Alias of the specified member.
 |===
 
 
-=== MemberAttributeValue *(7.7)*
+=== MemberAttributeValue 
 Returns the value of the specified member attribute.
 
     @MbrAttrVal(<MemberName>, <Attribute>, [<AliasTable>], [<ConnectionID>], [<DefaultValue>])
@@ -12714,7 +12183,7 @@ Returns the name of the first child of the specified member.
 |===
 
 
-=== MemberFormula *(7.7)*
+=== MemberFormula 
 Returns the formula of the specified member.
 
     @MbrFormula(<MemberName>, [<AliasTable>], [<ConnectionID>], [<DefaultValue>])
@@ -12886,7 +12355,7 @@ Returns a semicolon delimited list of UDA's for the specified member.
 |===
 
 
-=== MetadataInstanceExists *(7.6)*
+=== MetadataInstanceExists 
 Returns True/False, indicating whether the specified metadata instance exists.
 
     @MetadataInstanceExists(<MetadataInstanceID>, <MetadataCategory>, [<VersionNumber>])
@@ -12900,7 +12369,7 @@ Returns True/False, indicating whether the specified metadata instance exists.
 |===
 
 
-=== Path *(7.7)*
+=== Path 
 Returns results of Path related operations.
 
     @Path(<Operation>, [<Argument1>], [<Argument2>])
@@ -12964,7 +12433,7 @@ Returns TRUE or FALSE depending on whether the first range contains all of the s
 |===
 
 
-=== Replace *(8.0)*
+=== Replace 
 Replaces existing text with new text in a text string.
         Unlike the Excel Substitute function, this function does not limit the text argument values to 255 characters, 
         and also allows for specifying whether a match is based on a case-sensitive or a case-insensitive comparison.
@@ -12994,7 +12463,7 @@ Does token replacement on the specified string.
 |===
 
 
-=== ResolveAliasTable *(7.5)*
+=== ResolveAliasTable 
 Returns the specified alias table, the view's default alias table, or the default alias table if the specified table does not exist.
 
     @ResolveAliasTable(<AliasTable>, [<ConnectionID>], [<PreferViewDefault>])
@@ -13110,7 +12579,7 @@ Returns the number of selected items in the specified Selector.
 |===
 
 
-=== ServerTime *(7.7)*
+=== ServerTime 
 Returns the current date/time from the Dodeca server as an Excel date/time value.
 
     @ServerTime([<TimeZone>])
@@ -13134,7 +12603,7 @@ Returns the number of sheets in the active workbook.
 |===
 
 
-=== SheetExists *(7.7)*
+=== SheetExists 
 Returns TRUE if the specified Worksheet exists.
 
     @SheetExists(<SheetName>)
@@ -13146,7 +12615,7 @@ Returns TRUE if the specified Worksheet exists.
 |===
 
 
-=== SheetName *(7.4)*
+=== SheetName 
 Returns the name of sheet specified by SheetIndex.
 
     @SheetName([<SheetIndex>])
@@ -13158,7 +12627,7 @@ Returns the name of sheet specified by SheetIndex.
 |===
 
 
-=== SheetProperty *(7.6)*
+=== SheetProperty 
 Returns the value of the specified sheet property.
 
     @SheetProp(<PropertyName>, [<SheetNameOrIndex>])
@@ -13194,7 +12663,6 @@ Returns the directory path to a system special folder on the client.
 Replaces existing text with new text in a text string.
       Unlike the Excel SUBSTITUTE function, this function does not limit the text argument values to 255 characters, 
       and also allows for specifying whether a match is based on a case-sensitive or a case-insensitive comparison.
-===== *Hidden in 8.0.0 - Deprecated to eliminate ambiguity between the Excel Substitute function and the Dodeca Substitute function. Use the Dodeca Replace function is place of the Dodeca Substitute function.*
 
     @Substitute(<Text>, <OldText>, <NewText>, [<CaseSensitive>], [<InstanceNumber>])
 
@@ -13249,7 +12717,7 @@ Returns the text value of a textbox.
 |===
 
 
-=== TimeZoneInfo *(8.0)*
+=== TimeZoneInfo 
 Returns the value of the specified property of the local timezone.
 
     @TimeZoneInfo(<PropertyName>, [<TimeFormat>])
@@ -13302,7 +12770,7 @@ Returns the value of the specified Token.
 |===
 
 
-=== ToolValue *(7.7)*
+=== ToolValue 
 Returns the value of a toolbar tool.
 
     @ToolValue(<ToolKey>, [<DefaultValue>])
@@ -13315,7 +12783,7 @@ Returns the value of a toolbar tool.
 |===
 
 
-=== UniqueValues *(7.7)*
+=== UniqueValues 
 Returns delimited list of the unique values found in the List.
 
     @UniqueValues(<List>, [<ListDelimiter>], [<ResultDelimiter>])
@@ -13329,7 +12797,7 @@ Returns delimited list of the unique values found in the List.
 |===
 
 
-=== UrlDecode *(7.7)*
+=== UrlDecode 
 Returns a decoded representation of a given URL-encoded string.
 
     @UrlDecode(<EncodedString>)
@@ -13341,7 +12809,7 @@ Returns a decoded representation of a given URL-encoded string.
 |===
 
 
-=== UrlEncode *(7.7)*
+=== UrlEncode 
 Returns a URL-encoded representation of a given string.
 
     @UrlEncode(<String>)
@@ -13379,7 +12847,7 @@ Returns the error-value of a cell.  If a range is not specified the current cell
 |===
 
 
-=== ValueFormat *(7.6)*
+=== ValueFormat 
 Returns the number format of a cell.  If a range is not specified the current cell is used.
 
     @ValueFormat([<Address>])
@@ -13601,7 +13069,7 @@ Occurs after the cascade sheets have been built.
 | CascadeSheetNames | A "/" delimited list of the names of the sheets created.
 |===
 
-=== AfterCascadeSummarySheetBuild *(8.0)*
+=== AfterCascadeSummarySheetBuild 
 Occurs after the cascade summary sheet is built.
 
 |===
@@ -13662,7 +13130,7 @@ Occurs after the view's comments have been setup.
 Occurs after the view instance is created, but before the view user-interface is initialized.  Allows for modifying view properties that affect the user-interface.
 
 
-=== AfterDataSetRangeBuild *(8.0)*
+=== AfterDataSetRangeBuild 
 Occurs after a SQLPassthroughDataSetRanges has been built.
 
 |===
@@ -13686,7 +13154,7 @@ Occurs after a SQLPassthroughDataSetRange's changes have been saved.
 Occurs after all the SQLPassthroughDataSetRanges have been built.
 
 
-=== AfterDataSetRangesSave *(8.0)*
+=== AfterDataSetRangesSave 
 Occurs after all SQLPassthroughDataSetRanges' changes have been saved.
 
 
@@ -13953,16 +13421,6 @@ Occurs after all Essbase retrieve operations in the workbook are run.
 Occurs after all Essbase send operations in the workbook are run.
 
 
-=== BeforeAutoCompleteRangeListLoad *(8.2)*
-Occurs before an auto-complete range's list of cell values is loaded.
-
-|===
-| Property | Description
-
-| Name | The name of the AutoCompleteRange.
-| SheetRangeName | The name of the sheet range associated with the AutoCompleteRange.
-|===
-
 === BeforeBuild 
 Occurs immediately after the Build view button is clicked and the view is covered.
 
@@ -13971,7 +13429,7 @@ Occurs immediately after the Build view button is clicked and the view is covere
 Occurs immediately after the Build view button is clicked, but before the view is covered.
 
 
-=== BeforeCascadeSheetBuild *(7.2)*
+=== BeforeCascadeSheetBuild 
 Occurs before a cascade sheet is added.
 
 |===
@@ -14036,7 +13494,7 @@ Occurs before the view's comments are saved.
 Occurs before the view's comments are setup.
 
 
-=== BeforeDataSetRangeBuild *(8.0)*
+=== BeforeDataSetRangeBuild 
 Occurs before a SQLPassthroughDataSetRanges is built.
 
 |===
@@ -14060,7 +13518,7 @@ Occurs before a SQLPassthroughDataSetRange's changes are saved.
 Occurs before all the SQLPassthroughDataSetRanges are built.
 
 
-=== BeforeDataSetRangesSave *(8.0)*
+=== BeforeDataSetRangesSave 
 Occurs before all SQLPassthroughDataSetRanges' changes are saved.
 
 
@@ -14352,7 +13810,7 @@ Occurs when a chart control's data is double-clicked.
 | IsRightButton | A boolean that indicates whether the button clicked is the right (True) or left (False) button.
 |===
 
-=== ClipboardCopied *(8.0)*
+=== ClipboardCopied 
 Occurs after a clipboard copy operation.
 
 |===
@@ -14361,7 +13819,7 @@ Occurs after a clipboard copy operation.
 | ClipboardAddress | The address of the range that was copied.
 |===
 
-=== ClipboardCopying *(8.0)*
+=== ClipboardCopying 
 Occurs before a clipboard copy operation.
 
 |===
@@ -14370,7 +13828,7 @@ Occurs before a clipboard copy operation.
 | ClipboardAddress | The address of the range being copied.
 |===
 
-=== ClipboardCut *(8.0)*
+=== ClipboardCut 
 Occurs after a clipboard cut operation.
 
 |===
@@ -14379,7 +13837,7 @@ Occurs after a clipboard cut operation.
 | ClipboardAddress | The address of the range that was cut.
 |===
 
-=== ClipboardCutting *(8.0)*
+=== ClipboardCutting 
 Occurs before a clipboard cut operation.
 
 |===
@@ -14408,7 +13866,7 @@ Occurs before a paste.
 | PasteOption | The paste option, which is one of the following: All, Values, Formats, Formulas, AllExceptBorders, FormulasAndNumberFormats, ValuesAndNumberFormats, Comments, ColumnWidths, Validation
 |===
 
-=== CommentExceptionOccurred *(8.0)*
+=== CommentExceptionOccurred 
 Occurs when there is an exception while storing or retrieving comments.
 
 |===
@@ -14558,25 +14016,4 @@ Occurs when the selected value(s) for any of the view's selectors change(s).
 === Shown 
 Occurs when the view is initially shown.
 
-
-=== ToolClicked *(8.2)*
-Occurs when a tool is clicked.
-
-|===
-| Property | Description
-
-| ToolKey | The tool's key.
-| ToolCaption | The tool's caption.
-|===
-
-=== ToolValueChanged *(8.2)*
-Occurs when a tool's value changes. Tools such as ComboBox, ColorPicker, StateButton, and TextBox have values.
-
-|===
-| Property | Description
-
-| ToolKey | The tool's key.
-| ToolCaption | The tool's caption.
-| ToolValue | The new value of the tool.
-|===
 

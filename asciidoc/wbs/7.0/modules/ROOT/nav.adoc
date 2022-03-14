@@ -1,0 +1,2 @@
+* xref:wbs-documentation-7.0.adoc[]
+

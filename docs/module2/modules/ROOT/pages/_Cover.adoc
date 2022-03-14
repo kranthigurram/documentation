@@ -5,7 +5,7 @@ ifdef::backend-pdf[:noheader:]
 ifdef::backend-pdf[:nofooter:]
 ifndef::imagesdir[:imagesdir: images]
 
-image::image1.png[image,395,143,align="center"]
+image::abc.png[image,395,143,align="center"]
 
 {empty} +
 {empty} +
