@@ -9953,10 +9953,6 @@ Returns the address of the active cell.
 
 ==== Header
 
-[#image1id]
-.Some Name
-image::./examples/wbs-function-acell/images/test.png["Alternate Text"]
-
 This long-time Dodeca customer, has many examples of reports that save time and money.  One of their key management reports, which contains over 250 separate Essbase retrieval ranges, was automated saving weekend overtime for the corporate reporting department and bringing consistency and dependability to the process.  Another report, which was formerly generated daily at the store level, was automated using Dodeca and brought an estimated 1,500 man-hour per day time savings across the company.
 
 [.stretch]
@@ -9978,10 +9974,6 @@ This long-time Dodeca customer, has many examples of reports that save time and 
 If you want to provide an inline link in the document use this, please replace the URL with the one you wish and replace the text in brackets https://asciidoctor.org[text here]
 
 To use italic please use this way _italic_, if you want a bold text *bold*
-
-[#image2id]
-.Some Name 2
-image::./examples/wbs-function-acell/images/test1.png["Alternate Text"]
 
 If you want to highlight a text you want to show a user please use this.
 
