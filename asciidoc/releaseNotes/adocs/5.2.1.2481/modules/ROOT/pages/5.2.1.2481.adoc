@@ -1,0 +1,190 @@
+// if an {imagesdir} attribute is not defined, define it relative to this file.
+ifndef::imagesdir[:imagesdir: ../images]
+
+[discrete]
+== Dodeca Framework
+[#Version_5_2_1_2481]
+== Version 5.2.1.2481
+[discrete]
+== November 8, 2010
+'''
+
+This version uses SpreadsheetGear 2010 (6.0.3.158) and NetAdvantage
+2010, Volume 2 (10.2.20102.1004).
+
+The release notes for this build contain the following sections:
+
+Comments
+
+Essbase Send Tool
+
+Relational Reporting
+
+Selector Lists
+
+Selectors
+
+View Selector Tree
+
+View Selector Explorer Bar and View Selector Tree
+
+Workbook Script Editor
+
+Workbook Scripting
+
+Comments
+
+* Fixed Issue: When multiple sheets contain comment ranges, and a
+comment range's LoadPolicy is set to LoadAllOnBuild, an exception
+similar to the following is thrown:
+
+Unable to build the view. Error setting up comments.
+WorkbookViewControlImplementation.GetGenericRange failed.
+"'MySheet!Comments.Range.2" is not a valid range name or reference for
+sheet "MyOtherSheet". (#882)
+
+* Fixed Issue: Comments fail to load when the view is rebuilt and the
+comment range is not configured as sequential. (#888)
+
+Essbase Send Tool
+
+* Fixed Issue: When multiple sheets contain send ranges, the Send tool
+may inaccurately detect a change or not detect a change when a value
+within a send range is modified. This results in the user not being
+prompted when they should be or being prompted when they should not be
+on a build, refresh, Essbase operation, or view close. (#883)
+
+Relational Reporting
+
+* Excel Outlining -- Group Header and Footer Rows
+
+Added support for defining the number of rows that remain visible above
+and below the detail rows (or the next level of grouping) when an Excel
+group is collapsed. The RowSortAndGroupByInfo's
+_ExcelOutlineHeaderRowCount_ and _ExcelOutlineFooterRowCount_ settings
+control the number of rows within the _GroupTemplateSheetRangeName_ that
+are excluded from each Excel group. (#871)
+
+By way of example, the Sample application's Sales Order Details (Group
+by Product, Group by Sales Person) view is configured to exclude the
+first row and the last eight rows in the ProductRange from each Excel
+group that represents the sales for a product.
+
+image::image421.jpeg[image,width=618,height=315]
+
+In the Excel template, the ProductRange contains a row for each Special
+Offer type that sums the Line Total values for the rows assigned the
+respective type. With the _ExcelOutlineFooterRowCount_ set to 8, these
+rows remain visible when an Excel group is collapsed. With the
+_ExcelOutlineHeaderRowCount_ set to 1, the first row of the ProductRange
+also remains visible.
+
+image::image422.jpeg[image,width=624,height=258]
+
+The screenshot below shows a portion of the view in Dodeca.
+
+image::image423.jpeg[image,width=624,height=391]
+
+Selector Lists
+
+* Changed the default _SelectionTextMaxCharacters_ value to 60. This
+property controls the maximum number of characters that are displayed in
+the selector tool for the treeview and listbox selectors. Previously,
+the default value was --1, which indicates no maximum is enforced. When a
+view configures a selector to allow the user to select multiple items,
+the selection text can easily exceed the width of the toolbar, which
+prevents the user from being able to open the selector control. This
+value can be changed as appropriate. (#886)
+
+Selectors
+
+* Fixed Issue -- When a selector was configured as optional and the
+selector cache contained "last used items" for the selector, the cache
+was not cleared when the user cleared the selected items and rebuilt the
+view. This resulted in the previously selected item(s) being used as the
+default selection the next time the view was opened. (#875)
+
+View Selector Tree
+
+* Fixed Issue: When the tree is refreshed by clicking the Refresh option
+on the context menu, the following error is displayed: "The ActiveNode
+can only be set to a node that belongs to this control." This issue was
+introduced with version 5.0.0.2267 with the upgrade from NetAdvantage
+2008, Volume 3 to NetAdvantage 2010, Volume 1. (#881)
+
+View Selector Explorer Bar and View Selector Tree
+
+* _Import Excel Template_ View Selector Context Menu Option
+
+Added the ability to import a view's Excel template directly from the
+view selector. When the ViewSelectorProperties
+_AllowImportExcelTemplate_ setting is True, an "Import Excel Template"
+item is displayed on the context menu if the view is assigned an Excel
+template binary artifact. This menu item is only displayed for an Excel,
+a SQL Excel, or an Excel Essbase view. (#872)
+
+image::image424.jpeg[image,width=463,height=331]
+
+This capability is supported for both the ViewSelectorExplorerBar and
+the ViewSelectorTree. It is intended for use with an Admin application
+as a way to quickly update a view's Excel template binary artifact
+directly from the view selector. By default, the setting is False to
+avoid unintentionally exposing this capability to end users.
+
+*To enable this capability for your ADMIN application, you must set the
+view selector's _AllowImportExcelTemplate_ setting to True.*
+
+Workbook Script Debugger
+
+* Fixed Issue: When a workbook script is saved from the Workbook Script
+Debugger (and then not subsequently saved from the Workbook Script
+Metadata Editor), the workbook script metadata causes the Import
+Metadata from Local Zip File utility to fail when importing into an
+Oracle database with the following error: Unable to process
+BinaryArtifactUpdateInsert request. SOAP Fault (1000001): ORA-01400:
+cannot insert NULL into ("DODECA"."BINARY_ARTIFACTS"."ARTIFACT_TYPE").
+(#887)
+
+Workbook Script Editor
+
+* Fixed Issue: In Version 5.2.0.2398, the Workbook Script Editor was
+modified to set the default procedure name for an event link when the
+Procedure Name is empty and the cell is activated. The default name is
+"On<event link name>". (Refer to #868.) The new functionality came with
+an unintended feature (i.e. bug), which results in being prompted
+whether to create the procedure with the default name after another
+procedure is selected from the dropdown list of existing procedures.
+(#874)
+
+Workbook Scripting
+
+* New Overload: _SetHyperlink_ method "Custom" overload, which supports
+the ability to associate a non-Excel supported hyperlink with a cell, a
+range, or each cell within a range. The overload can be used in
+conjunction with the _FollowHyperlink_ event link to execute a procedure
+when the hyperlink is clicked. (#869)
+* New EventLink: _FollowHyperlink_ event link is intended for use with
+hyperlinks that are added using the _SetHyperlink_ method "Custom"
+overload. (#884)
+
+When the event is raised, the cell that contains the clicked hyperlink
+is not yet the active cell. The @EPVal() function can be used within the
+context of the event to access the event properties, which include the
+following:
+
+* RangeAddress -- The address of the range that the hyperlink is attached
+to. For example, @EPVal(RangeAddress) returns the cell or range address
+that contains the clicked hyperlink.
+* Address -- When the hyperlink represents a web address, email, or
+existing file, this property contains the associated address. This
+property is not applicable to a custom hyperlink.
+* SubAddress -- When the hyperlink represents an existing file or range
+within the same workbook, this property contains the bookmark in the
+linked file or the address within the same workbook. This property is
+not applicable to a custom hyperlink.
+* EmailSubject -- When the hyperlink represents an email address, this
+property contains the subject of the email, if defined. This property is
+not applicable to a custom hyperlink.
+
+* New Function: _@Tenant()_ function returns the current tenant key.
+(#885)

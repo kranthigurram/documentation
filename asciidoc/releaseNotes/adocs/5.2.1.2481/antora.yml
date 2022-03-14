@@ -1,0 +1,10 @@
+name: releaseNotes
+title: Release-Notes
+version: 5.2.1.2481
+start_page: ROOT:5.2.1.2481.adoc
+asciidoc:
+  attributes:
+    source-language: asciidoc@
+    table-caption: false
+nav:
+- modules/ROOT/nav.adoc

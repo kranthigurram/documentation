@@ -1,0 +1,531 @@
+// if an {imagesdir} attribute is not defined, define it relative to this file.
+ifndef::imagesdir[:imagesdir: ../images]
+
+[discrete]
+== Dodeca Framework
+[#Version_5_2_0_2398]
+== Version 5.2.0.2398
+[discrete]
+== October 13, 2010
+'''
+
+*This version of the framework requires an upgrade to the dodeca-essbase
+service.*
+
+_The installation zip file contains the servlets for Essbase 9.3.1
+through 11.1.2._
+
+This version uses SpreadsheetGear 2010 (6.0.3.158) and NetAdvantage
+2010, Volume 2 (10.2.20102.1004).
+
+_Upgraded from SpreadsheetGear 6.0.3.136 to 6.0.3.158._
+
+_Upgraded from NetAdvantage 2010, Volume 1 (10.1.20101.1007) to Volume 2
+(10.2.20102.1004) +
+_
+
+The primary new features for this build include 1) a new authentication
+service that supports the ability to retrieve the roles assigned to the
+current Windows user through a specified relational query, 2) the
+ability to execute a script on the server using the new workbook
+scripting EssbaseRunScript method, 3) the ability to "step" a workbook
+script from within the Workbook Script Debugger, and 4) JNDI support.
+
+The release notes for this build contain the following sections:
+
+Authentication Services
+
+ClickOnce Prep Utility
+
+Commentary
+
+Essbase Excel and SQL Excel Views
+
+Import Essbase Connections
+
+Java Naming and Directory Interface (JNDI)
+
+JDBC Test Utility
+
+Metadata Persistence
+
+Page Setup Tool
+
+Relational Functionality
+
+SpreadsheetGear
+
+Workbook Script Editor
+
+Workbook Scripting
+
+Workbook Scripting Debugger
+
+Authentication Services
+
+* New authentication service: The
+*WindowsUserRolesFromSqlPassthroughDataSet* authentication service
+supports the ability to retrieve the roles assigned to the current
+Windows user through a specified relational query, and allow or deny
+access to the application based on whether query returns any roles for
+the user. The user's roles can also be used to determine which view
+hierarchy or hierarchies are displayed in the view selector by using the
+view selector's _HierarchyToRoleMapping_ property. (#863)
++
+image::image425.jpeg[image,width=624,height=251]
++
+The authentication service properties include the following:
+** _WindowsUserRoleSqlPassthroughDataSetID_ -- The ID of the SQL
+passthrough dataset that defines the query used to retrieve the user's
+roles. For this example, the query is "SELECT RoleName FROM UserInRoles
+WHERE UserName = '%USERNAME%'". _Note: The Dodeca framework does not
+have any requirements related to the schema of the database used to
+store user roles. The relational query can be defined as appropriate for
+the database within your environment._
+** _WindowsUserNameVariable_ -- The string that acts as a placeholder
+within the query that is replaced at runtime with the name of the
+Windows user. In this example, the placeholder string is _%USERNAME%._
+** _AllowStartupForUserAssignedNoRoles_ -- Controls whether the
+application starts up when the user is not assigned any roles.
+** _MessageTextForUserAssignedNoRoles --_ When the user is not assigned
+any roles and _AllowStartupForUserAssignedNoRoles_ is False, a
+MessageBox is optionally displayed. If
+_MessageTextForUserAssignedNoRoles_ is specified, a MessageBox is
+displayed and value is used as the MessageBox text.
+** _MessageCaptionForUserAssignedNoRoles_ -- When the user is not
+assigned any roles and _AllowStartupForUserAssignedNoRoles_ is False, a
+MessageBox is optionally displayed. If
+_MessageTextForUserAssignedNoRoles_ is specified, the
+_MessageCaptionForUserAssignedNoRoles_ is used as the MessageBox
+caption.
+* The following properties are now supported for the
+*EssbaseUserRolesFromGroupNames* and
+*EssbaseUserRolesFromSqlPassthroughDataSet* authentication services:
+_AllowStartupForUserAssignedNoRoles, AllowStartupForUserAssignedNoRoles,
+and MessageCaptionForUserAssignedNoRoles._ These properties provide the
+same functionality as described above for the
+WindowsUserRolesFromSqlPassthroughDataSet. (#864)
+
+ClickOnce Prep Utility
+
+* Fixed Issue: The utility was not using the path portion of the
+specified _DeploymentUrl_ when naming the servlet. It was always
+creating a metadata servlet named "dodeca.war" regardless of whether a
+different path was specified.
+
+The _DeploymentUrl_ parameter indicates the metadata servlet (war file)
+name by the path portion of the Url. For example, the default
+_DeploymentUrl_ is "http://localhost:13080/dodeca", where "/dodeca" is
+the path portion of the Url. When the path is specified as something
+other than the default, such as "http://localhost:13080/dodeca-dev", the
+utility now creates a metadata servlet named "dodeca-dev". (#852)
+
+Commentary
+
+* Fixed Issue: Comments presented as Excel comments were displaying an
+invalid character at the end of lines when saved to Excel. (#853)
+
+Essbase Excel and SQL Excel Views
+
+* The default value for the _CascadeSheetNameMaxLength_ property has
+changed from 0 to 31. SpreadsheetGear 2010 enforces the Excel sheet name
+length limitation, which is 31 characters. Previously, a sheet with a
+name containing more than 31 characters could be add to a workbook
+within Dodeca, but could not be opened in Excel. With the change by
+SpreadsheetGear, a cascaded view that previously built without any
+errors when a sheet name exceeded 31 characters now encounters an error.
+By changing the default to 31, these errors are avoided. (#865)
++
+Import Essbase Connections
+
+* The *Import Essbase Connections* dialog, which is opened by clicking
+the Essbase Connection Metadata Editor's "Import Connections--" button or
+the Quick Start -> Import Connections button, now automatically sets the
+default Essbase Service URL based on the metadata service path being
+used by the running Dodeca instance.
+
+Note: When the dodeca-essbase service is not deployed on the same server
+as the dodeca metadata service, the default URL will not reflect the
+actual location. In this case, the URL must be manually entered. (#859)
+
+image::image426.jpeg[image,width=513,height=273]
+
+Java Naming and Directory Interface (JNDI)
+
+* Added support for JNDI connections to the Dodeca SQL connections. JNDI
+is used internally to lookup JDBC connections that are defined on the
+Java application server tier by system administrators. It allows those
+administrators more direct control over connection pooling and other
+tuning on the JDBC connection.
+
+Support for JNDI required the addition of an optional _DataSource_
+property for a SQL connection instance, as shown in the screenshot
+below. If a _DataSource_ is specified, the Dodeca service attempts to
+lookup the JNDI data source object on the application server, and then
+uses the object to obtain the JDBC connection. Additionally, if a
+_Username_ and _Password_ are specified for the SQL connection, the
+values are used along with the _DataSource_ to obtain the connection.
+(#867)
+
+image::image427.jpeg[image,width=449,height=414]
+
+JDBC Test Utility
+
+* Fixed Issue: When a user manually entered a dialect into the Hibernate
+Dialect field and then attempted to update the hibernate.properties
+file, a blank dialect value was added to the file. (#850)
+* Fixed Issue: When updating the hibernate.properties file, two
+extraneous entries were being added to the file. These entries were not
+relevant to hibernate and are no longer being added. (#851)
+
+Metadata Persistence
+
+* Fixed Issue: When metadata was being created and inserted into the
+database, the UpdatedBy and UpdatedDate fields were left blank. If the
+metadata was subsequently exported without having been updated, the
+corresponding entry presented in the *Export Metadata to Local Zip File*
+dialog did not appear as updated (i.e. the Last Updated Date field was
+blank) and therefore could not be sorted based on the order in which the
+metadata was created. (#856)
+
+Page Setup Tool
+
+* Fixed Issue: The Page Setup dialog displayed hidden sheets in the list
+of sheets. (#862)
+
+Relational Functionality
+
+* Fixed Issue: When a DataTableRange's
+_RetainEmptyLastDataSheetRangeRow_ is True and the sheet is protected,
+an "Operation not allowed on protected sheet" exception occurs when the
+empty last row is edited. (#849)
+* Fixed Issue: When attempting to writeback to some databases, the
+following exception occurs: "Unsupported feature" or "Unsupported
+function" The underlying cause is a limitation in certain JDBC drivers,
+including Oracle, DataDirect (Oracle), and MySQL, which do not support
+the ability to obtain parameter types.
+
+_This is not an issue with any SQL Server JDBC drivers that we have used
+internally nor have any issues been reported by customers who are using
+SQL Server._
+
+To overcome these limitations in the JDBC drivers, the Dodeca client now
+supports the ability to define the parameter names and their JDBC types.
+The Dodeca server uses these parameter type definitions to avoid
+requesting the parameter information from the JDBC driver. (#858)
+
+To define the parameter type information, use the Query Editor, which is
+accessed from the SQL Passthrough DataSet Metadata Editor.
+
+image::image428.jpeg[image,width=624,height=459]
+
+From the Query Editor, click the Open Editor button to the right of the
+DataTableInfo.Columns property to open the Column Editor.
+
+image::image429.jpeg[image,width=553,height=239]
+
+The JDBCType property can be selected from a dropdown list of possible
+JDBC data types.
+
+image::image430.jpeg[image,width=305,height=236]
+
+SpreadsheetGear
+
+* Although _almost_ completely compatible with respect to Excel formula
+support, SpreadsheetGear does not support the following Excel formulas:
+(#855)
+
+** AVERAGEIFS
+
+** COUNTIFS
+
+** SUMIFS
+
+** IFERROR
+
+** GETPIVOTDATA
+
+** CELL
+
+** PHONETIC
+
+Workbook Script Editor
+
+* The Workbook Script Editor sets the default name of the procedure in
+the "Run Procedure" column of the Event Links grid when the cell is
+activated and no procedure has been previously specified. The default
+name is "On<__event link name__>", which reflects the recommended
+procedure naming convention. The value is automatically selected to
+allow the default name to be easily changed. (#868)
+
+image::image431.jpeg[image,width=301,height=71]
+
+Workbook Scripting
+
+* Fixed Issue: When the Auto Build tool controller built a view in
+response to a selection change and a workbook script then called the
+SetSelector method to set a selection during the build, another build
+was being triggered by the Auto Build tool. (#854)
+* New Method: *EssbaseRunScript* runs a script on the server. The script
+can optionally be executed asynchronously from the client. The method
+supports two overloads: _TextBased_ and _FileBased_.
+
+The _TextBased_ overload supports the specification of a script along
+with the command line used to execute the script. The script can be
+tokenized, and the tokens are replaced on the client before the script
+is sent to the server.
+
+The _FileBased_ overload supports the specification of a filename that
+exists on the server along with the command line used to execute the
+file, or optionally, just the command line to execute. The script can be
+tokenized, and the tokens are replaced on the server before the script
+is executed.
+
+In addition to the standard method arguments, both overloads support the
+following arguments:
+
+* CommandLine -- Required. The command line executed on the server. The
+string can be tokenized, and the tokens are replaced on the client
+before the script is sent to the server. The value can also contain any
+of the following variables, which serve as placeholders and are
+substituted at runtime on the server with the appropriate value:
+** %directory% - The absolute path of the specified Folder.
+** %filename% -- The absolute path of the specified Filename.
+** %file.separator% - The file separator used by the server operating
+sytem.
+** %server%, %application%, %database%, %username%, %password% --
+Essbase connection parameters whose values are obtained from the
+specified Essbase ConnectionID.
+* Filename -- Optional. The name of the file executed on the server. For
+the _TextBased_ overload, the ScriptText is written to the file with the
+specified name. If the file already exists, it is overwritten. If not
+specified, the _ScriptText_ is written to a temporary file that is given
+a unique name. For both overloads, if the _Filename_ is specified, the
+_CommandLine_ should contain the %filename% variable.
+* Folder -- Optional. The location of the file represented by the
+_Filename_ argument.
+* ConnectionID -- The Essbase connection ID used to provide the path of
+the dodeca-essbase servlet as well as any credentials required to run
+the script. For an Essbase view, the _ConnectionID_ is optional. If not
+defined, the view's _EssbaseConnectionID_ is used. For a non-Essbase
+view, the _ConnectionID_ is requried.
+* BackgroundExecute -- Controls whether the client launches the server
+request synchronously or asynchronously. If True, the request is
+launched asynchonously and the view from which the script is executed is
+disabled until the script is completed and a response is returned to the
+client. The rest of the application is enabled, which allows the user to
+open or activate other views, etc.
+* ScriptTimeout -- Optional. The number of seconds allows to ellapse
+before the script is timed out on the server. The default timeout is 0,
+which indicates that no timeout is enforced on the server.
+* Result PropertyName -- Optional. The name of the workbook script
+property that receives the result, which is either True or False,
+returned to the client.
+* DetailsPropertyName -- Optional. The name of the workbook script
+property that receives the content of either stdout (if the script
+succeeds) or stderr (if the script fails) on the server.
+* CoverDuringExecute -- Controls whether the view contents are covered
+while the script is being executed.
+
+The _TextBased_ overload also supports the following arguments:
+
+* ScriptText -- Required. The script text to be executed on the server.
+The script can be tokenized.
+* Extension -- The file extension appended to the Filename. This argument
+is only required when no _Filename_ is specified and the server creates
+a file with a unique name. The extension may be tokenized.
+
+In the following example, the FileBased overload is used.
+
+image::image432.jpeg[image,width=624,height=202]
+
+The script is launched asynchronously from the client and executes the
+following command line on the server:
+
+C:/Hyperion/products/Essbase/EssbaseClient/bin/essmsh
+c:/temp/aaa/test.mxl _<username> <password>_
+
+where the _<username>_ and _<password>_ are the values provided by the
+client. (Note that the username and password are sent to the server as
+encrypted and are decrypted on the server.) After the script execution
+completes, the result value, True or False, is assigned to the _results_
+property and the content of stdout or stderr is assigned to the details
+property. In this script, the client displays a message box that
+contains the values of the _result_ and _details_ properties.
+
+Workbook Script Debugger
+
+Workbook scripting now supports the ability to configure a workbook
+script to automatically open the Workbook Script Debugger for the
+procedures in the script. You can "step" through the procedure's methods
+from within the debugger. Breakpoints can be added and methods can be
+skipped or re-executed.
+
+In addition, method argument values and argument comments can be viewed
+and edited within the debugger, and the changes can be saved to the
+original, to another existing, or to a new workbook script.
+
+To configure a workbook script to automatically open the Workbook Script
+Debugger, the _DebugMode_ property should be set to _AllProcedures*_:
+
+image::image433.jpeg[image,width=363,height=176]
+
+*_In the next release, a ProcedureWithBreakpoint option will be
+supported as will the ability to set breakpoints from within the
+Workbook Script Metadata Editor. _
+
+* For a procedure assigned to an event link or a procedure called from a
+workbook script tool controller, the debugger is automatically opened.
+* For a procedure called from an ExecuteProcedure, ForEach, or
+CancelEvent method, the debugger is automatically opened when the
+_Continue_ tool is used to run the script or when _Step Into_ tool is
+used to explicitly "step into" the method. To prevent the debugger from
+being automatically opened for the nested procedure, use the _Step Over_
+or _Step Out_ tool.
+* When an ExecuteProcedure or ForEach method is configured with the
+CellByCell argument set to True, an instance of the debugger is opened
+for each execution of the procedure within the loop. The cell-by-cell
+loop can be "stepped out" of, which allows the processing to continue,
+but without the debugger being opened for each of the remaining
+executions of the procedure.
+* With a ForEach method, an instance of the debugger is opened for each
+NumberToNumber or DataCache iteration. As with the cell-by-cell loop,
+the for-each loop can be "stepped out" of.
+
+Note: The ShowScriptDebugger method can still be used to open an
+instance of the debugger as can the WorkbookScriptDebugger tool, but the
+ability to set breakpoints and step the methods is only supported
+through the workbook script's _DebugMode_ setting.
+
+The Workbook Script Debugger Breakpoints tab is presented in the
+screenshot below, which highlights several of the capabilities.
+
+* The _Method Arguments_ section presents the arguments for the method
+currently selected (or active) in the _Procedure Methods_ section.
+Argument values and comments can be edited, and any changes can be
+rolled back to the original (or last saved) values. Argument values can
+be evaluated in place or copied to the Formula Evaluator tab.
+* In the Procedure Methods section, breakpoints can be added and
+deleted. The next method can be changed to any method in the list,
+including a previously executed method. The "last method executed"
+indicator provides a visual cue as a reference point.
+
+image::image434.jpeg[image,width=624,height=624]
+
+The script execution and breakpoint tools include the following:
+
+image::image435.jpeg[image,width=600,height=400]
+
+* Save Workbook Script -- Saves the current workbook script. If any
+external workbook scripts are called, such as when an ExecuteProcedure's
+Procedure is defined in another workbook script, any changes to the
+external workbook script are also saved.
+* Save Workbook Script As -- Saves the current workbook script as the
+specified workbook script, which can be either a new or an existing
+workbook script.
+* Cover View -- Toggles the view cover. Uncovering the view contents
+allows you to see the effects of the script as you are stepping through
+the script.
+* Continue (F5) -- Continues executing the methods in the procedure until
+a breakpoint is encountered or the end of the procedure is reached. When
+an ExecuteProcedure, ForEach, or CancelEvent method is executed, an
+instance of the debugger is opened for the executed procedure(s). If the
+Auto Close button is On, the debugger is closed when the end of the
+procedure is reached.
+* Stop Debugging (Shift + F5) -- Exits the procedure and closes the
+debugger. Please note that the procedure does not continue to execute.
+* Auto Close -- When On and when the Continue button is used to run the
+script or the last method is executed using the Step Over button, the
+debugger is automatically closed after the procedure's last method is
+executed. The Step Out tool ignores this setting and automatically
+closes the debugger after the last method is executed.
+* Step Into (F8) -- This button is enabled when the next method is
+ExecuteProcedure, ForEach, or CancelEvent. Clicking the Step Into button
+opens the debugger for the executed procedure.
+* Step Over (Shift + F8) -- Executes the next method. If the next method
+is ExecuteProcedure, ForEach, or CancelEvent, the debugger is not opened
+for the executed procedure. (To open an instance of the debugger for a
+nested procedure, use the Step Into or Continue button.)
+* Step Out (Ctrl + Shift + F8) -- Continues executing the methods in the
+procedure until a breakpoint is encountered or the end of the procedure
+is reached. If the procedure contains an ExecuteProcedure, ForEach, or
+CancelEvent method is executed, the debugger is not opened for the
+executed procedure(s). The debugger is automatically closed when the end
+of the procedure is reached regardless of the Auto Close button state.
+* Step Out of CellByCell Loop -- When the current procedure is being
+executed from within a ExecuteProcedure method's cell-by-cell loop or a
+ForEach method's cell-by-cell loop, continues executing the procedures
+within the loop, but does not open an instance of the debugger for each
+procedure.
+* Step Out of ForEach Loop -- When the current procedure is being
+executed from within a ForEach method's NumberByNumber or DataCache
+loop, continues executing the procedures within the loop, but does not
+open an instance of the debugger for each procedure.
+* Toggle Breakpoint (F9) -- Adds or deletes the breakpoint for the
+selected method.
+* Clear All Breakpoints (Ctrl + Shift + F9) -- Clears all breakpoints
+within the procedure.
+
+The formula evaluation and editor tools include the following:
+
+image::image436.jpeg[image,width=471,height=207]
+
+* Evaluate Formula -- Resolves workbook script functions, and if the
+value is prepended with an "=", also evaluates Excel functions.
+* Evaluate Expression -- Resolves only the workbook script functions
+within the value.
+
+image::image437.jpeg[image,width=548,height=222]
+
+For example, here the SetFill Address is:
+
+=Address(@CRow(), Column(Ess.DataRange.1)) & ":" & Address(@CRow(),
+@LCol(Ess.DataRange.1))
+
+The Evaluate Formula result is:
+
+$L$20:$AB$20
+
+The Evaluate Expression result is:
+
+=Address(20, Column(Ess.DataRange.1)) & ":" & Address(20, 28)
+
+* Evaluate as Address -- Evaluates the argument value as an address.
+* Formula Editor -- Opens the Formula Editor for the active argument's
+value.
+* Copy to Formula Evaluator Tab -- Copies the active argument's value to
+the Formula Evaluator Tab and automatically activates the tab.
+
+*Context*
+
+The Breakpoints tab contains a Context section, which includes the
+selected method's current row and column as well as the current
+iteration information when the procedure was called from within a loop.
+
+In the screenshot below, the "BlueBar row" procedure was executed from
+within an ExecuteProcedure method's cell-by-cell loop. The
+ExecuteProcedure.CellByCell CurrentRow and CurrentColumn indicate the
+cell for which this iteration of the procedure is being executed.
+
+image::image438.jpeg[image,width=624,height=358]
+
+In the next screenshot, the procedure was executed from within a ForEach
+method's NumberToNumber loop. The ForEach.NumberToNumber.StartNumber and
+EndNumber indicate the bounds of the loop and the "ItemsRow Property"*
+value indicates the number for which this iteration of the procedure is
+being executed. Also, note that the _Step Out of ForEach Loop_ tool is
+enabled.
+
+_*In this example, the ItemsRow is the value specified as the ForEach
+method's PropertyName argument value. The property value contains the
+current loop number._
+
+image::image439.jpeg[image,width=624,height=258]
+
+In the next example, the procedure was executed from within a ForEach
+method's DataCache loop. The ForEach.DataCache.Name and Count indicate
+the name of the data cache and the number of rows. The "DataCacheRowKey
+Property"* value indicates the value for which this iteration of the
+procedure is being executed.
+
+image::image440.jpeg[image,width=624,height=259]
