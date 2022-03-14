@@ -13,7 +13,7 @@
 :icons: font
 // suppress caption label (Figure x.) displayed for image titles
 :figure-caption!:
-:toc:
+//:toc:
 
 == Methods
 
