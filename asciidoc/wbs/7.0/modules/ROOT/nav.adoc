@@ -1,3 +1,5 @@
 * WBS-Documentation
-** xref:wbs-documentation-7.0.adoc[]
+** xref:7.0/wbs-documentation-7.0.adoc[]
+** xref:7.0/wbs-documentation-7.0.adoc[]
+
 
