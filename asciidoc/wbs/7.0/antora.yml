@@ -1,6 +1,6 @@
 name: dodeca
 title: Dodeca
-version: xxx
+version: 
 start_page: ROOT:7.0/wbs-documentation-7.0.adoc
 asciidoc:
   attributes:
