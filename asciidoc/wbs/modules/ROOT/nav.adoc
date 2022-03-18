@@ -1,6 +1,0 @@
-* WBS-Documentation
-** xref:7.0/wbs-documentation-7.0.adoc[]
-** xref:7.1/wbs-documentation-7.1.adoc[]
-cccccbcdjrhljdeecccnncgbuhgnrhifndtjviekrinv
-
-
