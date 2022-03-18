@@ -1,6 +1,12 @@
 * WBS-Documentation
 ** xref:7.0/wbs-documentation-7.0.adoc[]
 ** xref:7.1/wbs-documentation-7.1.adoc[]
-cccccbcdjrhljdeecccnncgbuhgnrhifndtjviekrinv
+** xref:7.2/wbs-documentation-7.2.adoc[]
+** xref:7.3/wbs-documentation-7.3.adoc[]
+** xref:7.4/wbs-documentation-7.4.adoc[]
+** xref:7.5/wbs-documentation-7.5.adoc[]
+** xref:7.6/wbs-documentation-7.6.adoc[]
+** xref:7.7/wbs-documentation-7.7.adoc[]
+** xref:8.0/wbs-documentation-8.0.adoc[]
 
 
