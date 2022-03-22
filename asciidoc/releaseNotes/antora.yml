@@ -1,0 +1,10 @@
+name: dodeca
+title: Release-Notes
+version: Release-Notes
+start_page: ROOT:5.2.1.2481/5.2.1.2481.adoc
+asciidoc:
+  attributes:
+    source-language: asciidoc@
+    table-caption: false
+nav:
+- modules/ROOT/nav.adoc
