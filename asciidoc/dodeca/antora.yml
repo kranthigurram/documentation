@@ -7,5 +7,5 @@ asciidoc:
     source-language: asciidoc@
     table-caption: false
 nav:
-- modules/ROOT/nav.adoc
-- modules/rn/nav.adoc
+- modules/wbs/nav.adoc
+- modules/releaseNotes/nav.adoc
