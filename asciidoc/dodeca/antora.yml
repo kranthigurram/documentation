@@ -1,11 +1,11 @@
 name: dodeca
 title: Dodeca
 version: ~
-start_page: wbs:8.0/wbs-documentation-8.0.adoc
+start_page: ROOT:8.0/wbs-documentation-8.0.adoc
 asciidoc:
   attributes:
     source-language: asciidoc@
     table-caption: false
 nav:
-- modules/wbs/nav.adoc
+- modules/ROOT/nav.adoc
 - modules/releaseNotes/nav.adoc
