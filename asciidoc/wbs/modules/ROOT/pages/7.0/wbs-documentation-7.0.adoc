@@ -1,4 +1,4 @@
-= WBS Documentation, Dodeca 7.0
+= Dodeca 7.0
 // apply the front cover image
 :front-cover-image: image:../_Cover.pdf[]
 //
@@ -17,7 +17,7 @@
 
 == Methods
 
-=== AddDataCache 
+=== AddDataCache
 Build a DataCache from the results of a script.
 
 ==== CartesianList
@@ -488,7 +488,7 @@ Build a DataCache from the values returned in XML format from a URL.  Nodes name
 |===
 
 
-=== AddDataTableRangeRows 
+=== AddDataTableRangeRows
 Adds rows to a DataTableRange's sheet range.
 
 ==== RangeAddress
@@ -530,7 +530,7 @@ Adds rows to a DataTableRange's sheet range.
 |===
 
 
-=== AddDefinedName 
+=== AddDefinedName
 Add a defined name.
 
 ==== WorkbookRange
@@ -606,7 +606,7 @@ Add a defined name for a value.
 |===
 
 
-=== AddProperty 
+=== AddProperty
 Add a property to the workbook script.
 
 ==== Boolean
@@ -714,7 +714,7 @@ Add a string property to the workbook script.
 |===
 
 
-=== AddToken 
+=== AddToken
 Add a token to the workbook script.
 
 ==== Application
@@ -790,7 +790,7 @@ Add a view token to the Dodeca view.
 |===
 
 
-=== AddTokensForSubstVars 
+=== AddTokensForSubstVars
 Add tokens for Essbase substitution variables.
 
 ==== General
@@ -818,7 +818,7 @@ Add a token for one or more Essbase substitution variables.
 |===
 
 
-=== AddWorksheet 
+=== AddWorksheet
 Add a worksheet to the workbook.
 
 ==== InPositionByName
@@ -892,7 +892,7 @@ Add a new worksheet as the last sheet.
 |===
 
 
-=== BuildDataSetRange 
+=== BuildDataSetRange
 Builds a SQLPassthroughDataSetRange.
 
 ==== General
@@ -914,7 +914,7 @@ Builds a SQLPassthroughDataSetRange.
 |===
 
 
-=== BuildRangeFromScript 
+=== BuildRangeFromScript
 Build a range on a worksheet from the results of a script.
 
 ==== CartesianList
@@ -936,16 +936,16 @@ Build a range on the sheet based on the cartesian product of values from two or 
 | Delimiter | The delimiter to use to define the end of each value.
 | StartCell | The address of the cell that the first row of script output goes into.
 | ScriptResultColumnCount | The number of columns that will be in each row of the script result.
-| OutputMap | A comma delimited string of rows or columns that the columns of the script results are written to.  
-      If BuildRowsOrColumns is Rows, then the script result's columns are written to the specified columns.  
+| OutputMap | A comma delimited string of rows or columns that the columns of the script results are written to.
+      If BuildRowsOrColumns is Rows, then the script result's columns are written to the specified columns.
       If BuildRowsOrColumns is Columns, then the script result's columns are written to the specified rows.
 | BuildRowsOrColumns | Whether to build rows or columns from the script results.
-| EnterDatesAsText | 
+| EnterDatesAsText |
         Whether to treat a date value as text.
         When set to False, each valid date or date/time value returned by the script will be assigned to the cell as a date value.
         The number format of a cell that contains a date value should be set to Date; otherwise, the cell value will appear as the numeric value that is stored by Excel internally to represent dates.
         By default, EnterDatesAsText is True.
-      
+
 | EnterNumbersAsText | Whether to put a quote on numeric values so that the grid interprets them as text.  By default, EnterNumbersAsText is False.
 | HandleDuplicates | Whether to suppress a value if it is the same as the value in the row above.
 | CopyFromRange | The specified range will be copied for each row of output from the script.
@@ -971,16 +971,16 @@ Build a range on the sheet based on a DataCache created using the AddDataCache m
 | DataCacheName | The name of the data-cache to build the range from.
 | StartCell | The address of the cell that the first row of script output goes into.
 | ScriptResultColumnCount | The number of columns that will be in each row of the script result.
-| OutputMap | A comma delimited string of rows or columns that the columns of the script results are written to.  
-      If BuildRowsOrColumns is Rows, then the script result's columns are written to the specified columns.  
+| OutputMap | A comma delimited string of rows or columns that the columns of the script results are written to.
+      If BuildRowsOrColumns is Rows, then the script result's columns are written to the specified columns.
       If BuildRowsOrColumns is Columns, then the script result's columns are written to the specified rows.
 | BuildRowsOrColumns | Whether to build rows or columns from the script results.
-| EnterDatesAsText | 
+| EnterDatesAsText |
         Whether to treat a date value as text.
         When set to False, each valid date or date/time value returned by the script will be assigned to the cell as a date value.
         The number format of a cell that contains a date value should be set to Date; otherwise, the cell value will appear as the numeric value that is stored by Excel internally to represent dates.
         By default, EnterDatesAsText is True.
-      
+
 | EnterNumbersAsText | Whether to put a quote on numeric values so that the grid interprets them as text.  By default, EnterNumbersAsText is False.
 | HandleDuplicates | Whether to suppress a value if it is the same as the value in the row above.
 | CopyFromRange | The specified range will be copied for each row of output from the script.
@@ -1007,16 +1007,16 @@ Loop a list of values specified by a delimited string.
 | Delimiter | The delimiter to use to define the end of each value.
 | StartCell | The address of the cell that the first row of script output goes into.
 | ScriptResultColumnCount | The number of columns that will be in each row of the script result.
-| OutputMap | A comma delimited string of rows or columns that the columns of the script results are written to.  
-      If BuildRowsOrColumns is Rows, then the script result's columns are written to the specified columns.  
+| OutputMap | A comma delimited string of rows or columns that the columns of the script results are written to.
+      If BuildRowsOrColumns is Rows, then the script result's columns are written to the specified columns.
       If BuildRowsOrColumns is Columns, then the script result's columns are written to the specified rows.
 | BuildRowsOrColumns | Whether to build rows or columns from the script results.
-| EnterDatesAsText | 
+| EnterDatesAsText |
         Whether to treat a date value as text.
         When set to False, each valid date or date/time value returned by the script will be assigned to the cell as a date value.
         The number format of a cell that contains a date value should be set to Date; otherwise, the cell value will appear as the numeric value that is stored by Excel internally to represent dates.
         By default, EnterDatesAsText is True.
-      
+
 | EnterNumbersAsText | Whether to put a quote on numeric values so that the grid interprets them as text.  By default, EnterNumbersAsText is False.
 | CopyFromRange | The specified range will be copied for each row of output from the script.
 | CopyToRange | Specifies where the CopyFromRange will be copied to.
@@ -1048,19 +1048,19 @@ Build a range on the sheet from the results of an Essbase MDX query.
 | RepeatRowMemberLabels | Controls whether member names are repeated for each row returned by the query.  By default, RepeatMemberLabels is True.
 | StartCell | The address of the cell that the first row of script output goes into.
 | BuildRowsOrColumns | Whether to build rows or columns from the script results.
-| EnterDatesAsText | 
+| EnterDatesAsText |
         Whether to treat a date value as text.
         When set to False, each valid date or date/time value returned by the script will be assigned to the cell as a date value.
         The number format of a cell that contains a date value should be set to Date; otherwise, the cell value will appear as the numeric value that is stored by Excel internally to represent dates.
         By default, EnterDatesAsText is True.
-      
+
 | EnterNumbersAsText | Whether to put a quote on numeric values so that the grid interprets them as text.  By default, EnterNumbersAsText is False.
 | CopyFromRange | The specified range will be copied for each row of output from the script.
 | CopyToRange | Specifies where the CopyFromRange will be copied to.
 | Insert | Whether to insert the value or simply put it in the next cell.
 | OutputRangeName | The range where the script output is put will be given the specified name.
-| OutputMap | A comma delimited string of rows or columns that the columns of the script results are written to.  
-      If BuildRowsOrColumns is Rows, then the script result's columns are written to the specified columns.  
+| OutputMap | A comma delimited string of rows or columns that the columns of the script results are written to.
+      If BuildRowsOrColumns is Rows, then the script result's columns are written to the specified columns.
       If BuildRowsOrColumns is Columns, then the script result's columns are written to the specified rows.
 |===
 
@@ -1084,19 +1084,19 @@ Build a range on the sheet from an Essbase member query.
 | Password | The password to use.
 | StartCell | The address of the cell that the first row of script output goes into.
 | BuildRowsOrColumns | Whether to build rows or columns from the script results.
-| EnterDatesAsText | 
+| EnterDatesAsText |
         Whether to treat a date value as text.
         When set to False, each valid date or date/time value returned by the script will be assigned to the cell as a date value.
         The number format of a cell that contains a date value should be set to Date; otherwise, the cell value will appear as the numeric value that is stored by Excel internally to represent dates.
         By default, EnterDatesAsText is True.
-      
+
 | EnterNumbersAsText | Whether to put a quote on numeric values so that the grid interprets them as text.  By default, EnterNumbersAsText is False.
 | CopyFromRange | The specified range will be copied for each row of output from the script.
 | CopyToRange | Specifies where the CopyFromRange will be copied to.
 | Insert | Whether to insert the value or simply put it in the next cell.
 | OutputRangeName | The range where the script output is put will be given the specified name.
-| OutputMap | A comma delimited string of rows or columns that the columns of the script results are written to.  
-      If BuildRowsOrColumns is Rows, then the script result's columns are written to the specified columns.  
+| OutputMap | A comma delimited string of rows or columns that the columns of the script results are written to.
+      If BuildRowsOrColumns is Rows, then the script result's columns are written to the specified columns.
       If BuildRowsOrColumns is Columns, then the script result's columns are written to the specified rows.
 |===
 
@@ -1120,19 +1120,19 @@ Build a range on the sheet from an Essbase report script.
 | Password | The password to use.
 | StartCell | The address of the cell that the first row of script output goes into.
 | BuildRowsOrColumns | Whether to build rows or columns from the script results.
-| EnterDatesAsText | 
+| EnterDatesAsText |
         Whether to treat a date value as text.
         When set to False, each valid date or date/time value returned by the script will be assigned to the cell as a date value.
         The number format of a cell that contains a date value should be set to Date; otherwise, the cell value will appear as the numeric value that is stored by Excel internally to represent dates.
         By default, EnterDatesAsText is True.
-      
+
 | EnterNumbersAsText | Whether to put a quote on numeric values so that the grid interprets them as text.  By default, EnterNumbersAsText is False.
 | CopyFromRange | The specified range will be copied for each row of output from the script.
 | CopyToRange | Specifies where the CopyFromRange will be copied to.
 | Insert | Whether to insert the value or simply put it in the next cell.
 | OutputRangeName | The range where the script output is put will be given the specified name.
-| OutputMap | A comma delimited string of rows or columns that the columns of the script results are written to.  
-      If BuildRowsOrColumns is Rows, then the script result's columns are written to the specified columns.  
+| OutputMap | A comma delimited string of rows or columns that the columns of the script results are written to.
+      If BuildRowsOrColumns is Rows, then the script result's columns are written to the specified columns.
       If BuildRowsOrColumns is Columns, then the script result's columns are written to the specified rows.
 |===
 
@@ -1153,19 +1153,19 @@ Build a range on the sheet based on a Dodeca SQLPassthroughDataSet.
 | DataSetID | The QueryName of the SQLPassthroughDataSet to run.
 | StartCell | The address of the cell that the first row of script output goes into.
 | BuildRowsOrColumns | Whether to build rows or columns from the script results.
-| EnterDatesAsText | 
+| EnterDatesAsText |
         Whether to treat a date value as text.
         When set to False, each valid date or date/time value returned by the script will be assigned to the cell as a date value.
         The number format of a cell that contains a date value should be set to Date; otherwise, the cell value will appear as the numeric value that is stored by Excel internally to represent dates.
         By default, EnterDatesAsText is True.
-      
+
 | EnterNumbersAsText | Whether to put a quote on numeric values so that the grid interprets them as text.  By default, EnterNumbersAsText is False.
 | CopyFromRange | The specified range will be copied for each row of output from the script.
 | CopyToRange | Specifies where the CopyFromRange will be copied to.
 | Insert | Whether to insert the value or simply put it in the next cell.
 | OutputRangeName | The range where the script output is put will be given the specified name.
-| OutputMap | A comma delimited string of rows or columns that the columns of the script results are written to.  
-      If BuildRowsOrColumns is Rows, then the script result's columns are written to the specified columns.  
+| OutputMap | A comma delimited string of rows or columns that the columns of the script results are written to.
+      If BuildRowsOrColumns is Rows, then the script result's columns are written to the specified columns.
       If BuildRowsOrColumns is Columns, then the script result's columns are written to the specified rows.
 | ExecuteQueryAsynchronous | Whether the query is executed asynchronously on a background thread.
 |===
@@ -1192,19 +1192,19 @@ Build a range on the sheet from the results of a SQL query.
 | SQLConnectString | The SQL connect-string to use.
 | StartCell | The address of the cell that the first row of script output goes into.
 | BuildRowsOrColumns | Whether to build rows or columns from the script results.
-| EnterDatesAsText | 
+| EnterDatesAsText |
         Whether to treat a date value as text.
         When set to False, each valid date or date/time value returned by the script will be assigned to the cell as a date value.
         The number format of a cell that contains a date value should be set to Date; otherwise, the cell value will appear as the numeric value that is stored by Excel internally to represent dates.
         By default, EnterDatesAsText is True.
-      
+
 | EnterNumbersAsText | Whether to put a quote on numeric values so that the grid interprets them as text.  By default, EnterNumbersAsText is False.
 | CopyFromRange | The specified range will be copied for each row of output from the script.
 | CopyToRange | Specifies where the CopyFromRange will be copied to.
 | Insert | Whether to insert the value or simply put it in the next cell.
 | OutputRangeName | The range where the script output is put will be given the specified name.
-| OutputMap | A comma delimited string of rows or columns that the columns of the script results are written to.  
-      If BuildRowsOrColumns is Rows, then the script result's columns are written to the specified columns.  
+| OutputMap | A comma delimited string of rows or columns that the columns of the script results are written to.
+      If BuildRowsOrColumns is Rows, then the script result's columns are written to the specified columns.
       If BuildRowsOrColumns is Columns, then the script result's columns are written to the specified rows.
 |===
 
@@ -1225,24 +1225,24 @@ Loop values returned in XML format from a URL.\\n\\rNodes named "value" will be 
 | ScriptText | The text of the script that will be run.\\n\\r\\n\\rThe script will receive token replacement before being run.
 | StartCell | The address of the cell that the first row of script output goes into.
 | BuildRowsOrColumns | Whether to build rows or columns from the script results.
-| EnterDatesAsText | 
+| EnterDatesAsText |
         Whether to treat a date value as text.
         When set to False, each valid date or date/time value returned by the script will be assigned to the cell as a date value.
         The number format of a cell that contains a date value should be set to Date; otherwise, the cell value will appear as the numeric value that is stored by Excel internally to represent dates.
         By default, EnterDatesAsText is True.
-      
+
 | EnterNumbersAsText | Whether to put a quote on numeric values so that the grid interprets them as text.  By default, EnterNumbersAsText is False.
 | CopyFromRange | The specified range will be copied for each row of output from the script.
 | CopyToRange | Specifies where the CopyFromRange will be copied to.
 | Insert | Whether to insert the value or simply put it in the next cell.
 | OutputRangeName | The range where the script output is put will be given the specified name.
-| OutputMap | A comma delimited string of rows or columns that the columns of the script results are written to.  
-      If BuildRowsOrColumns is Rows, then the script result's columns are written to the specified columns.  
+| OutputMap | A comma delimited string of rows or columns that the columns of the script results are written to.
+      If BuildRowsOrColumns is Rows, then the script result's columns are written to the specified columns.
       If BuildRowsOrColumns is Columns, then the script result's columns are written to the specified rows.
 |===
 
 
-=== BuildView 
+=== BuildView
 Build the view.
 
 ==== General
@@ -1263,7 +1263,7 @@ Build the view.
 |===
 
 
-=== Calculate 
+=== Calculate
 Calculates Excel formulas in the workbook.
 
 ==== AllWorkbooksAsNeeded
@@ -1299,7 +1299,7 @@ Calculates all formulas in all workbooks.
 |===
 
 
-=== CallWebService 
+=== CallWebService
 Makes an HTTP web request.
 
 ==== General
@@ -1316,13 +1316,13 @@ Makes an HTTP web request.
 | ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| CredentialsPolicy | 
+| CredentialsPolicy |
         Controls the credentials used for authentication.
         DefaultNetworkCredentials - Represents the authentication credentials for the current security context in which the Dodeca application is running,
         which is usually the Windows credentials (user name, password, and domain) of the user running the application.
         The DefaultNetworkCredentials is applicable only for NTLM, negotiate, and Kerberos-based authentication.
         SpecifiedCredentials - Uses the specified UserName, Password, and Domain.
-      
+
 | UserName | The user name associated with the credentials to be used for authentication."
 | Password | The password associated with the credentials to be used for authentication.
 | Domain | If needed, the domain associated with the credentials to be used for authentication.
@@ -1372,7 +1372,7 @@ Makes an HTTP web request to a REST web service.
 |===
 
 
-=== CancelEvent 
+=== CancelEvent
 Set the value of the event that is running the procedure.
 
 ==== General
@@ -1394,7 +1394,7 @@ Set the Cancel property of the event that called the procedure.  Not all events 
 |===
 
 
-=== ClearRange 
+=== ClearRange
 Clear a specified range in the workbook.
 
 ==== General
@@ -1415,7 +1415,7 @@ Clear All, Excel Comments, Contents, or Formats from a specified range.
 |===
 
 
-=== Close 
+=== Close
 Closes the view.
 
 ==== General
@@ -1436,7 +1436,7 @@ Closes the view.
 |===
 
 
-=== CloseApplication 
+=== CloseApplication
 Closes the application.
 
 ==== General
@@ -1457,7 +1457,7 @@ Closes the application.
 |===
 
 
-=== CopyComments 
+=== CopyComments
 Copies comments from one or more sets of intersections to one or more other sets of intersections.
 
 ==== General
@@ -1474,25 +1474,25 @@ Copies comments from one or more sets of intersections to one or more other sets
 | ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| Source | 
+| Source |
         The set of key/value pairs that defines the filter for the source intersections from which comments will be copied.  The source is expressed as key/value pairs, in the form of Key=Value, where the pairs are separated by a semi-colon character.  Multiple sets of key/value pairs may be passed using a pipe delimiter to separate different sets.
 
         Example: Scenario=Budget;Year=Jan|Scenario=Budget;Year=Feb
 
         Note: The number of key/value pairs and the number of sets much exactly match the number of key/value pairs and the number of sets passed in the Target argument.
-      
-| Target | 
+
+| Target |
         The set of key/value pairs that defines the filter for the target intersections where comments will be copied.  The target is expressed as key/value pairs, in the form of Key=Value, where the pairs are separated by a semi-colon character.  Multiple sets of key/value pairs may be passed using a pipe delimiter to separate different sets.
 
         Example: Scenario=Forecast;Year=Jan|Scenario=Forecast;Year=Feb
 
         Note: The number of key/value pairs and the number of sets much exactly match the number of key/value pairs and the number of sets passed in the Source argument.
-      
+
 | BackgroundExecute | Controls whether the method is executed asynchronous.
 |===
 
 
-=== CopyRange 
+=== CopyRange
 Copy a specifed range in the workbook.
 
 ==== ColumnWidth
@@ -1572,7 +1572,7 @@ Copy a range and specify the paste options.
 |===
 
 
-=== CopyWorksheet 
+=== CopyWorksheet
 Copy a specified worksheet in the workbook.
 
 ==== General
@@ -1598,7 +1598,7 @@ Copy a worksheet.
 |===
 
 
-=== DeleteDataTableRangeRows 
+=== DeleteDataTableRangeRows
 Deletes rows from a DataTableRange's sheet range.
 
 ==== General
@@ -1619,7 +1619,7 @@ Deletes rows from a DataTableRange's sheet range.
 |===
 
 
-=== DeleteRange 
+=== DeleteRange
 Delete cells from one or all sheets.
 
 ==== General
@@ -1641,7 +1641,7 @@ Delete cells.
 |===
 
 
-=== EssbaseConnect 
+=== EssbaseConnect
 Connect an Essbase connection.
 
 ==== General
@@ -1664,7 +1664,7 @@ Connect an Essbase connection.
 |===
 
 
-=== EssbaseCustomFunction 
+=== EssbaseCustomFunction
 Executes a custom Java service on the dodeca-essbase server using the specified arguments.
 
 ==== General
@@ -1681,27 +1681,27 @@ Executes a custom Java service on the dodeca-essbase server using the specified 
 | ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| ServiceName | 
+| ServiceName |
         The name of the custom service to execute on the dodeca-essbase server.
         The value must correspond to a custom entry in the dodeca-essbase service's WEB-INF\\classes\\dodeca-essbase-actions.properties file, which maps the service name to the fully qualified Java class name that implements the service.
-      
+
 | FunctionArgumentsXml | The XML containing the arguments to pass to the service.
-| IncludeConnectionXml | 
+| IncludeConnectionXml |
         Indicates whether the Essbase connection information is included in the Xml passed to the service.
         If TRUE, the Java class must subclass from EssOperation or one of its subclasses.  The EssConnectionManager is automatically instanced and available to the subclass in a protected method overload.
-      
+
 | ConnectionID | The ID of the Essbase connection that contains the credentials to be used by the service.  The ConnectionID is only used when IncludeConnectionXml is True.  For an Essbase view, the ConnectionID is optional.  If not specified, the view's EssbaseConnectionID is used.  For a non-Essbase view, the ConnectionID must be specified.
-| IncludeGridXml | 
+| IncludeGridXml |
         Indicates whether the grid data is included in the Xml passed to the service.
         If TRUE, the Java class must subclass from EssGridOperation.  The EssConnectionManager is automatically instanced and available to the subclass in a protected method overload.  The EssConnectionManager.getGridView() method also returns an IEssGridView object filled with the grid data passed to the server.  By default, the IEssGridView does not contain numbers passed from client.  To fill the grid with numeric cells sent from the client, override the protected EssGridOperation.isUpdate() method as follows:
-      
+
 | ResultPropertyName | (Optional) The name of the workbook script property that receives the value of the result returned by the function.  If the property data type is Boolean, the workbook script will attempt to convert the value to True or False; otherwise, the value is treated as a string.  If the property does not exist, it is created.
 | ResultsDataCacheName | (Optional) The name of the DataCache that the result values can be written to when the result string represents tabular data where rows are newline delimited and columns are tab delimited.  The first column value of each row is used as the row index.
-| ResultsDataCacheUseFirstColumnAsKey | 
+| ResultsDataCacheUseFirstColumnAsKey |
         When the ResultsDataCacheName is specified, the argument indicates whether the first column value of each result row is used as the key for the corresponding data cache row.
         By default, the argument value is TRUE.
         The argument value can be set to FALSE when there is no need to lookup a row within the data cache or when the first column potentially contains duplicate values.
-      
+
 | BackgroundExecute | Controls whether the function is executed asynchronous.
 | Timeout | The numbers of seconds allowed to elapse before the execution of the function is timed out on the server.  The default value of 0 indicates that no timeout is enforced.
 | CoverDuringExecute | Controls whether the view is covered while the custom function is executing.
@@ -1710,7 +1710,7 @@ Executes a custom Java service on the dodeca-essbase server using the specified 
 |===
 
 
-=== EssbaseDisconnect 
+=== EssbaseDisconnect
 Disconnect an Essbase connection.
 
 ==== General
@@ -1731,7 +1731,7 @@ Disconnect an Essbase connection.
 |===
 
 
-=== EssbaseKeepOnly 
+=== EssbaseKeepOnly
 Do an Essbase keep-only.
 
 ==== General
@@ -1765,7 +1765,7 @@ Do an Essbase KeepOnly.
 |===
 
 
-=== EssbaseMdxQuery 
+=== EssbaseMdxQuery
 Run an Essbase MDX query.
 
 ==== GridData
@@ -1801,7 +1801,7 @@ Execute an Essbase MDX query that is defined by the MDX argument and write the r
 |===
 
 
-=== EssbasePivot 
+=== EssbasePivot
 Do an Essbase pivot.
 
 ==== General
@@ -1836,7 +1836,7 @@ Do an Essbase Pivot.
 |===
 
 
-=== EssbaseRemoveOnly 
+=== EssbaseRemoveOnly
 Do an Essbase remove-only.
 
 ==== General
@@ -1870,7 +1870,7 @@ Do an Essbase RemoveOnly.
 |===
 
 
-=== EssbaseReport 
+=== EssbaseReport
 Run an Essbase report.
 
 ==== ServerBased
@@ -1949,7 +1949,7 @@ Run an Essbase report that is defined by the ReportSpec argument and write the o
 |===
 
 
-=== EssbaseRetrieve 
+=== EssbaseRetrieve
 Do an Essbase retrieve.
 
 ==== Adhoc
@@ -2048,7 +2048,7 @@ Performs an Essbase retrieve operation on a specific range for an Excel Essbase 
 |===
 
 
-=== EssbaseRunCalc 
+=== EssbaseRunCalc
 Run an Essbase calc.
 
 ==== DefaultCalc
@@ -2161,7 +2161,7 @@ Run an Essbase Calc defined by the ScriptText argument.
 |===
 
 
-=== EssbaseRunScript 
+=== EssbaseRunScript
 Run a script on the server using a specified command line.
 
 ==== FileBased
@@ -2217,7 +2217,7 @@ Run a script, specified as the ScriptText argument, on the server using the spec
 |===
 
 
-=== EssbaseSend 
+=== EssbaseSend
 Do an Essbase send.
 
 ==== Adhoc
@@ -2279,7 +2279,7 @@ Performs an Essbase send operation on a specific range for an Excel Essbase view
 |===
 
 
-=== EssbaseSetOptions 
+=== EssbaseSetOptions
 Set Essbase options.
 
 ==== General
@@ -2316,7 +2316,7 @@ Set the view's Essbase options.  User's settings, if allowed, will override thes
 |===
 
 
-=== EssbaseUpdate 
+=== EssbaseUpdate
 Do an Essbase update using a report spec.
 
 ==== General
@@ -2333,13 +2333,13 @@ Do an Essbase Update.
 | ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| UpdateSpec | The report spec used to update the database.  Example: '"New York" Jan Actual "100-10" Sales 640' 
+| UpdateSpec | The report spec used to update the database.  Example: '"New York" Jan Actual "100-10" Sales 640'
       will update the value of the given intersection to 640.
 | ConnectionID | The ID of the Essbase Connection to use for the update operation.
 |===
 
 
-=== EssbaseZoomIn 
+=== EssbaseZoomIn
 Do an Essbase zoom-in.
 
 ==== General
@@ -2380,7 +2380,7 @@ Do an Essbase ZoomIn.
 |===
 
 
-=== EssbaseZoomOut 
+=== EssbaseZoomOut
 Do an Essbase zoom-out.
 
 ==== General
@@ -2415,7 +2415,7 @@ Do an Essbase ZoomOut.
 |===
 
 
-=== ExecuteProcedure 
+=== ExecuteProcedure
 Execute a specified workbook script procedure.
 
 ==== General
@@ -2436,7 +2436,7 @@ Execute a workbook script procedure.
 |===
 
 
-=== ExitProcedure 
+=== ExitProcedure
 Exit the workbook script procedure if the Method condition evaluates to TRUE.  If run CellByCell then a CellCondition of TRUE in any cell will exit the procedure.
 
 ==== General
@@ -2457,15 +2457,15 @@ Exit the procedure if the MethodCondition evaluates to TRUE.  If run CellByCell 
 |===
 
 
-=== ExportToExcel 
+=== ExportToExcel
 Export the view to an Excel file.
 
 ==== General
 
-Export the view to an Excel file. 
+Export the view to an Excel file.
       The exported file retains the point-of-view, which is used to restore the selected items when the file is imported, using the Import View from Excel tool.
-      For an Essbase Excel view, the cell values within defined send ranges (i.e. Ess.Send.Range.x) are also restored when the file is imported. 
-      
+      For an Essbase Excel view, the cell values within defined send ranges (i.e. Ess.Send.Range.x) are also restored when the file is imported.
+
 
 |===
 | Argument | Description
@@ -2477,29 +2477,29 @@ Export the view to an Excel file.
 | ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| Filename | 
+| Filename |
         Specify the name of the Excel file.
         When UseDialog is TRUE, the file name is used as the default file name presented in the Save File dialog.
         When UseDialog is FALSE, the file name is used as the exported Excel file name.
-      
-| Folder | 
+
+| Folder |
         Specify the folder to save the Excel file to.
         When UseDialog is TRUE, the folder is used as the default folder presented in the Save File dialog.
         When UseDialog is FALSE, the folder is used as the location of the exported Excel file.
-      
-| IncrementFilename | 
-        Whether to add a subscript, such as (2), to the filename if the specified file already exists.  
+
+| IncrementFilename |
+        Whether to add a subscript, such as (2), to the filename if the specified file already exists.
         If not set to TRUE, an existing file with the same name will be overwritten.
         This argument is only applicable when UseDialog is FALSE.
-      
+
 | UseDialog | Whether to show the Save File dialog to allow the user to select the folder and filename.
-| Password | 
-        Each protected worksheet is password protected with the specified value in order to prevent a user from unprotecting the worksheet in the exported Excel file.  
+| Password |
+        Each protected worksheet is password protected with the specified value in order to prevent a user from unprotecting the worksheet in the exported Excel file.
         If no password is specified, the view's ExportToExcelProtectedWorksheetPassword is used as the password.
 |===
 
 
-=== ForEach 
+=== ForEach
 Execute a procedure for each value of a list or number range.
 
 ==== DataCache
@@ -2545,7 +2545,7 @@ Execute a Procedure for each number of a specified range.
 |===
 
 
-=== InsertRange 
+=== InsertRange
 Insert a range into one or all sheets.
 
 ==== General
@@ -2567,7 +2567,7 @@ Insert cells.
 |===
 
 
-=== LoadWorkbook 
+=== LoadWorkbook
 Load a workbook from an Excel Binary Artifact.
 
 ==== General
@@ -2588,7 +2588,7 @@ Load an Excel Binary Artifact.
 |===
 
 
-=== MoveWorksheet 
+=== MoveWorksheet
 Move a specified worksheet within the workbook.
 
 ==== General
@@ -2612,7 +2612,7 @@ Move a worksheet.
 |===
 
 
-=== OpenView 
+=== OpenView
 Open a specified view.
 
 ==== General
@@ -2636,7 +2636,7 @@ Open a specified view, and optionally build and/or close the view.
 |===
 
 
-=== Print 
+=== Print
 Print Selection, Sheet, or Workbook.
 
 ==== Preview
@@ -2697,7 +2697,7 @@ Print Selection, Sheet, or Workbook to a file.
 |===
 
 
-=== Process 
+=== Process
 Provides the ability to start a local process by specifying an application or document name.
 
 ==== Start
@@ -2714,15 +2714,15 @@ Starts a local process specified as an application or document name.
 | ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | On a cell-by-cell basis, if the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| FileName | 
+| FileName |
         The name of the application or document to start.
         The document can be of any file type for which the extension has been associated with an application installed on the client system.
-      
+
 | CommandLineArguments | Command-line arguments to pass when starting the application.
 |===
 
 
-=== PromptForInput 
+=== PromptForInput
 Prompt the user for a value.
 
 ==== Date
@@ -2874,7 +2874,7 @@ Prompt the user for a string value.
 |===
 
 
-=== RefreshView 
+=== RefreshView
 Refresh the view.
 
 ==== General
@@ -2894,7 +2894,7 @@ Refresh the view.
 |===
 
 
-=== RemoveDefinedName 
+=== RemoveDefinedName
 Remove a defined name.
 
 ==== Workbook
@@ -2932,7 +2932,7 @@ Remove a defined name from one or all worksheets.
 |===
 
 
-=== RemoveProperty 
+=== RemoveProperty
 Remove a specified property from the workbook script.
 
 ==== General
@@ -2953,7 +2953,7 @@ Remove a workbook script property from the script.
 |===
 
 
-=== RemoveToken 
+=== RemoveToken
 Remove a specified token from the workbook script.
 
 ==== Any
@@ -3025,7 +3025,7 @@ Remove the specified token from the View's tokens.
 |===
 
 
-=== RemoveWorksheet 
+=== RemoveWorksheet
 Remove a specified worksheet from the workbook.
 
 ==== General
@@ -3047,7 +3047,7 @@ Remove a worksheet.
 |===
 
 
-=== RenameWorkbook 
+=== RenameWorkbook
 Renames a workbook.
 
 ==== General
@@ -3070,7 +3070,7 @@ Renames a workbook.
 |===
 
 
-=== RenameWorksheet 
+=== RenameWorksheet
 Rename a specified worksheet in the workbook.
 
 ==== General
@@ -3093,7 +3093,7 @@ Rename one or all worksheets.
 |===
 
 
-=== RepaintGrid 
+=== RepaintGrid
 Repaints the grid control.
 
 ==== General
@@ -3114,7 +3114,7 @@ Repaints the grid control.
 |===
 
 
-=== ReplaceTokens 
+=== ReplaceTokens
 Do token replacement.
 
 ==== General
@@ -3134,7 +3134,7 @@ Do token replacement.
 |===
 
 
-=== SQLPassthroughExecute 
+=== SQLPassthroughExecute
 Executes a delimited list of SQL statements within a single server request.
 
 ==== General
@@ -3165,7 +3165,7 @@ Executes a delimited list of SQL statements within a single server request.
 |===
 
 
-=== SaveDataSetRange 
+=== SaveDataSetRange
 Saves changes, including added, deleted, and modified rows, for a SQLPassthroughDataSetRange.
 
 ==== General
@@ -3186,7 +3186,7 @@ Saves changes, including added, deleted, and modified rows, for a SQLPassthrough
 |===
 
 
-=== SaveDataTableRangeRow 
+=== SaveDataTableRangeRow
 Saves an added or modified row within a DataTableRange's sheet range.
 
 ==== ByRowAddress
@@ -3209,7 +3209,7 @@ Saves an added or modified row within a DataTableRange's sheet range.
 |===
 
 
-=== SaveWorkbook 
+=== SaveWorkbook
 Save the workbook to an Excel file.
 
 ==== Desktop
@@ -3274,7 +3274,7 @@ Save to the My Documents folder of the current user.  Specify the file name.
 |===
 
 
-=== SaveWorkbookAsPdf 
+=== SaveWorkbookAsPdf
 Save the workbook to a PDF.
 
 ==== Desktop
@@ -3339,7 +3339,7 @@ Save to the My Documents folder of the current user.  Specify the file name.
 |===
 
 
-=== SelectRange 
+=== SelectRange
 Select a specified range in the workbook.
 
 ==== General
@@ -3361,7 +3361,7 @@ Select a range using an address.
 |===
 
 
-=== SendEmail 
+=== SendEmail
 Send an e-mail message.
 
 ==== General
@@ -3458,7 +3458,7 @@ Send an e-mail message via the Dodeca servlet using SMTP.
 |===
 
 
-=== SetActiveSheet 
+=== SetActiveSheet
 Make the specified sheet active.
 
 ==== General
@@ -3478,7 +3478,7 @@ Make the specified sheet active.
 |===
 
 
-=== SetActiveWorkbook 
+=== SetActiveWorkbook
 Make the specified workbook active.
 
 ==== General
@@ -3500,7 +3500,7 @@ Make the specified workbook active.
 |===
 
 
-=== SetBorders 
+=== SetBorders
 Set the borders of cells.
 
 ==== All
@@ -3630,7 +3630,7 @@ Set border weight.
 |===
 
 
-=== SetCalculationOptions 
+=== SetCalculationOptions
 Set workbook calculation options.
 
 ==== CalculateOnDemand
@@ -3673,7 +3673,7 @@ Set calculation options.
 |===
 
 
-=== SetChart 
+=== SetChart
 Sets the specified properties of a chart. The chart is created if it doesn't exist.
 
 ==== Area
@@ -4386,7 +4386,7 @@ Add or modify a XYScatter chart.
 |===
 
 
-=== SetColor 
+=== SetColor
 Set the color of a specified Excel color palette index.
 
 ==== General
@@ -4409,7 +4409,7 @@ Set the color of a specified Excel color palette index.
 |===
 
 
-=== SetColumnWidth 
+=== SetColumnWidth
 Set column widths.
 
 ==== AutoFit
@@ -4498,7 +4498,7 @@ Unhide a column or a range of columns.
 |===
 
 
-=== SetComment 
+=== SetComment
 Dodeca comments.
 
 ==== Add
@@ -4593,7 +4593,7 @@ Save the view's Dodeca comments.
 |===
 
 
-=== SetConditionalFormat 
+=== SetConditionalFormat
 Set or clear conditional formats.
 
 ==== Clear
@@ -4654,7 +4654,7 @@ Set conditional formatting.
 |===
 
 
-=== SetControl 
+=== SetControl
 Creates the specified Control if it doesn't exist, and sets the specified properties of it.
 
 ==== AddItem
@@ -4726,14 +4726,14 @@ Add or modify a Button control.
 | CellCondition | On a cell-by-cell basis, if the result of the condition expression resolves to FALSE, then the current cell is skipped.
 | Name | The name of the Control.
 | Text | The text.
-| OnClickProcedure | 
+| OnClickProcedure |
         The name of the procedure to execute when the control is clicked.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
-| OnDoubleClickProcedure | 
+
+| OnDoubleClickProcedure |
         The name of the procedure to execute when the control is double-clicked.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
+
 | Placement | The placement behavior of the control.
 | Column | The column to put the Control into.  0.0 is the left edge of the first column.  0.5 is the middle of the first column, etc.  If used with the ColumnPoints argument then the two are added together.
 | EndColumn | The column that will define the width of the control.  The Width argument can be used instead of EndColumn.
@@ -4798,18 +4798,18 @@ Add or modify a CheckBox control.
 | Name | The name of the Control.
 | Text | The text.
 | Value | The Value to assign to the control.  Control values are always numeric.
-| OnCheckStateChangedProcedure | 
+| OnCheckStateChangedProcedure |
         The name of the procedure to execute when the state of a checkbox changes.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
-| OnClickProcedure | 
+
+| OnClickProcedure |
         The name of the procedure to execute when the control is clicked.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
-| OnDoubleClickProcedure | 
+
+| OnDoubleClickProcedure |
         The name of the procedure to execute when the control is double-clicked.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
+
 | OnValueChangedProcedure | The name of the procedure to execute when the value of the control changes.
       When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
 | LinkedCell | The address of a cell that will be linked to the value of the control.
@@ -4880,22 +4880,22 @@ Add or modify a DropDown control.
 | DropDownLines | Specifies the number of items to display at one time in a dropdown.
 | Value | The Value to assign to the control.  Control values are always numeric.
 | ValueText | The text of the item to select.
-| OnClickProcedure | 
+| OnClickProcedure |
         The name of the procedure to execute when the control is clicked.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
-| OnDoubleClickProcedure | 
+
+| OnDoubleClickProcedure |
         The name of the procedure to execute when the control is double-clicked.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
-| OnSelectedIndexChangedProcedure | 
+
+| OnSelectedIndexChangedProcedure |
         The name of the procedure to execute when the selected item of the control changes.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
-| OnTextChangedProcedure | 
+
+| OnTextChangedProcedure |
         The name of the procedure to execute when the text of the control changes.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
+
 | OnValueChangedProcedure | The name of the procedure to execute when the value of the control changes.
       When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
 | LinkedCell | The address of a cell that will be linked to the value of the control.
@@ -5034,14 +5034,14 @@ Add or modify a Label control.
 | CellCondition | On a cell-by-cell basis, if the result of the condition expression resolves to FALSE, then the current cell is skipped.
 | Name | The name of the Control.
 | Text | The text.
-| OnClickProcedure | 
+| OnClickProcedure |
         The name of the procedure to execute when the control is clicked.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
-| OnDoubleClickProcedure | 
+
+| OnDoubleClickProcedure |
         The name of the procedure to execute when the control is double-clicked.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
+
 | Placement | The placement behavior of the control.
 | Column | The column to put the Control into.  0.0 is the left edge of the first column.  0.5 is the middle of the first column, etc.  If used with the ColumnPoints argument then the two are added together.
 | EndColumn | The column that will define the width of the control.  The Width argument can be used instead of EndColumn.
@@ -5108,22 +5108,22 @@ Add or modify a ListBox control.
 | Text | The text.
 | Value | The Value to assign to the control.  Control values are always numeric.
 | ValueText | The text of the item to select.
-| OnClickProcedure | 
+| OnClickProcedure |
         The name of the procedure to execute when the control is clicked.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
-| OnDoubleClickProcedure | 
+
+| OnDoubleClickProcedure |
         The name of the procedure to execute when the control is double-clicked.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
-| OnSelectedIndexChangedProcedure | 
+
+| OnSelectedIndexChangedProcedure |
         The name of the procedure to execute when the selected item of the control changes.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
-| OnTextChangedProcedure | 
+
+| OnTextChangedProcedure |
         The name of the procedure to execute when the text of the control changes.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
+
 | OnValueChangedProcedure | The name of the procedure to execute when the value of the control changes.
       When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
 | LinkedCell | The address of a cell that will be linked to the value of the control.
@@ -5287,14 +5287,14 @@ Add or modify a ScrollBar control.
 | Name | The name of the Control.
 | Text | The text.
 | Value | The Value to assign to the control.  Control values are always numeric.
-| OnClickProcedure | 
+| OnClickProcedure |
         The name of the procedure to execute when the control is clicked.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
-| OnDoubleClickProcedure | 
+
+| OnDoubleClickProcedure |
         The name of the procedure to execute when the control is double-clicked.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
+
 | OnValueChangedProcedure | The name of the procedure to execute when the value of the control changes.
       When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
 | LinkedCell | The address of a cell that will be linked to the value of the control.
@@ -5418,14 +5418,14 @@ Add or modify a Spinner control.
 | Name | The name of the Control.
 | Text | The text.
 | Value | The Value to assign to the control.  Control values are always numeric.
-| OnClickProcedure | 
+| OnClickProcedure |
         The name of the procedure to execute when the control is clicked.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
-| OnDoubleClickProcedure | 
+
+| OnDoubleClickProcedure |
         The name of the procedure to execute when the control is double-clicked.
         When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
-      
+
 | OnValueChangedProcedure | The name of the procedure to execute when the value of the control changes.
       When multiple controls are added by calling the method from within a loop, you can use @EPVal(ControlName) to get the name of the affected control from within the executed procedure.
 | LinkedCell | The address of a cell that will be linked to the value of the control.
@@ -5480,7 +5480,7 @@ Add or modify a Spinner control.
 |===
 
 
-=== SetCover 
+=== SetCover
 Set the value of the view's Cover property.
 
 ==== General
@@ -5501,7 +5501,7 @@ Set the value of the view's Cover property.
 |===
 
 
-=== SetCursor 
+=== SetCursor
 Sets the Cursor as specified.
 
 ==== General
@@ -5522,7 +5522,7 @@ Set the cursor.
 |===
 
 
-=== SetDataValidation 
+=== SetDataValidation
 Set or clear data validation.
 
 ==== Clear
@@ -5658,7 +5658,7 @@ Select a valid value from a list.
 | ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| Source | 
+| Source |
         The source of the list, which can be a comma-delimited list of values or a sheet range reference.
         When specifying a comma-delimited list of values, Excel limits the string to 255 characters.
         When specifying a named range, use the format: ="=NamedRange" (including both equal signs and the double quotes.)
@@ -5757,7 +5757,7 @@ The entered value must be a whole number.
 |===
 
 
-=== SetEntry 
+=== SetEntry
 Enter a value or formula into a specified range in the workbook.  Can also be used to clear cells or set the error value.
 
 ==== Clear
@@ -5900,7 +5900,7 @@ Set the text value of each cell.
 |===
 
 
-=== SetEventLink 
+=== SetEventLink
 Set the value of an EventLink's Active property to control whether the EventLink's Procedure runs or not.
 
 ==== General
@@ -5923,7 +5923,7 @@ Set the value of an EventLink's Active property to control whether the EventLink
 |===
 
 
-=== SetExcelComment 
+=== SetExcelComment
 Set, Add-to, or clear Excel comments from cell(s).
 
 ==== Add
@@ -5983,7 +5983,7 @@ Set the Excel comments.  This replaces any Excel comments in the cell.
 |===
 
 
-=== SetFill 
+=== SetFill
 Set the fill colors and patterns of cells.
 
 ==== Clear
@@ -6022,7 +6022,7 @@ Set cell fill properties.
 |===
 
 
-=== SetFont 
+=== SetFont
 Set the font properties (font-name, color, size, etc.) of cells.
 
 ==== General
@@ -6043,16 +6043,16 @@ Set cell font properties.
 | Style | Regular, Italic, Bold, or BoldItalic.
 | Size | Font size to apply.
 | Underline | None, Single, Double, SingelAccounting, DoubleAccounting.
-| Color | 
+| Color |
         Excel color palette index to use for Font color.
-      
+
 | StrikeThrough | Whether to apply Font strikethrough format.
 | Superscript | NOT SUPPORTED?: Whether to apply Font superscript format.
 | Subscript | NOT SUPPORTED?: Whether to apply Font subscript format.
 |===
 
 
-=== SetFormulaBar 
+=== SetFormulaBar
 Sets whether the formula bar is visible.
 
 ==== General
@@ -6073,7 +6073,7 @@ Set whether the formula bar is visible.
 |===
 
 
-=== SetHidden 
+=== SetHidden
 Set the Hidden property of rows, columns, or sheets to true or false.
 
 ==== Columns
@@ -6176,7 +6176,7 @@ Set Hidden of the specified worksheet to True or False.
 |===
 
 
-=== SetHyperlink 
+=== SetHyperlink
 Create or clear hyperlinks in cells (web, e-mail, file, or address in the workbook).
 
 ==== Clear
@@ -6295,7 +6295,7 @@ Add URL hyperlinks to cells.
 |===
 
 
-=== SetImage 
+=== SetImage
 Adds the specified Image with the specifed name and sets the specified properties.  If the image/name already exists then the properties are modified.
 
 ==== BringForward
@@ -6556,7 +6556,7 @@ Send a shape to the back.
 |===
 
 
-=== SetLine 
+=== SetLine
 Creates the specified Line if it doesn't exist, and sets the specified properties of it.
 
 ==== BringForward
@@ -6809,7 +6809,7 @@ Send a line to the back.
 |===
 
 
-=== SetNumberFormat 
+=== SetNumberFormat
 Set the number format of specific cells.
 
 ==== All
@@ -6982,7 +6982,7 @@ Select a number format from a list of time formats.
 |===
 
 
-=== SetOutlineLevel 
+=== SetOutlineLevel
 Set outline/grouping level.
 
 ==== Clear
@@ -7068,11 +7068,11 @@ Show/expand or hide/collapse the detail corresponding to the outline level of a 
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | On a cell-by-cell basis, if the result of the condition expression resolves to FALSE, then the current cell is skipped.
 | RowOrCol | Whether to set row or column outline levels.
-| ShowDetail | 
+| ShowDetail |
         Controls whether the detail corresponding to the outline level of a row or column will be shown (expanded) or hidden (collapsed).
         The RowOrCol argument indicates whether the outline level is related to a row or column group, and the Address argument specifies a row or column address or the address of a cell within the row or column.
         The operation is only valid for a single row or column.
-      
+
 |===
 
 ==== ShowLevels
@@ -7111,7 +7111,7 @@ Decrement the outline/grouping level.
 |===
 
 
-=== SetPageBreak 
+=== SetPageBreak
 Set page breaks to automatic, or add/clear print page breaks.
 
 ==== General
@@ -7133,7 +7133,7 @@ Set page break setting.
 |===
 
 
-=== SetPageSetup 
+=== SetPageSetup
 Set the page setup options of one or all worksheets.
 
 ==== Center
@@ -7260,7 +7260,7 @@ Specify areas on the worksheet to use as titles.
 |===
 
 
-=== SetProgressText 
+=== SetProgressText
 Set the progress text displayed at the bottom of the view.
 
 ==== Clear
@@ -7297,7 +7297,7 @@ Set the progress text displayed at the bottom of the view.
 |===
 
 
-=== SetProtection 
+=== SetProtection
 Set the protection properties of the workbook, worksheet, or specific cells.
 
 ==== Cells
@@ -7332,15 +7332,15 @@ Set protection parameters of specified sheets.
 | ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | On a cell-by-cell basis, if the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| Protected | 
+| Protected |
         For the Worksheet overload, enables or disables protection for the worksheet.
         For the Workbook overload, controls whether the specified Password is required to open and/or unprotect the workbook.
-      
+
 | SheetVisibility | Whether the specified sheet(s) are Visible, Hidden, or VeryHidden.
-| Password | 
+| Password |
         For the Worksheet overload, the password to set for the sheet.
         For the Workbook overload, the password which will be required to unprotect the workbook structure.  (The password is not required to open the workbook.)
-      
+
 |===
 
 ==== Workbook
@@ -7357,20 +7357,20 @@ Set protection parameters of the workbook.
 | ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | On a cell-by-cell basis, if the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| StructureProtected | 
-        Whether the structure (number and order of worksheets) of the workbook is protected from changes.  
+| StructureProtected |
+        Whether the structure (number and order of worksheets) of the workbook is protected from changes.
         When the structure is protected, a user cannot add, delete, or rename worksheets or display hidden worksheets.
         When the StructureProtected is True and a Password is specified, the user is not able to unprotect the workbook.
-      
-| Password | 
+
+| Password |
         For the Worksheet overload, the password to set for the sheet.
         For the Workbook overload, the password which will be required to unprotect the workbook structure.  (The password is not required to open the workbook.)
-      
+
 | RecommendReadOnly | Whether to turn on RecommendReadOnly.
 |===
 
 
-=== SetRowHeight 
+=== SetRowHeight
 Set row heights.
 
 ==== AutoFit
@@ -7443,7 +7443,7 @@ Unhide a row or a range of rows.
 |===
 
 
-=== SetSelector 
+=== SetSelector
 Sets the selected value(s) of the specified Selector.
 
 ==== Clear
@@ -7489,7 +7489,7 @@ Set the selected value(s) of a specified selector.
 |===
 
 
-=== SetSelectorConfiguration 
+=== SetSelectorConfiguration
 Adds, modifies, or removes a selector configuration before the view is displayed. This method should be called from either the AfterConstruct or BeforeInitializeUI event link.
 
 ==== Add
@@ -7509,22 +7509,22 @@ Adds or modifies a Generic, SQL, or Date selector configuration.
 | SelectorID | (Required) The ID of the Selector to be added to, modified, or removed from the view's selector configuration.
 | Required | Controls whether a selection is required. If required, the view is not buildable until the selector has a selection.
       By default, the argument value is TRUE.
-| SelectionPolicy | Controls whether the user is allowed to select multiple items or only a single item. 
+| SelectionPolicy | Controls whether the user is allowed to select multiple items or only a single item.
       By default, the argument value is SingleItem.
 | Caption | (Optional) A caption that overrides the default caption defined for the selector.
 | SelectorListID | (Optional) The ID of the Selector List assigned to the selector.  If no selector list ID is specified, the selector's default selector list is used.
 | LastUsedItemContext | Controls the caching of the item(s) selected when the view is built or refreshed.
         The cache is used to determine the default selected item(s) for a selector with selector list configured with a DefaultSelectionPolicy of LastUsedItem.
         By default, the argument is Default.
-        
+
         Default - Uses the view's SelectorLastUsedItemContext setting.
         None - The last used item(s) are not cached.
         BySelector - The cache is shared by all views configured with the BySelector context.
         ByView - The cache is used only by the view for which the selector is configured.
         ByLabel - The cache is shared by all views configured with the ByLabel context and assigned the same LastUsedItemContextLabel.
-      
+
 | LastUsedItemContextLabel | The context label used when the LastUsedItemContext argument is ByLabel.
-| ToolbarKey | (Optional) Specifies the key of the toolbar to which the selector is added. 
+| ToolbarKey | (Optional) Specifies the key of the toolbar to which the selector is added.
       By default, the selector is added to the toolbar assigned the key "View", which is typically the view's main toolbar.
 |===
 
@@ -7545,34 +7545,34 @@ Adds or modifies an Essbase selector configuration.
 | SelectorID | (Required) The ID of the Selector to be added to, modified, or removed from the view's selector configuration.
 | Required | Controls whether a selection is required. If required, the view is not buildable until the selector has a selection.
       By default, the argument value is TRUE.
-| SelectionPolicy | Controls whether the user is allowed to select multiple items or only a single item. 
+| SelectionPolicy | Controls whether the user is allowed to select multiple items or only a single item.
       By default, the argument value is SingleItem.
 | Caption | (Optional) A caption that overrides the default caption defined for the selector.
 | SelectorListID | (Optional) The ID of the Selector List assigned to the selector.  If no selector list ID is specified, the selector's default selector list is used.
 | LastUsedItemContext | Controls the caching of the item(s) selected when the view is built or refreshed.
         The cache is used to determine the default selected item(s) for a selector with selector list configured with a DefaultSelectionPolicy of LastUsedItem.
         By default, the argument is Default.
-        
+
         Default - Uses the view's SelectorLastUsedItemContext setting.
         None - The last used item(s) are not cached.
         BySelector - The cache is shared by all views configured with the BySelector context.
         ByView - The cache is used only by the view for which the selector is configured.
         ByLabel - The cache is shared by all views configured with the ByLabel context and assigned the same LastUsedItemContextLabel.
-      
+
 | LastUsedItemContextLabel | The context label used when the LastUsedItemContext argument is ByLabel.
-| ToolbarKey | (Optional) Specifies the key of the toolbar to which the selector is added. 
+| ToolbarKey | (Optional) Specifies the key of the toolbar to which the selector is added.
       By default, the selector is added to the toolbar assigned the key "View", which is typically the view's main toolbar.
 | ConnectionPolicy | Controls whether the view's Essbase connection or a specified Essbase connection is used for the selector.
-        If set to UseSpecifiedConnection, the EssbaseConnectionID argument must be specified. 
+        If set to UseSpecifiedConnection, the EssbaseConnectionID argument must be specified.
         For a non-Essbase view, the connection policy should be set to UseSpecifiedConnection.
         By default, the argument is UseViewConnection.
-      
+
 | ConnectionID | If the ConnectionPolicy is UseSpecifiedConnection, indicates the Essbase connection ID.
 | EssbaseLoginServiceObjectTypeID | If the ConnectionPolicy is UseSpecifiedConnection, the name of the IEssbaseLoginService to use to prompt for Essbase credentials.
-| UseAliases | If the ConnectionPolicy is UseSpecifiedConnection, controls whether aliases are displayed instead of member names.  
+| UseAliases | If the ConnectionPolicy is UseSpecifiedConnection, controls whether aliases are displayed instead of member names.
         If true, the AliasTable specifies the name of the alias table used to obtain the aliases.
         By default, the value is False.
-| AliasTableName | If the ConnectionPolicy is UseSpecifiedConnection, indicates the name of the alias table used for the selector.  
+| AliasTableName | If the ConnectionPolicy is UseSpecifiedConnection, indicates the name of the alias table used for the selector.
         If not specified, the Default alias table is used.
 |===
 
@@ -7594,7 +7594,7 @@ Removes an existing selector configuration.
 |===
 
 
-=== SetShape 
+=== SetShape
 Sets the specified properties of a Shape. The Shape is created if it doesn't exist.
 
 ==== BringForward
@@ -7860,7 +7860,7 @@ Send a shape to the back.
 |===
 
 
-=== SetTextAlignment 
+=== SetTextAlignment
 Set the text alignment of cells.
 
 ==== General
@@ -7886,7 +7886,7 @@ Set cell text alignment properties.
 |===
 
 
-=== SetTextBox 
+=== SetTextBox
 Creates the specified TextBox if it doesn't exist, and sets the specified properties of it.
 
 ==== BringForward
@@ -8203,7 +8203,7 @@ Send a text box to the back.
 |===
 
 
-=== SetTool 
+=== SetTool
 Shows or hides a tool in the toolbars, enables or disables a tool, and/or sets or clears the text of a TextBoxTool or the value of a ComboBoxTool.
 
 ==== Clear
@@ -8245,7 +8245,7 @@ Shows or hides a tool in the toolbars, enables or disables a tool, and/or sets t
 |===
 
 
-=== SetToolbarVisible 
+=== SetToolbarVisible
 Sets the Visble property of the specified toolbar.
 
 ==== ViewToolbar
@@ -8267,7 +8267,7 @@ Sets the Visble property of the specified view toolbar.
 |===
 
 
-=== SetTracing 
+=== SetTracing
 Sets the tracing mode.
 
 ==== General
@@ -8290,7 +8290,7 @@ Add or modify a line.
 |===
 
 
-=== SetUDA 
+=== SetUDA
 Adds or removes one or more UDA's assigned to one or more members.
 
 ==== AddToMember
@@ -8308,7 +8308,7 @@ Adds a UDA to a member.  Multiple UDA's and/or multiple members can be specified
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
 | UDA | A delimited list of UDA(s) to add to or remove from the member(s).  Multiple UDA's are delimited using a semi-colon.
-| MemberName | 
+| MemberName |
         The member names for which the UDA(s) is added or removed, which are specified using the Essbase calc member specification formulas.
         Individual member names and member name ranges are delimited using a comma, and member names that contain a space, numeric character, dash, plus sign, or ampersand, must be enclosed in double quotes.
         A member range represents members at the same level starting from the first member through to the last member of the range in outline order.
@@ -8316,7 +8316,7 @@ Adds a UDA to a member.  Multiple UDA's and/or multiple members can be specified
         Example of specific members: "New York", Oregon, Texas
         Example of a member range: mar:dec
         Example of specific members and a member range: Jan, Feb, Jul:Dec
-    
+
 | ConnectionID | (Optional) The ID of the Essbase connection to use for the UDA add/remove operation.  If no ConnectionID is specified, the view's EssbaseConnectionID is used.
 | BackgroundExecute | Controls whether the method is executed asynchronous.
 | ResultPropertyName | (Optional) The name of the workbook script property that receives the result of the UDA operation.  The value is either True, which indicates success, or False, which indicates an error occurred.
@@ -8338,7 +8338,7 @@ Removes a UDA from a member.  Multiple UDA's and/or multiple members can be spec
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
 | UDA | A delimited list of UDA(s) to add to or remove from the member(s).  Multiple UDA's are delimited using a semi-colon.
-| MemberName | 
+| MemberName |
         The member names for which the UDA(s) is added or removed, which are specified using the Essbase calc member specification formulas.
         Individual member names and member name ranges are delimited using a comma, and member names that contain a space, numeric character, dash, plus sign, or ampersand, must be enclosed in double quotes.
         A member range represents members at the same level starting from the first member through to the last member of the range in outline order.
@@ -8346,7 +8346,7 @@ Removes a UDA from a member.  Multiple UDA's and/or multiple members can be spec
         Example of specific members: "New York", Oregon, Texas
         Example of a member range: mar:dec
         Example of specific members and a member range: Jan, Feb, Jul:Dec
-    
+
 | ConnectionID | (Optional) The ID of the Essbase connection to use for the UDA add/remove operation.  If no ConnectionID is specified, the view's EssbaseConnectionID is used.
 | BackgroundExecute | Controls whether the method is executed asynchronous.
 | ResultPropertyName | (Optional) The name of the workbook script property that receives the result of the UDA operation.  The value is either True, which indicates success, or False, which indicates an error occurred.
@@ -8354,7 +8354,7 @@ Removes a UDA from a member.  Multiple UDA's and/or multiple members can be spec
 |===
 
 
-=== SetViewPropertyValue 
+=== SetViewPropertyValue
 Set the value of a specified view property.
 
 ==== General
@@ -8376,7 +8376,7 @@ Set the value of a specified view property.
 |===
 
 
-=== SetViewStatus 
+=== SetViewStatus
 Set the status-text and/or status-image of the view.
 
 ==== General
@@ -8398,7 +8398,7 @@ Set the status-text and/or the status-image of the view.
 |===
 
 
-=== SetWorkbookOptions 
+=== SetWorkbookOptions
 Set workbook options, including SaveLinkValues, ShowSheetTabs, ShowScrollBars, and DisplayObjects.
 
 ==== General
@@ -8423,7 +8423,7 @@ Set general workbook options.
 |===
 
 
-=== SetWorksheetOptions 
+=== SetWorksheetOptions
 Set options to control the appearance and behavior of one or all worksheets.
 
 ==== FreezePanes
@@ -8521,7 +8521,7 @@ Turn off FreezePanes for one or all worksheets.
 |===
 
 
-=== ShowFileDialog 
+=== ShowFileDialog
 Prompts the user to select a file to open (OpenFile) or select a location for saving a file (SaveFile).
 
 ==== OpenFile
@@ -8539,30 +8539,30 @@ Prompts the user to select a file to open.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
 | DialogCaption | The caption displayed in the dialog's title bar.  By default, the caption is "Open" (OpenFile) and "Save As" (SaveFile).
-| Filter | 
+| Filter |
         The filter string, which determines the choices that appear in the "Files of type" and the "Save as file type" in the Open File and Save As File dialogs, respectively.
         For each filtering option, the filter string contains a description of the filter, followed by the vertical bar (|) and the filter pattern. The strings for different filtering options are separated by the vertical bar.
         The following is an example of a filter string: "Excel 2007-2010 Workbook (*.xlsx)|*.xlsx|Excel 97-2003 Workbook (*.xls)|*.xls|All files (*.*)|*.*"
         You can add several filter patterns to a filter by separating the file types with semi-colons, for example, "Image Files(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF|All files (*.*)|*.*"
-      
+
 | FilterIndex | The index of the filter automatically selected in the "Files of type" box in the dialog.  The index of the first filter is 1, which is the default.
 | Filename | The file name automatically selected in the dialog by default.
-| InitialDirectory | 
+| InitialDirectory |
         The initial directory displayed by the file dialog.
         The InitialDirectory is typically set to a standard windows system or user path, which can be specified using the @SpecialFolder() function.
-      
-| RestoreDirectory | 
+
+| RestoreDirectory |
         Controls whether the dialog restores the current directory before closing. The default value is FALSE.
         When TRUE, the dialog restores the current directory to its original value if the user changed the directory while searching for files.
-      
+
 | CheckFileExists | Controls whether a warning is displayed if the user specifies a file name that does not exist. The default value is TRUE.
 | CheckPathExists | Controls whether a warning is displayed if the user specifies a path that does not exist. The default value is TRUE.
-| AddExtension | 
+| AddExtension |
         Controls whether an extension is automatically added to a file name if the user omits the extension.  The default value is TRUE.
         The extension added to a file name depends on the currently selected file filter and the value of the CheckFileExists argument.
         If the CheckFileExists property is TRUE, the first extension from the current file filter that matches an existing file is added as the extension.  If no files match the current file filter, the extension specified as the DefaultExtension argument is added.
         If the CheckFileExists property is FALSE, the first valid file name extension from the current file filter is added as the extension.  If the current file filter contains no valid file name extensions, the extension specified as the DefaultExtension argument is added.
-      
+
 | DefaultExtension | The default file name extension.
 | DialogResultPropertyName | The name of the script property that will receive the value of the dialog result, which includes OK and Cancel.
 | FilenamePropertyName | The name of the script property that will receive the value of the selected file name, which includes the path and the extension.
@@ -8583,30 +8583,30 @@ Prompts the user to select a location for saving a file.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
 | DialogCaption | The caption displayed in the dialog's title bar.  By default, the caption is "Open" (OpenFile) and "Save As" (SaveFile).
-| Filter | 
+| Filter |
         The filter string, which determines the choices that appear in the "Files of type" and the "Save as file type" in the Open File and Save As File dialogs, respectively.
         For each filtering option, the filter string contains a description of the filter, followed by the vertical bar (|) and the filter pattern. The strings for different filtering options are separated by the vertical bar.
         The following is an example of a filter string: "Excel 2007-2010 Workbook (*.xlsx)|*.xlsx|Excel 97-2003 Workbook (*.xls)|*.xls|All files (*.*)|*.*"
         You can add several filter patterns to a filter by separating the file types with semi-colons, for example, "Image Files(*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF|All files (*.*)|*.*"
-      
+
 | FilterIndex | The index of the filter automatically selected in the "Files of type" box in the dialog.  The index of the first filter is 1, which is the default.
 | Filename | The file name automatically selected in the dialog by default.
-| InitialDirectory | 
+| InitialDirectory |
         The initial directory displayed by the file dialog.
         The InitialDirectory is typically set to a standard windows system or user path, which can be specified using the @SpecialFolder() function.
-      
-| RestoreDirectory | 
+
+| RestoreDirectory |
         Controls whether the dialog restores the current directory before closing. The default value is FALSE.
         When TRUE, the dialog restores the current directory to its original value if the user changed the directory while searching for files.
-      
+
 | CheckFileExists | Controls whether a warning is displayed if the user specifies a file name that does not exist. The default value is TRUE.
 | CheckPathExists | Controls whether a warning is displayed if the user specifies a path that does not exist. The default value is TRUE.
-| AddExtension | 
+| AddExtension |
         Controls whether an extension is automatically added to a file name if the user omits the extension.  The default value is TRUE.
         The extension added to a file name depends on the currently selected file filter and the value of the CheckFileExists argument.
         If the CheckFileExists property is TRUE, the first extension from the current file filter that matches an existing file is added as the extension.  If no files match the current file filter, the extension specified as the DefaultExtension argument is added.
         If the CheckFileExists property is FALSE, the first valid file name extension from the current file filter is added as the extension.  If the current file filter contains no valid file name extensions, the extension specified as the DefaultExtension argument is added.
-      
+
 | DefaultExtension | The default file name extension.
 | CreatePrompt | Controls whether the dialog prompts the user for permission to create a file if the user specifies a file that does not exist. The default value is FALSE.
 | OverwritePrompt | Controls whether the dialog displays a warning if the user specifies a file name that already exists. The default value is TRUE.
@@ -8615,7 +8615,7 @@ Prompts the user to select a location for saving a file.
 |===
 
 
-=== ShowMessageBox 
+=== ShowMessageBox
 Show a message box, optionally setting a property value from the result.
 
 ==== General
@@ -8643,7 +8643,7 @@ Show a message box, optionally setting a property value from the result.
 |===
 
 
-=== ShowScriptDebugger 
+=== ShowScriptDebugger
 Show the workbook script debugger dialog.
 
 ==== General
@@ -8662,7 +8662,7 @@ Show the workbook script debugger dialog.
 |===
 
 
-=== ShowSelectorControlAsDialog 
+=== ShowSelectorControlAsDialog
 Show the selector treeview or listview control as a modal dialog.
 
 ==== General
@@ -8684,7 +8684,7 @@ Show the selector treeview or listview control as a modal dialog.
 |===
 
 
-=== SortRange 
+=== SortRange
 Sort a specified range in the workbook.
 
 ==== General
@@ -8709,7 +8709,7 @@ Sort All, Comments, Contents, or Formats from a specified range.
 |===
 
 
-=== ThrowException 
+=== ThrowException
 Throw a custom exception.
 
 ==== General
@@ -8729,7 +8729,7 @@ Throws a custom exception.
 |===
 
 
-=== UnloadWorkbook 
+=== UnloadWorkbook
 Unload a workbook.
 
 ==== General
@@ -8751,7 +8751,7 @@ Unload a workbook.
 |===
 
 
-=== UpdateBinaryArtifact 
+=== UpdateBinaryArtifact
 Updates a Binary Artifact with a new file.
 
 ==== CSVFile
@@ -8818,17 +8818,17 @@ Updates a binary artifact with a new file chosen by the user.
 | ReverseOrder | Whether to loop through the rows and columns from highest to lowest.  Only applies when CellByCell is true.
 | MethodCondition | If the result of method-condition expression resolves to FALSE, then the method is not executed.
 | CellCondition | If the result of the condition expression resolves to FALSE, then the current cell is skipped.
-| FileTypeFilter | 
+| FileTypeFilter |
         Specify the file type filter for the OpenFileDialog.  For example, to limit the selection to Excel workbooks, the following filter can be used:
 
         Excel Files|*.xls;*.xlsx
-      
+
 | BinaryArtifactID | The name of the Binary Artifact that will be updated.
 | CreateNewVersion | Specify whether to create a new version of an existing Binary Artifact or replace the latest version available.
 |===
 
 
-=== UpdateSelectorCache 
+=== UpdateSelectorCache
 Update the cache of selector values.
 
 ==== General
@@ -8848,7 +8848,7 @@ Update the cache of selector values.
 |===
 
 
-=== WriteLogMessage 
+=== WriteLogMessage
 Writes a message to a log file.
 
 ==== General
@@ -8876,13 +8876,13 @@ Write a message to a log file.
 
 
 == Functions
-=== ActiveCell 
+=== ActiveCell
 Returns the address of the active cell.
 
     @ACell()
 
 
-  
+
 
 
 ==== Header
@@ -8914,21 +8914,21 @@ If you want to highlight a text you want to show a user please use this.
 [example]
 This is an example of an example block. If you want to highlight a text you want to show a user please use this.
 
-=== ActiveSheetName 
+=== ActiveSheetName
 Returns the name of the active sheet.
 
     @ASheet()
 
 
 
-=== ActiveSheetNumber 
+=== ActiveSheetNumber
 Returns the number of the active sheet.
 
     @ASheetNumber()
 
 
 
-=== AddressOfRange 
+=== AddressOfRange
 Returns the address of the specified range.
 
     @AddrOfRng(<address>, [<Absolute>]) || @AddrOfRng(<StartRow>, <StartColumn>, <EndRow>, <EndColumn>, [<Absolute>])
@@ -8945,21 +8945,21 @@ Returns the address of the specified range.
 |===
 
 
-=== ApplicationID 
+=== ApplicationID
 Returns the Dodeca Application's ID.
 
     @AppID()
 
 
 
-=== AuthenticatedUserName 
+=== AuthenticatedUserName
 Returns the authenticated user ID.
 
     @AuthenticatedUserName()
 
 
 
-=== AuthenticatedUserRoles 
+=== AuthenticatedUserRoles
 Returns a delimited list of roles, based on the roles of the authenticated user.
 
     @AuthenticatedUserRoles(<Delimiter>)
@@ -8971,14 +8971,14 @@ Returns a delimited list of roles, based on the roles of the authenticated user.
 |===
 
 
-=== CascadeSheetCount 
+=== CascadeSheetCount
 Returns the number of worksheets that will be created based on the current selections in selectors designated as CascadeSources.
 
     @CascadeSheetCount()
 
 
 
-=== CellFillColor 
+=== CellFillColor
 Returns the background color of a cell.
 
     @CellFillColor([<Address>])
@@ -8990,7 +8990,7 @@ Returns the background color of a cell.
 |===
 
 
-=== CellIsHidden 
+=== CellIsHidden
 Returns True or False based on whether the cells in the specified range are hidden.
 
     @CellIsHidden([<Address>])
@@ -9002,7 +9002,7 @@ Returns True or False based on whether the cells in the specified range are hidd
 |===
 
 
-=== CellIsLocked 
+=== CellIsLocked
 Returns True or False based on whether the cells in the specified range are locked.
 
     @CellIsLocked([<Address>])
@@ -9014,14 +9014,14 @@ Returns True or False based on whether the cells in the specified range are lock
 |===
 
 
-=== CellsAddress 
+=== CellsAddress
 Returns the address of the range of all the cells on the current worksheet.
 
     @CellsAddress()
 
 
 
-=== Checksum 
+=== Checksum
 Returns an SHA-1 hash of the values in the given range.
       This function can be used to compute changes within a range, which can be specified as a defined name or an address.
       This function can work with discontiguous ranges.
@@ -9035,7 +9035,7 @@ Returns an SHA-1 hash of the values in the given range.
 |===
 
 
-=== ColumnLetter 
+=== ColumnLetter
 Returns the Alphabetic respresentation of the specified column number.
 
     @ColL(<ColumnNumber>)
@@ -9047,7 +9047,7 @@ Returns the Alphabetic respresentation of the specified column number.
 |===
 
 
-=== ColumnWidth 
+=== ColumnWidth
 Returns the column width of a cell.
 
     @ColWidth([<Address>])
@@ -9059,7 +9059,7 @@ Returns the column width of a cell.
 |===
 
 
-=== CommandLineArg 
+=== CommandLineArg
 Returns the value of the specified standard or custom command-line argument.
       The standard command-line arguments include tenant, servletPath, userDomain, username, machineName, appID, defaultViewID, and savedViewID.
 
@@ -9072,7 +9072,7 @@ Returns the value of the specified standard or custom command-line argument.
 |===
 
 
-=== CommentProperty 
+=== CommentProperty
 Returns the value of the specified comment property from the comment that triggered a comment-related event.
       This function only works when used within the context of a comment-related event that exposes the comment as an event arguments.
 
@@ -9085,28 +9085,28 @@ Returns the value of the specified comment property from the comment that trigge
 |===
 
 
-=== CurrentColumn 
+=== CurrentColumn
 Returns the number of the current column.
 
     @CCol()
 
 
 
-=== CurrentRow 
+=== CurrentRow
 Returns the number of the current row.
 
     @CRow()
 
 
 
-=== CurrentSelection 
+=== CurrentSelection
 Returns the address of the current selection.
 
     @Selection()
 
 
 
-=== DataCacheContents 
+=== DataCacheContents
 Returns the contents of a specfied DataCache.
 
     @DCC(<DataCacheName>)
@@ -9118,7 +9118,7 @@ Returns the contents of a specfied DataCache.
 |===
 
 
-=== DataCacheCount 
+=== DataCacheCount
 Returns the number of rows in ther specfied DataCache.
 
     @DCCount(<DataCacheName>)
@@ -9130,7 +9130,7 @@ Returns the number of rows in ther specfied DataCache.
 |===
 
 
-=== DataPointDimGeneration 
+=== DataPointDimGeneration
 Returns the generation of the member for the specified dimension.
 
     @DPDimGen([<CellAddress>], <Dimension>)
@@ -9143,7 +9143,7 @@ Returns the generation of the member for the specified dimension.
 |===
 
 
-=== DataPointDimLevel 
+=== DataPointDimLevel
 Returns the level of the member for the specified dimension.
 
     @DPDimLevel([<CellAddress>], <Dimension>)
@@ -9156,7 +9156,7 @@ Returns the level of the member for the specified dimension.
 |===
 
 
-=== DataPointDimOrientation 
+=== DataPointDimOrientation
 Returns the orientation of the specified dimension.
 
     @DPDimOr([<CellAddress>], <Dimension>)
@@ -9169,7 +9169,7 @@ Returns the orientation of the specified dimension.
 |===
 
 
-=== DataPointDimValueAlias 
+=== DataPointDimValueAlias
 Returns the alias for the specified dimension.
 
     @DPDimValAlias([<CellAddress>], <Dimension>, [<AliasTableName>])
@@ -9183,7 +9183,7 @@ Returns the alias for the specified dimension.
 |===
 
 
-=== DataPointDimValueDisplayed 
+=== DataPointDimValueDisplayed
 Returns the displayed member-name or alias for the specified dimension.
 
     @DPDimValDisp([<CellAddress>], <Dimension>)
@@ -9196,7 +9196,7 @@ Returns the displayed member-name or alias for the specified dimension.
 |===
 
 
-=== DataPointDimValueMember 
+=== DataPointDimValueMember
 Returns the member-name for the specified dimension.
 
     @DPDimValMbr([<CellAddress>], <Dimension>, [<AliasTableName>])
@@ -9210,7 +9210,7 @@ Returns the member-name for the specified dimension.
 |===
 
 
-=== DataPointDimValuesAliases 
+=== DataPointDimValuesAliases
 Returns a delimited list of dimension names and aliases for the specified cell.
 
     @DPDimValsAliases([<CellAddress>], [<AliasTableName>], [<ColumnDelimiter>], [<RowDelimiter>], [<Dimensions>])
@@ -9226,7 +9226,7 @@ Returns a delimited list of dimension names and aliases for the specified cell.
 |===
 
 
-=== DataPointDimValuesDisplayed 
+=== DataPointDimValuesDisplayed
 Returns a delimited list of dimension names and displayed values for the specified cell.
 
     @DPDimValsDisp([<CellAddress>], [<ColumnDelimiter>], [<RowDelimiter>], [<Dimensions>])
@@ -9241,7 +9241,7 @@ Returns a delimited list of dimension names and displayed values for the specifi
 |===
 
 
-=== DataPointDimValuesMembers 
+=== DataPointDimValuesMembers
 Returns a delimited list of dimension names and member names for the specified cell.
 
     @DPDimValsMbrs([<CellAddress>], [<AliasTableName>], [<ColumnDelimiter>], [<RowDelimiter>], [<Dimensions>])
@@ -9257,7 +9257,7 @@ Returns a delimited list of dimension names and member names for the specified c
 |===
 
 
-=== DataPointHasCellNote 
+=== DataPointHasCellNote
 Returns true or false based on whether the specified cell has cell note(s) associated with it.
 
     @DPHasCellNote([<CellAddress>])
@@ -9269,7 +9269,7 @@ Returns true or false based on whether the specified cell has cell note(s) assoc
 |===
 
 
-=== DataPointHasLinkedObjects 
+=== DataPointHasLinkedObjects
 Returns true or false based on whether the specified cell has linked objects associated with it.
 
     @DPHasLinkedObjects([<CellAddress>])
@@ -9281,7 +9281,7 @@ Returns true or false based on whether the specified cell has linked objects ass
 |===
 
 
-=== DataPointIsBlank 
+=== DataPointIsBlank
 Returns true or false based on whether the specified cell is blank.
 
     @DPIsBlank([<CellAddress>])
@@ -9293,7 +9293,7 @@ Returns true or false based on whether the specified cell is blank.
 |===
 
 
-=== DataPointIsDouble 
+=== DataPointIsDouble
 Returns true or false based on whether the specified datapoint cell contains a double value.
 
     @DPIsDouble([<CellAddress>])
@@ -9305,7 +9305,7 @@ Returns true or false based on whether the specified datapoint cell contains a d
 |===
 
 
-=== DataPointIsError 
+=== DataPointIsError
 Returns true or false based on whether the specified datapoint cell contains an error value.
 
     @DPIsError([<CellAddress>])
@@ -9317,7 +9317,7 @@ Returns true or false based on whether the specified datapoint cell contains an 
 |===
 
 
-=== DataPointIsMissing 
+=== DataPointIsMissing
 Returns true or false based on whether the specified datapoint is missing.
 
     @DPIsMissing([<CellAddress>])
@@ -9329,7 +9329,7 @@ Returns true or false based on whether the specified datapoint is missing.
 |===
 
 
-=== DataPointIsNoAccess 
+=== DataPointIsNoAccess
 Returns true or false based on whether the specified datapoint is NoAccess.
 
     @DPIsNoAccess([<CellAddress>])
@@ -9341,7 +9341,7 @@ Returns true or false based on whether the specified datapoint is NoAccess.
 |===
 
 
-=== DataPointIsReadOnly 
+=== DataPointIsReadOnly
 Returns true or false based on whether the specified datapoint cell is ReadOnly.
 
     @DPIsReadOnly([<CellAddress>])
@@ -9353,7 +9353,7 @@ Returns true or false based on whether the specified datapoint cell is ReadOnly.
 |===
 
 
-=== DataPointIsReadWrite 
+=== DataPointIsReadWrite
 Returns true or false based on whether the specified datapoint cell is ReadWrite.
 
     @DPIsReadWrite([<CellAddress>])
@@ -9365,7 +9365,7 @@ Returns true or false based on whether the specified datapoint cell is ReadWrite
 |===
 
 
-=== DataPointIsZero 
+=== DataPointIsZero
 Returns true or false based on whether the specified datapoint cell contains a value or zero.
 
     @DPIsZero([<CellAddress>])
@@ -9377,10 +9377,10 @@ Returns true or false based on whether the specified datapoint cell contains a v
 |===
 
 
-=== DataSetRangeIndex 
+=== DataSetRangeIndex
 
         Returns the zero-based index representing the relative position of the specified SQLPassthroughDataSet range within the view's DataSetRanges collection.
-      
+
 
     @DataSetRangeIndex(<SQLPassthroughDataSetID>)
 
@@ -9391,7 +9391,7 @@ Returns true or false based on whether the specified datapoint cell contains a v
 |===
 
 
-=== DataTableRangeRowHasChanges 
+=== DataTableRangeRowHasChanges
 Returns whether a specific data row within a DataTableRange's sheet range has any unsaved changes.
       The address of any cell within the data row or the address of the sheet row may be used to identify the data row.
       If an address is not specified, the current cell address is used.
@@ -9405,7 +9405,7 @@ Returns whether a specific data row within a DataTableRange's sheet range has an
 |===
 
 
-=== DataTableRangeRowState 
+=== DataTableRangeRowState
 Returns whether a specific data row within a DataTableRange's sheet range was Added, Modified, or is Unchanged.
       The address of any cell within the data row or the address of the sheet row may be used to identify the data row.
       If an address is not specified, the current cell address is used.
@@ -9419,7 +9419,7 @@ Returns whether a specific data row within a DataTableRange's sheet range was Ad
 |===
 
 
-=== DataTableSheetRangeName 
+=== DataTableSheetRangeName
 Returns the name of the DataTableRange's sheet range that contains the specified cell.
       If a cell address is not specified, the current cell is used.
 
@@ -9432,7 +9432,7 @@ Returns the name of the DataTableRange's sheet range that contains the specified
 |===
 
 
-=== DefinedNameExists 
+=== DefinedNameExists
 Returns TRUE if the specified DefinedName exists.
 
     @DefinedNameExists(<DefinedName>)
@@ -9444,7 +9444,7 @@ Returns TRUE if the specified DefinedName exists.
 |===
 
 
-=== DelimitedStringFromRangeValues 
+=== DelimitedStringFromRangeValues
 Returns a delimited string containing the values of a worksheet range.
 
     @StringFromRange(Range, [ColumnDelimiter], [RowDelimiter])
@@ -9458,7 +9458,7 @@ Returns a delimited string containing the values of a worksheet range.
 |===
 
 
-=== EssConnectionPropertyValue 
+=== EssConnectionPropertyValue
 Returns the value of the specified EssbaseConnection property.
 
     @EssConnPVal(<ConnectionID>, <PropertyName>)
@@ -9471,7 +9471,7 @@ Returns the value of the specified EssbaseConnection property.
 |===
 
 
-=== EssbaseCalcScript 
+=== EssbaseCalcScript
 Returns the specified calc script from the server.
 
     @EssCalcScript(<CalcScriptName>, [<ConnectionID>])
@@ -9484,7 +9484,7 @@ Returns the specified calc script from the server.
 |===
 
 
-=== EssbaseDatabaseNote 
+=== EssbaseDatabaseNote
 Returns the database note attached to an Essbase cube.
 
     @EssDatabaseNote([<ConnectionID>])
@@ -9496,7 +9496,7 @@ Returns the database note attached to an Essbase cube.
 |===
 
 
-=== EventPropertyValue 
+=== EventPropertyValue
 Returns the value of the specified property of the event that triggered the method.
       A null string is returned without error if the property does not exist.
 
@@ -9509,7 +9509,7 @@ Returns the value of the specified property of the event that triggered the meth
 |===
 
 
-=== ExcelComment 
+=== ExcelComment
 Returns the Excel comment text, if any, for the specified cell.
       If the cell does not have a comment, returns an empty string.
 
@@ -9522,7 +9522,7 @@ Returns the Excel comment text, if any, for the specified cell.
 |===
 
 
-=== FirstColumn 
+=== FirstColumn
 Returns the index of the first column of a range.
 
     @FCol([<Address>])
@@ -9534,7 +9534,7 @@ Returns the index of the first column of a range.
 |===
 
 
-=== FirstRow 
+=== FirstRow
 Returns the index of the first row of a range.
 
     @FRow([<Address>])
@@ -9546,21 +9546,21 @@ Returns the index of the first row of a range.
 |===
 
 
-=== FormulaBarIsVisible 
+=== FormulaBarIsVisible
 Returns True/False indicating whether the Formula Bar is visible.
 
     @FormulaBarIsVisible()
 
 
 
-=== Guid 
+=== Guid
 Returns a string representation of a globally unique identifier, GUID, that can be used wherever a unique identifier is required.
 
     @Guid()
 
 
 
-=== HasExcelComment 
+=== HasExcelComment
 Returns True or False based on whether the specified cell has a comment.
 
     @HasExcelComment([<Address>])
@@ -9572,7 +9572,7 @@ Returns True or False based on whether the specified cell has a comment.
 |===
 
 
-=== IntersectionOfRanges 
+=== IntersectionOfRanges
 Returns the address of the intersection of the two specified ranges.
 
     @Intersection(<Range1>, <Range2>)
@@ -9585,7 +9585,7 @@ Returns the address of the intersection of the two specified ranges.
 |===
 
 
-=== IsDataCell 
+=== IsDataCell
 Returns true or false based on whether the specified cell is an Essbase datapoint cell.
 
     @IsDataCell(<CellAddress>)
@@ -9597,14 +9597,14 @@ Returns true or false based on whether the specified cell is an Essbase datapoin
 |===
 
 
-=== IsDrillthroughSheet 
+=== IsDrillthroughSheet
 Returns a boolean indicating whether the active sheet is a drill-through sheet.
 
     @IsDrillThroughSheet()
 
 
 
-=== IsEven 
+=== IsEven
 Returns True/False indicating whether the specified number is even.
 
     @IsEven(<Number>)
@@ -9616,7 +9616,7 @@ Returns True/False indicating whether the specified number is even.
 |===
 
 
-=== IsInCharacterRange 
+=== IsInCharacterRange
 Returns True/False indicating whether the specified string is limited to the specified character range.
 
     @IsInCharacterRange(<Character Range>, <String>)
@@ -9629,7 +9629,7 @@ Returns True/False indicating whether the specified string is limited to the spe
 |===
 
 
-=== IsInRole 
+=== IsInRole
 Returns True or False, based on whether the authenticated user ID has the specified role.
 
     @IsInRole(<Role>)
@@ -9641,7 +9641,7 @@ Returns True or False, based on whether the authenticated user ID has the specif
 |===
 
 
-=== IsMemberCell 
+=== IsMemberCell
 Returns true or false based on whether the specified cell is an Essbase member cell.
 
     @IsMemberCell(<CellAddress>)
@@ -9653,7 +9653,7 @@ Returns true or false based on whether the specified cell is an Essbase member c
 |===
 
 
-=== IsOdd 
+=== IsOdd
 Returns True/False indicating whether the specified number is odd.
 
     @IsOdd(<Number>)
@@ -9665,14 +9665,14 @@ Returns True/False indicating whether the specified number is odd.
 |===
 
 
-=== IsSavedView 
+=== IsSavedView
 Returns True/False indicating whether the view is a SavedView.
 
     @IsSavedView()
 
 
 
-=== LastColumn 
+=== LastColumn
 Returns the index of the last column of a range.
 
     @LCol([<Address>])
@@ -9684,7 +9684,7 @@ Returns the index of the last column of a range.
 |===
 
 
-=== LastRow 
+=== LastRow
 Returns the index of the last row of a range.
 
     @LRow([<Address>])
@@ -9696,7 +9696,7 @@ Returns the index of the last row of a range.
 |===
 
 
-=== LookupValue 
+=== LookupValue
 Returns the value of a specified column from the row specified by a row key, from a DataCache specfied by the DataCacheName.
 
     @LookupValue(<DataCacheName>, <Value>, <ColumnNumber>, [<KeyColumnNumber>], [<MatchType>])
@@ -9712,14 +9712,14 @@ Returns the value of a specified column from the row specified by a row key, fro
 |===
 
 
-=== MachineName 
+=== MachineName
 Returns the name of the workstation the user is on.
 
     @MachineName()
 
 
 
-=== MemberAlias 
+=== MemberAlias
 Returns the Essbase Alias of the specified member.
 
     @MbrAlias(<MemberName>, [<AliasTable>], [<ConnectionID>], [<DefaultValue>])
@@ -9734,7 +9734,7 @@ Returns the Essbase Alias of the specified member.
 |===
 
 
-=== MemberCellDimensionName 
+=== MemberCellDimensionName
 Returns the dimension name of the specified member cell.  If the cell is not a member cell, returns an empty string "".
 
     @MemberCellDimensionName([<CellAddress>])
@@ -9746,7 +9746,7 @@ Returns the dimension name of the specified member cell.  If the cell is not a m
 |===
 
 
-=== MemberCellDimensionNumber 
+=== MemberCellDimensionNumber
 Returns the dimension number of the specified member cell.  If the cell is not a member cell, returns 0.
 
     @MemberCellDimensionNumber([<CellAddress>])
@@ -9758,7 +9758,7 @@ Returns the dimension number of the specified member cell.  If the cell is not a
 |===
 
 
-=== MemberCellIsDimension 
+=== MemberCellIsDimension
 Returns true or false based on whether the specified member cell is the dimension member.
 
     @MemberCellIsDimension([<CellAddress>])
@@ -9770,7 +9770,7 @@ Returns true or false based on whether the specified member cell is the dimensio
 |===
 
 
-=== MemberCellIsExplicitlyShared 
+=== MemberCellIsExplicitlyShared
 Returns true or false based on whether the specified member cell is an explicit share.
 
     @MemberCellIsExplicitlyShared([<CellAddress>])
@@ -9782,7 +9782,7 @@ Returns true or false based on whether the specified member cell is an explicit 
 |===
 
 
-=== MemberCellIsImplicitlyShared 
+=== MemberCellIsImplicitlyShared
 Returns true or false based on whether the specified member cell is an implicit share.
 
     @MemberCellIsImplicitlyShared([<CellAddress>])
@@ -9794,7 +9794,7 @@ Returns true or false based on whether the specified member cell is an implicit 
 |===
 
 
-=== MemberCellIsLabelOnly 
+=== MemberCellIsLabelOnly
 Returns true or false based on whether the specified member cell is label only.
 
     @MemberCellIsLabelOnly([<CellAddress>])
@@ -9806,7 +9806,7 @@ Returns true or false based on whether the specified member cell is label only.
 |===
 
 
-=== MemberCellIsNeverShare 
+=== MemberCellIsNeverShare
 Returns true or false based on whether the specified member cell is marked as never share.
 
     @MemberCellIsNeverShare([<CellAddress>])
@@ -9818,7 +9818,7 @@ Returns true or false based on whether the specified member cell is marked as ne
 |===
 
 
-=== MemberCellIsParent 
+=== MemberCellIsParent
 Returns true or false based on whether the specified member cell is a parent member.
 
     @MemberCellIsParent([<CellAddress>])
@@ -9830,7 +9830,7 @@ Returns true or false based on whether the specified member cell is a parent mem
 |===
 
 
-=== MemberCellIsStoredData 
+=== MemberCellIsStoredData
 Returns true or false based on whether the specified member cell is a stored data member.
 
     @MemberCellIsStoredData([<CellAddress>])
@@ -9842,7 +9842,7 @@ Returns true or false based on whether the specified member cell is a stored dat
 |===
 
 
-=== MemberChildCount 
+=== MemberChildCount
 Returns the number of children of the specified member.
 
     @MbrChildCnt(<MemberName>, [<AliasTable>], [<ConnectionID>], [<DefaultValue>])
@@ -9857,7 +9857,7 @@ Returns the number of children of the specified member.
 |===
 
 
-=== MemberDimension 
+=== MemberDimension
 Returns the DimensionName of the specified member.
 
     @MbrDim(<MemberName>, [<AliasTable>], [<ConnectionID>], [<DefaultValue="">])
@@ -9872,7 +9872,7 @@ Returns the DimensionName of the specified member.
 |===
 
 
-=== MemberFirstChild 
+=== MemberFirstChild
 Returns the name of the first child of the specified member.
 
     @MbrFirstChild(<MemberName>, [<AliasTable>], [<ConnectionID>], [<DefaultValue="">])
@@ -9887,8 +9887,8 @@ Returns the name of the first child of the specified member.
 |===
 
 
-=== MemberGeneration 
-Returns the Essbase Generation of the specified member. 
+=== MemberGeneration
+Returns the Essbase Generation of the specified member.
 
     @MbrGeneration(<MemberName>, [<AliasTable>], [<ConnectionID>], [<DefaultValue>])
 
@@ -9902,7 +9902,7 @@ Returns the Essbase Generation of the specified member.
 |===
 
 
-=== MemberHasUDA 
+=== MemberHasUDA
 Returns TRUE if the specified member has the specified UDA.
 
     @MbrHasUDA(<MemberName>, <UDA>, [<AliasTable>], [<ConnectionID>], [<DefaultValue>])
@@ -9918,7 +9918,7 @@ Returns TRUE if the specified member has the specified UDA.
 |===
 
 
-=== MemberKey 
+=== MemberKey
 Returns the Key of the specified member.
 
     @MbrKey(<MemberName>, [<AliasTable>], [<ConnectionID>], [<DefaultValue>])
@@ -9933,7 +9933,7 @@ Returns the Key of the specified member.
 |===
 
 
-=== MemberLevel 
+=== MemberLevel
 Returns the Essbase Level of the specified member.
 
     @MbrLevel(<MemberName>, [<AliasTable>], [<ConnectionID>], [<DefaultValue>])
@@ -9948,7 +9948,7 @@ Returns the Essbase Level of the specified member.
 |===
 
 
-=== MemberName 
+=== MemberName
 Returns the Essbase Name of the specified member.
 
     @MbrName(<MemberName>, [<AliasTable>], [<ConnectionID>], [<DefaultValue>])
@@ -9963,7 +9963,7 @@ Returns the Essbase Name of the specified member.
 |===
 
 
-=== MemberNextSibling 
+=== MemberNextSibling
 Returns the name of the next sibling of the specified member.
 
     @MbrNextSib(<MemberName>, [<AliasTable>], [<ConnectionID>], [<DefaultValue>])
@@ -9978,7 +9978,7 @@ Returns the name of the next sibling of the specified member.
 |===
 
 
-=== MemberParentKey 
+=== MemberParentKey
 Returns the Key of the specified member.
 
     @MbrPKey(<MemberName>, [<AliasTable>], [<ConnectionID>], [<DefaultValue="">])
@@ -9993,7 +9993,7 @@ Returns the Key of the specified member.
 |===
 
 
-=== MemberPreviousSibling 
+=== MemberPreviousSibling
 Returns the name of the previous sibling of the specified member.
 
     @MbrPrevSib(<MemberName>, [<AliasTable>], [<ConnectionID>], [<DefaultValue>])
@@ -10008,7 +10008,7 @@ Returns the name of the previous sibling of the specified member.
 |===
 
 
-=== MemberRelatedMembers 
+=== MemberRelatedMembers
 Returns a delimited list of members that are related to the specified member.
 
     @MbrRelatedMbrs(<MemberName>, <Relationship>, [<Delimiter>], [<MemberFormat>], [<EscapeSingleQuotes>], [<ReturnAliases>], [<AliasTable>], [<ConnectionID>], [<DefaultValue>])
@@ -10028,7 +10028,7 @@ Returns a delimited list of members that are related to the specified member.
 |===
 
 
-=== MemberUDAs 
+=== MemberUDAs
 Returns a semicolon delimited list of UDA's for the specified member.
 
     @MbrUDAs(<MemberName>, [<AliasTable>], [<ConnectionID>], [<DefaultValue>])
@@ -10043,7 +10043,7 @@ Returns a semicolon delimited list of UDA's for the specified member.
 |===
 
 
-=== PropertyExists 
+=== PropertyExists
 Returns True/False indicating whether a Property with the specified name exists.
 
     @PropertyExists(<PropertyName>)
@@ -10055,7 +10055,7 @@ Returns True/False indicating whether a Property with the specified name exists.
 |===
 
 
-=== PropertyIsNullOrEmpty 
+=== PropertyIsNullOrEmpty
 Returns True/False indicating whether a Property has a null value or, if the data type is string, whether the value is an empty string.
       If the property does not exist, returns True.
 
@@ -10068,7 +10068,7 @@ Returns True/False indicating whether a Property has a null value or, if the dat
 |===
 
 
-=== PropertyValue 
+=== PropertyValue
 Returns the value of the specified script property.
 
     @PVal(<PropertyName>)
@@ -10080,7 +10080,7 @@ Returns the value of the specified script property.
 |===
 
 
-=== RangeContainsRange 
+=== RangeContainsRange
 Returns TRUE or FALSE depending on whether the first range contains all of the second range.
 
     @RangeContainsRange(<Range1>, <Range2>)
@@ -10093,14 +10093,14 @@ Returns TRUE or FALSE depending on whether the first range contains all of the s
 |===
 
 
-=== ReplaceTokens 
+=== ReplaceTokens
 Does token replacement on the specified string.
 
     @ReplTokens()
 
 
 
-=== RowHeight 
+=== RowHeight
 Returns the row height of a cell.
 
     @RowHeight([<Address>])
@@ -10112,17 +10112,17 @@ Returns the row height of a cell.
 |===
 
 
-=== SavedViewID 
+=== SavedViewID
 Returns the value of the SavedViewID property.
 
     @SavedViewID()
 
 
 
-=== SectionBreakRowOrColumnCount 
+=== SectionBreakRowOrColumnCount
 Returns the number of rows or columns in a section.
       This function can be used to compute the address of a section to enable dynamic formulas to calculate a given view section.
-      This function starts at the bottom or right of a given range and counts each row or column as it processes upward or leftward 
+      This function starts at the bottom or right of a given range and counts each row or column as it processes upward or leftward
       until it finds the next section break value.
       If the value is not found, this function returns the number of cells from the starting cell range to the start of the SectionValuesRange.
 
@@ -10138,7 +10138,7 @@ Returns the number of rows or columns in a section.
 |===
 
 
-=== SelectorDisplayedValue 
+=== SelectorDisplayedValue
 Returns the displayed value of the specified Selector.
 
     @SDVal(<SelectorID>, [<Delimiter>])
@@ -10151,7 +10151,7 @@ Returns the displayed value of the specified Selector.
 |===
 
 
-=== SelectorMemberAlias 
+=== SelectorMemberAlias
 Returns the alias(es) of the selected members for the specified Essbase selector.
 
     @SMbrAlias(<SelectorID>, [<Delimiter>])
@@ -10164,7 +10164,7 @@ Returns the alias(es) of the selected members for the specified Essbase selector
 |===
 
 
-=== SelectorMemberName 
+=== SelectorMemberName
 Returns the name(s) of the selected members for the specified Essbase selector.
 
     @SMbrName(<SelectorID>, [<Delimiter>])
@@ -10177,7 +10177,7 @@ Returns the name(s) of the selected members for the specified Essbase selector.
 |===
 
 
-=== SelectorValue 
+=== SelectorValue
 Returns the value of the specified Selector.
 
     @SVal(<SelectorID>, [<Delimiter>])
@@ -10190,7 +10190,7 @@ Returns the value of the specified Selector.
 |===
 
 
-=== SelectorValueCount 
+=== SelectorValueCount
 Returns the number of selected items in the specified Selector.
 
     @SValCount(<SelectorID>)
@@ -10202,7 +10202,7 @@ Returns the number of selected items in the specified Selector.
 |===
 
 
-=== SheetCount 
+=== SheetCount
 Returns the number of sheets in the active workbook.
 
     @SheetCount([<IncludeHiddenSheets>])
@@ -10214,14 +10214,14 @@ Returns the number of sheets in the active workbook.
 |===
 
 
-=== SourceViewID 
+=== SourceViewID
 Returns the value of the SourceViewID property.
 
     @SourceViewID()
 
 
 
-=== SpecialFolder 
+=== SpecialFolder
 Returns the directory path to a system special folder on the client.
 
     @SpecialFolder(<FolderID>)
@@ -10233,9 +10233,9 @@ Returns the directory path to a system special folder on the client.
 |===
 
 
-=== Substitute 
+=== Substitute
 Replaces existing text with new text in a text string.
-      Unlike the Excel SUBSTITUTE function, this function does not limit the text argument values to 255 characters, 
+      Unlike the Excel SUBSTITUTE function, this function does not limit the text argument values to 255 characters,
       and also allows for specifying whether a match is based on a case-sensitive or a case-insensitive comparison.
 
     @Substitute(<Text>, <OldText>, <NewText>, [<CaseSensitive>], [<InstanceNumber>])
@@ -10251,7 +10251,7 @@ Replaces existing text with new text in a text string.
 |===
 
 
-=== SubstitutionVariable 
+=== SubstitutionVariable
 Returns the value of the specified Essbase SubstitutionVariable.
 
     @SubstVar(<SubstitutionVariableName>, [<connection-ID>], [<scope>])
@@ -10265,21 +10265,21 @@ Returns the value of the specified Essbase SubstitutionVariable.
 |===
 
 
-=== TempFolder 
+=== TempFolder
 Returns the directory path to the client system's temporary folder.
 
     @TempFolder()
 
 
 
-=== Tenant 
+=== Tenant
 Returns the tenant key for the current application.
 
     @Tenant()
 
 
 
-=== TextBoxValue 
+=== TextBoxValue
 Returns the text value of a textbox.
 
     @TextBoxValue(<Name>)
@@ -10291,7 +10291,7 @@ Returns the text value of a textbox.
 |===
 
 
-=== TokenExists 
+=== TokenExists
 Returns True/False indicating whether a Token with the specified name exists.
 
     @TokenExists(<TokenName>, [<UseTargetView>])
@@ -10304,7 +10304,7 @@ Returns True/False indicating whether a Token with the specified name exists.
 |===
 
 
-=== TokenIsNullOrEmpty 
+=== TokenIsNullOrEmpty
 Returns True/False indicating whether a Token has a null value or the value is an empty string.
       If the Token does not exist, returns True.
 
@@ -10318,7 +10318,7 @@ Returns True/False indicating whether a Token has a null value or the value is a
 |===
 
 
-=== TokenValue 
+=== TokenValue
 Returns the value of the specified Token.
 
     @TVal(<TokenName>, [<UseTargetView>])
@@ -10331,21 +10331,21 @@ Returns the value of the specified Token.
 |===
 
 
-=== UsedRange 
+=== UsedRange
 Returns the address of the used range.
 
     @UsedRange()
 
 
 
-=== UserDomainName 
+=== UserDomainName
 Returns the user domain name.
 
     @UserDomainName()
 
 
 
-=== ValueError 
+=== ValueError
 Returns the error-value of a cell.  If a range is not specified the current cell is used.
 
     @ValueError([<Address>])
@@ -10357,7 +10357,7 @@ Returns the error-value of a cell.  If a range is not specified the current cell
 |===
 
 
-=== ValueFormula 
+=== ValueFormula
 Returns the formula of a cell.  If a range is not specified the current cell is used.
 
     @ValueFormula([<Address>])
@@ -10369,7 +10369,7 @@ Returns the formula of a cell.  If a range is not specified the current cell is 
 |===
 
 
-=== ValueLogical 
+=== ValueLogical
 Returns the logical-value of a cell.  If a range is not specified the current cell is used.
 
     @ValueLogical([<Address>])
@@ -10381,7 +10381,7 @@ Returns the logical-value of a cell.  If a range is not specified the current ce
 |===
 
 
-=== ValueNumber 
+=== ValueNumber
 Returns the number-value of a cell.  If a range is not specified the current cell is used.
 
     @ValueNumber([<Address>])
@@ -10393,7 +10393,7 @@ Returns the number-value of a cell.  If a range is not specified the current cel
 |===
 
 
-=== ValueText 
+=== ValueText
 Returns the text-value of a cell.  If a range is not specified the current cell is used.
 
     @ValueText([<Address>])
@@ -10405,77 +10405,77 @@ Returns the text-value of a cell.  If a range is not specified the current cell 
 |===
 
 
-=== ViewCultureCurrencyDecimal 
+=== ViewCultureCurrencyDecimal
 Returns the decimal separator used in currency values as defined by the view's culture.
 
     @CDec()
 
 
 
-=== ViewCultureCurrencyGroupSeparator 
+=== ViewCultureCurrencyGroupSeparator
 Returns the string that separates groups of digits to the left of the decimal in currency values as defined by the view's culture.
 
     @CSep()
 
 
 
-=== ViewCultureCurrencySymbol 
+=== ViewCultureCurrencySymbol
 Returns the currency symbol defined by the view's culture.
 
     @CSym()
 
 
 
-=== ViewCultureDateSeparator 
+=== ViewCultureDateSeparator
 Returns the string that separates the components of a date (year, month, and day) as defined by the view's culture.
 
     @DSep()
 
 
 
-=== ViewCultureListSeparator 
+=== ViewCultureListSeparator
 Returns the list separator defined by the view's culture.
 
     @Sep()
 
 
 
-=== ViewCultureNegativeSign 
+=== ViewCultureNegativeSign
 Returns the string that denotes that a number is negative as defined by the view's culture.
 
     @Neg()
 
 
 
-=== ViewCultureNumberDecimal 
+=== ViewCultureNumberDecimal
 Returns the decimal separator used in numeric values as defined by the view's culture.
 
     @NDec()
 
 
 
-=== ViewCultureNumberGroupSeparator 
+=== ViewCultureNumberGroupSeparator
 Returns the string that separates groups of digits to the left of the decimal in numeric values as defined by the view's culture.
 
     @NSep()
 
 
 
-=== ViewCulturePercentDecimal 
+=== ViewCulturePercentDecimal
 Returns the decimal separator used in percent values as defined by the view's culture.
 
     @PDec()
 
 
 
-=== ViewCultureTimeSeparator 
+=== ViewCultureTimeSeparator
 Returns the string that separates the components of time (hours, minutes, and seconds) as defined by the view's culture.
 
     @TSep()
 
 
 
-=== ViewPropertyValue 
+=== ViewPropertyValue
 Returns the value of the specified view property.
 
     @ViewPVal(<PropertyName>, [<UseTargetView>])
@@ -10488,21 +10488,21 @@ Returns the value of the specified view property.
 |===
 
 
-=== WindowsCultureName 
+=== WindowsCultureName
 Returns the abbreviated name of the Regional Options setting, such as en-US.
 
     @WindowsCultureName()
 
 
 
-=== WindowsUserName 
+=== WindowsUserName
 Returns the Windows user ID.
 
     @WindowsUserName()
 
 
 
-=== WorkbookName 
+=== WorkbookName
 Returns the name of the workbook.
 
     @WorkbookName([<Index>])
@@ -10514,7 +10514,7 @@ Returns the name of the workbook.
 |===
 
 
-=== WorksheetEvaluate 
+=== WorksheetEvaluate
 Evaluates the specified formula via the worksheet and returns the result.
 
     @WSEval(<Formula>)
@@ -10528,15 +10528,15 @@ Evaluates the specified formula via the worksheet and returns the result.
 
 
 == Events
-=== Activated 
+=== Activated
 Occurs when the view is activated.
 
 
-=== ActiveSheetChanged 
+=== ActiveSheetChanged
 Occurs after the active sheet has changed.
 
 
-=== ActiveSheetChanging 
+=== ActiveSheetChanging
 Occurs before the active sheet changes.
 
 |===
@@ -10545,11 +10545,11 @@ Occurs before the active sheet changes.
 | ActivatedSheetIndex | Zero-based index of the activated sheet.
 |===
 
-=== AfterBuild 
+=== AfterBuild
 Occurs after the view has been built.
 
 
-=== AfterCascadeSheetBuild 
+=== AfterCascadeSheetBuild
 Occurs after a cascade sheet has been added and the tokens have been replaced on the sheet.
 
 |===
@@ -10558,15 +10558,15 @@ Occurs after a cascade sheet has been added and the tokens have been replaced on
 | SheetName | The name of the cascade sheet.
 |===
 
-=== AfterCascadeSheetsBuild 
+=== AfterCascadeSheetsBuild
 Occurs after the cascade sheets have been built.
 
 
-=== AfterClose 
+=== AfterClose
 Occurs after the view closes.
 
 
-=== AfterCommentDeleted 
+=== AfterCommentDeleted
 Occurs after a comment has been deleted.
 
 |===
@@ -10584,7 +10584,7 @@ Occurs after a comment has been deleted.
 | UpdatedDate | The string representation of the date the comment was last updated.
 |===
 
-=== AfterCommentSaved 
+=== AfterCommentSaved
 Occurs after a comment has been saved.
 
 |===
@@ -10602,19 +10602,19 @@ Occurs after a comment has been saved.
 | UpdatedDate | The string representation of the date the comment was last updated.
 |===
 
-=== AfterCommentsSaved 
+=== AfterCommentsSaved
 Occurs after the view's comments have been saved.
 
 
-=== AfterCommentsSetup 
+=== AfterCommentsSetup
 Occurs after the view's comments have been setup.
 
 
-=== AfterConstruct 
+=== AfterConstruct
 Occurs after the view instance is created, but before the view user-interface is initialized.  Allows for modifying view properties that affect the user-interface.
 
 
-=== AfterDataSetRangeSave 
+=== AfterDataSetRangeSave
 Occurs after a SQLPassthroughDataSetRange's changes have been saved.
 
 |===
@@ -10623,11 +10623,11 @@ Occurs after a SQLPassthroughDataSetRange's changes have been saved.
 | DataSetRangeName | Name of the saved SQLPassthroughDataSetRange.
 |===
 
-=== AfterDataSetRangesBuild 
+=== AfterDataSetRangesBuild
 Occurs after all the SQLPassthroughDataSetRanges have been built.
 
 
-=== AfterDataTableRangeAddRow 
+=== AfterDataTableRangeAddRow
 Occurs after a row (or rows) is added to a DataTableRange either by a user adding/inserting a row(s) or when an empty row is automatically added.
 
 |===
@@ -10642,7 +10642,7 @@ Occurs after a row (or rows) is added to a DataTableRange either by a user addin
 | SheetName | The name of the sheet that contains the row(s).
 |===
 
-=== AfterDataTableRangeDeleteRow 
+=== AfterDataTableRangeDeleteRow
 Occurs after a row (or rows) is deleted from a DataTableRange.
 
 |===
@@ -10655,15 +10655,15 @@ Occurs after a row (or rows) is deleted from a DataTableRange.
 | SheetName | The name of the sheet that contains the row(s).
 |===
 
-=== AfterExcelTemplatePullToClient 
+=== AfterExcelTemplatePullToClient
 Occurs after the Excel template has been pulled from the server, but before it has been opened.
 
 
-=== AfterExportToExcel 
+=== AfterExportToExcel
 Occurs after the view is saved as an Excel file.
 
 
-=== AfterImportFromExcel 
+=== AfterImportFromExcel
 Occurs after the view is loaded from an external workbook.
 
 |===
@@ -10672,7 +10672,7 @@ Occurs after the view is loaded from an external workbook.
 | WorkbookName | The name of the imported workbook, including the extension.
 |===
 
-=== AfterImportWorksheet 
+=== AfterImportWorksheet
 Occurs after a worksheet is loaded from an external workbook.
 
 |===
@@ -10682,19 +10682,19 @@ Occurs after a worksheet is loaded from an external workbook.
 | WorkbookName | The name of the imported workbook, including the extension.
 |===
 
-=== AfterInitialRetrieveFromBuild 
+=== AfterInitialRetrieveFromBuild
 Occurs after the initial retrieve, which is performed while building the view.
 
 
-=== AfterInitializeUI 
+=== AfterInitializeUI
 Occurs after the view UI is initialized.
 
 
-=== AfterOpenInExcel 
+=== AfterOpenInExcel
 Occurs after the workbook is opened in Excel.
 
 
-=== AfterRangeReplaceTokens 
+=== AfterRangeReplaceTokens
 Occurs after a range token replacement.
 
 |===
@@ -10704,7 +10704,7 @@ Occurs after a range token replacement.
 | SheetName | Name of the sheet that contains the range.
 |===
 
-=== AfterRangeRetrieve 
+=== AfterRangeRetrieve
 Occurs after a range is retrieved.
 
 |===
@@ -10714,7 +10714,7 @@ Occurs after a range is retrieved.
 | SheetName | Name of the sheet that contains the range.
 |===
 
-=== AfterRangeSend 
+=== AfterRangeSend
 Occurs after a range is sent.
 
 |===
@@ -10726,19 +10726,19 @@ Occurs after a range is sent.
           For example, @EPVal(EssConnection.Application) returns the Essbase application associated with the connection.
 |===
 
-=== AfterRefresh 
+=== AfterRefresh
 Occurs after the view has been built.
 
 
-=== AfterSaveAsExcel 
+=== AfterSaveAsExcel
 Occurs after the workbook is saved as Excel.
 
 
-=== AfterSaveAsPdf 
+=== AfterSaveAsPdf
 Occurs after a view's grid data is saved as a PDF.
 
 
-=== AfterSheetKeepOnly 
+=== AfterSheetKeepOnly
 Occurs after an Essbase keep-only operation.
 
 |===
@@ -10749,7 +10749,7 @@ Occurs after an Essbase keep-only operation.
 | SheetName | Name of the sheet that contains the range.
 |===
 
-=== AfterSheetPivot 
+=== AfterSheetPivot
 Occurs after an Essbase pivot operation.
 
 |===
@@ -10760,7 +10760,7 @@ Occurs after an Essbase pivot operation.
 | SheetName | Name of the sheet that contains the range.
 |===
 
-=== AfterSheetRemoveOnly 
+=== AfterSheetRemoveOnly
 Occurs after an Essbase remove-only operation.
 
 |===
@@ -10771,7 +10771,7 @@ Occurs after an Essbase remove-only operation.
 | SheetName | Name of the sheet that contains the range.
 |===
 
-=== AfterSheetReplaceTokens 
+=== AfterSheetReplaceTokens
 Occurs after tokens have been replaced on a sheet.
 
 |===
@@ -10780,7 +10780,7 @@ Occurs after tokens have been replaced on a sheet.
 | SheetName | Name of the sheet that contains the tokens.
 |===
 
-=== AfterSheetReport 
+=== AfterSheetReport
 Occurs after an Essbase report operation.
 
 |===
@@ -10792,8 +10792,8 @@ Occurs after an Essbase report operation.
           For example, @EPVal(EssConnection.Application) returns the Essbase application associated with the connection.
 |===
 
-=== AfterSheetRetrieve 
-Occurs after all Essbase retrieves, if any, are performed for the sheet.  If the view's retrieve policy allows the sheet to be retrieved, 
+=== AfterSheetRetrieve
+Occurs after all Essbase retrieves, if any, are performed for the sheet.  If the view's retrieve policy allows the sheet to be retrieved,
       the event occurs whether or not any retrieves are actually performed.
 
 |===
@@ -10802,19 +10802,19 @@ Occurs after all Essbase retrieves, if any, are performed for the sheet.  If the
 | SheetName | Name of the sheet.
 |===
 
-=== AfterSheetRetrieveOperation 
+=== AfterSheetRetrieveOperation
 Occurs after any Essbase retrieve operation (KeepOnly, RemoveOnly, Pivot, Report, Retrieve, ZoomIn, and ZoomOut) is performed on the sheet.
 
 |===
 | Property | Description
 
 | SheetName | Name of the sheet.
-| RangeName | Keep Only, Remove Only, Pivot, Zoom In, Zoom Out operations only:  Defined name or reference of the retrieve range on which the remove-only operation was performed.  
+| RangeName | Keep Only, Remove Only, Pivot, Zoom In, Zoom Out operations only:  Defined name or reference of the retrieve range on which the remove-only operation was performed.
           When the "used range" is the retrieve range, the property value is null.
 |===
 
-=== AfterSheetSend 
-Occurs after all Essbase sends, if any, are performed for the sheet.  If the view's send policy allows the sheet to be sent, 
+=== AfterSheetSend
+Occurs after all Essbase sends, if any, are performed for the sheet.  If the view's send policy allows the sheet to be sent,
       the event occurs whether or not any sends are actually performed.
 
 |===
@@ -10823,7 +10823,7 @@ Occurs after all Essbase sends, if any, are performed for the sheet.  If the vie
 | SheetName | Name of the sheet.
 |===
 
-=== AfterSheetZoomIn 
+=== AfterSheetZoomIn
 Occurs after an Essbase zoom-in operation.
 
 |===
@@ -10832,12 +10832,12 @@ Occurs after an Essbase zoom-in operation.
 | RangeName | Defined name or reference of the retrieve range on which the zoom-in operation was performed.
           When the "used range" is the retrieve range, the property value is null.
 | SheetName | Name of the sheet that contains the range.
-| DrillLevel | Indicates the drill-level of the zoom-in operation, which is one of the following:  
+| DrillLevel | Indicates the drill-level of the zoom-in operation, which is one of the following:
           NextLevel, AllLevels, BottomLevel, SiblingLevel, SameLevel, SameGeneration, CalcLevel
 | ZoomAcross | A boolean that indicates whether the zoom-in was across (True) or down (False).
 |===
 
-=== AfterSheetZoomOut 
+=== AfterSheetZoomOut
 Occurs after an Essbase zoom-out operation.
 
 |===
@@ -10848,47 +10848,47 @@ Occurs after an Essbase zoom-out operation.
 | SheetName | Name of the sheet that contains the range.
 |===
 
-=== AfterTokenTableBuild 
+=== AfterTokenTableBuild
 Occurs after the token table has been built.
 
 
-=== AfterWorkbookClose 
+=== AfterWorkbookClose
 Occurs after the workbook is closed.
 
 
-=== AfterWorkbookOpen 
+=== AfterWorkbookOpen
 Occurs after the workbook is opened.
 
 
-=== AfterWorkbookRetrieve 
+=== AfterWorkbookRetrieve
 Occurs after all Essbase retrieve operations in the workbook are run.
 
 
-=== AfterWorkbookSend 
+=== AfterWorkbookSend
 Occurs after all Essbase send operations in the workbook are run.
 
 
-=== BeforeBuild 
+=== BeforeBuild
 Occurs immediately after the Build view button is clicked and the view is covered.
 
 
-=== BeforeBuildExecute 
+=== BeforeBuildExecute
 Occurs immediately after the Build view button is clicked, but before the view is covered.
 
 
-=== BeforeCascadeSheetsBuild 
+=== BeforeCascadeSheetsBuild
 Occurs before the cascade sheets are built.
 
 
-=== BeforeCascadeSummarySheetBuild 
+=== BeforeCascadeSummarySheetBuild
 Occurs after the cascade sheets have been built, but before the cascade summary sheet is built.
 
 
-=== BeforeClose 
+=== BeforeClose
 Occurs before the view is closed.
 
 
-=== BeforeCommentDeleted 
+=== BeforeCommentDeleted
 Occurs before a comment is deleted.
 
 |===
@@ -10906,7 +10906,7 @@ Occurs before a comment is deleted.
 | UpdatedDate | The string representation of the date the comment was last updated.
 |===
 
-=== BeforeCommentSaved 
+=== BeforeCommentSaved
 Occurs before a comment is saved.
 
 |===
@@ -10924,15 +10924,15 @@ Occurs before a comment is saved.
 | UpdatedDate | The string representation of the date the comment was last updated.
 |===
 
-=== BeforeCommentsSaved 
+=== BeforeCommentsSaved
 Occurs before the view's comments are saved.
 
 
-=== BeforeCommentsSetup 
+=== BeforeCommentsSetup
 Occurs before the view's comments are setup.
 
 
-=== BeforeDataSetRangeSave 
+=== BeforeDataSetRangeSave
 Occurs before a SQLPassthroughDataSetRange's changes are saved.
 
 |===
@@ -10941,11 +10941,11 @@ Occurs before a SQLPassthroughDataSetRange's changes are saved.
 | DataSetRangeName | The name of the saved SQLPassthroughDataSetRange.
 |===
 
-=== BeforeDataSetRangesBuild 
+=== BeforeDataSetRangesBuild
 Occurs before all the SQLPassthroughDataSetRanges are built.
 
 
-=== BeforeDataTableRangeAddRow 
+=== BeforeDataTableRangeAddRow
 Occurs before a row (or rows) is added to a DataTableRange either by a user adding/inserting a row(s) or when an empty row is automatically added.
 
 |===
@@ -10958,7 +10958,7 @@ Occurs before a row (or rows) is added to a DataTableRange either by a user addi
 | SheetName | The name of the sheet that contains the row(s).
 |===
 
-=== BeforeDataTableRangeDeleteRow 
+=== BeforeDataTableRangeDeleteRow
 Occurs before a row (or rows) is deleted from a DataTableRange.
 
 |===
@@ -10973,15 +10973,15 @@ Occurs before a row (or rows) is deleted from a DataTableRange.
 | SheetName | The name of the sheet that contains the row(s).
 |===
 
-=== BeforeExcelTemplatePullToClient 
+=== BeforeExcelTemplatePullToClient
 Occurs before the Excel template is pulled from the server.
 
 
-=== BeforeExportToExcel 
+=== BeforeExportToExcel
 Occurs before the view is saved as an Excel file.
 
 
-=== BeforeImportFromExcel 
+=== BeforeImportFromExcel
 Occurs before the view is loaded from an external workbook.
 
 |===
@@ -10990,7 +10990,7 @@ Occurs before the view is loaded from an external workbook.
 | WorkbookName | The name of the imported workbook, including the extension.
 |===
 
-=== BeforeImportWorksheet 
+=== BeforeImportWorksheet
 Occurs before a worksheet is loaded from an external workbook.
 
 |===
@@ -11000,15 +11000,15 @@ Occurs before a worksheet is loaded from an external workbook.
 | WorkbookName | The name of the imported workbook, including the extension.
 |===
 
-=== BeforeInitializeUI 
+=== BeforeInitializeUI
 Occurs before the view's UI is initialized.
 
 
-=== BeforeOpenInExcel 
+=== BeforeOpenInExcel
 Occurs before the workbook is opened in Excel.
 
 
-=== BeforeOpenViewForDataCells 
+=== BeforeOpenViewForDataCells
 Occurs before this view opens a target view for the context represented by one or more data cells.
 
 |===
@@ -11018,7 +11018,7 @@ Occurs before this view opens a target view for the context represented by one o
 | TargetViewID | ID of the target view.
 |===
 
-=== BeforeOpenViewForMemberCells 
+=== BeforeOpenViewForMemberCells
 Occurs before this view opens a target vieww for the context represented by one or more member cells.
 
 |===
@@ -11028,7 +11028,7 @@ Occurs before this view opens a target vieww for the context represented by one 
 | TargetViewID | ID of the target view.
 |===
 
-=== BeforeRangeReplaceTokens 
+=== BeforeRangeReplaceTokens
 Occurs before a range token replacement.
 
 |===
@@ -11038,7 +11038,7 @@ Occurs before a range token replacement.
 | SheetName | Name of the sheet that contains the range.
 |===
 
-=== BeforeRangeRetrieve 
+=== BeforeRangeRetrieve
 Occurs before a range is retrieved.
 
 |===
@@ -11048,7 +11048,7 @@ Occurs before a range is retrieved.
 | SheetName | Name of the sheet that contains the range.
 |===
 
-=== BeforeRangeSend 
+=== BeforeRangeSend
 Occurs before a range is sent.
 
 |===
@@ -11059,23 +11059,23 @@ Occurs before a range is sent.
 | EssConnection | Essbase connection object reference, which can be used to get the following properties: Application, CubeViewName, ClusterName, Database, OLAPServer, Stateless.  For example, @EPVal(EssConnection.Application) returns the Essbase application associated with the connection.
 |===
 
-=== BeforeRefresh 
+=== BeforeRefresh
 Occurs immediately after the Refresh view button is clicked and the view is covered.
 
 
-=== BeforeRefreshExecute 
+=== BeforeRefreshExecute
 Occurs immediately after the Refresh view button is clicked, and before the view is covered.
 
 
-=== BeforeSaveAsExcel 
+=== BeforeSaveAsExcel
 Occurs before the workbook is saved as Excel.
 
 
-=== BeforeSaveAsPdf 
+=== BeforeSaveAsPdf
 Occurs before a view's grid data is saved as a PDF.
 
 
-=== BeforeSelectorListItemsResolved 
+=== BeforeSelectorListItemsResolved
 Occurs before selector list items are resolved.
 
 |===
@@ -11084,7 +11084,7 @@ Occurs before selector list items are resolved.
 | SelectorID | The ID of the selector.
 |===
 
-=== BeforeSheetKeepOnly 
+=== BeforeSheetKeepOnly
 Occurs before an Essbase keep-only operation.
 
 |===
@@ -11094,7 +11094,7 @@ Occurs before an Essbase keep-only operation.
 | SheetName | Name of the sheet that contains the range.
 |===
 
-=== BeforeSheetPivot 
+=== BeforeSheetPivot
 Occurs before an Essbase pivot operation.
 
 |===
@@ -11104,7 +11104,7 @@ Occurs before an Essbase pivot operation.
 | SheetName | Name of the sheet that contains the range.
 |===
 
-=== BeforeSheetRemoveOnly 
+=== BeforeSheetRemoveOnly
 Occurs before an Essbase remove-only operation.
 
 |===
@@ -11114,7 +11114,7 @@ Occurs before an Essbase remove-only operation.
 | SheetName | Name of the sheet that contains the range.
 |===
 
-=== BeforeSheetReplaceTokens 
+=== BeforeSheetReplaceTokens
 Occurs before tokens are replaced on a sheet.
 
 |===
@@ -11123,7 +11123,7 @@ Occurs before tokens are replaced on a sheet.
 | SheetName | Name of the sheet that contains the tokens.
 |===
 
-=== BeforeSheetReport 
+=== BeforeSheetReport
 Occurs before an Essbase report operation.
 
 |===
@@ -11134,7 +11134,7 @@ Occurs before an Essbase report operation.
 | EssConnection | Essbase connection object reference, which can be used to get the following properties: Application, CubeViewName, ClusterName, Database, OLAPServer, Stateless.  For example, @EPVal(EssConnection.Application) returns the Essbase application associated with the connection.
 |===
 
-=== BeforeSheetRetrieve 
+=== BeforeSheetRetrieve
 Occurs before all Essbase retrieves, if any, are performed for the sheet.  If the view's retrieve policy allows the sheet to be retrieved, the event occurs whether or not any retrieves are actually performed.
 
 |===
@@ -11143,7 +11143,7 @@ Occurs before all Essbase retrieves, if any, are performed for the sheet.  If th
 | SheetName | Name of the sheet.
 |===
 
-=== BeforeSheetRetrieveOperation 
+=== BeforeSheetRetrieveOperation
 Occurs before any Essbase retrieve operation (KeepOnly, RemoveOnly, Pivot, Report, Retrieve, ZoomIn, and ZoomOut).
 
 |===
@@ -11153,7 +11153,7 @@ Occurs before any Essbase retrieve operation (KeepOnly, RemoveOnly, Pivot, Repor
 | RangeName | Keep Only, Remove Only, Pivot, Zoom In, Zoom Out operations only:  Defined name or reference of the retrieve range on which the remove-only operation is being performed.  When the "used range" is the retrieve range, the property value is null.
 |===
 
-=== BeforeSheetSend 
+=== BeforeSheetSend
 Occurs before all Essbase sends, if any, are performed for the sheet.  If the view's send policy allows the sheet to be sent, the event occurs whether or not any sends are actually performed.
 
 |===
@@ -11162,7 +11162,7 @@ Occurs before all Essbase sends, if any, are performed for the sheet.  If the vi
 | SheetName | Name of the sheet.
 |===
 
-=== BeforeSheetZoomIn 
+=== BeforeSheetZoomIn
 Occurs before an Essbase zoom-in operation.
 
 |===
@@ -11174,7 +11174,7 @@ Occurs before an Essbase zoom-in operation.
 | ZoomAcross | A boolean that indicates whether the zoom-in is across (True) or down (False).
 |===
 
-=== BeforeSheetZoomOut 
+=== BeforeSheetZoomOut
 Occurs before an Essbase zoom-out operation.
 
 |===
@@ -11184,27 +11184,27 @@ Occurs before an Essbase zoom-out operation.
 | SheetName | Name of the sheet that contains the range.
 |===
 
-=== BeforeTokenTableBuild 
+=== BeforeTokenTableBuild
 Occurs before the token table is built.
 
 
-=== BeforeWorkbookClose 
+=== BeforeWorkbookClose
 Occurs before the workbook is closed.
 
 
-=== BeforeWorkbookOpen 
+=== BeforeWorkbookOpen
 Occurs before the workbook is opened.
 
 
-=== BeforeWorkbookRetrieve 
+=== BeforeWorkbookRetrieve
 Occurs before all Essbase retrieves are done on a workbook.
 
 
-=== BeforeWorkbookSend 
+=== BeforeWorkbookSend
 Occurs before all Essbase sends are done on a workbook.
 
 
-=== CellDoubleClicked 
+=== CellDoubleClicked
 Occurs when a cell is double-clicked.
 
 |===
@@ -11218,7 +11218,7 @@ Occurs when a cell is double-clicked.
 | IsRightButton | A boolean that indicates whether the button clicked is the right (True) or left (False) button.
 |===
 
-=== ChartControlDataDoubleClicked 
+=== ChartControlDataDoubleClicked
 Occurs when a chart control's data is double-clicked.
 
 |===
@@ -11233,7 +11233,7 @@ Occurs when a chart control's data is double-clicked.
 | IsRightButton | A boolean that indicates whether the button clicked is the right (True) or left (False) button.
 |===
 
-=== ClipboardPasted 
+=== ClipboardPasted
 Occurs after a paste.
 
 |===
@@ -11242,7 +11242,7 @@ Occurs after a paste.
 | PasteOption | The paste option, which is one of the following: All, Values, Formats, Formulas, AllExceptBorders, FormulasAndNumberFormats, ValuesAndNumberFormats, Comments, ColumnWidths, Validation
 |===
 
-=== ClipboardPasting 
+=== ClipboardPasting
 Occurs before a paste.
 
 |===
@@ -11251,11 +11251,11 @@ Occurs before a paste.
 | PasteOption | The paste option, which is one of the following: All, Values, Formats, Formulas, AllExceptBorders, FormulasAndNumberFormats, ValuesAndNumberFormats, Comments, ColumnWidths, Validation
 |===
 
-=== Deactivated 
+=== Deactivated
 Occurs when the view is deactivated.
 
 
-=== EditCellChanged 
+=== EditCellChanged
 Occurs after a cell's content has changed.
 
 |===
@@ -11268,7 +11268,7 @@ Occurs after a cell's content has changed.
 | SheetName | Name of the sheet that contains the edited cell.
 |===
 
-=== EditCellChanging 
+=== EditCellChanging
 Occurs before cell contents change.
 
 |===
@@ -11281,7 +11281,7 @@ Occurs before cell contents change.
 | SheetName | Name of the sheet that contains the edited cell.
 |===
 
-=== EssbaseExceptionOccurred 
+=== EssbaseExceptionOccurred
 Occurs when an exception occurs during an Essbase operation.
 
 |===
@@ -11292,7 +11292,7 @@ Occurs when an exception occurs during an Essbase operation.
 | Details | Exception details.
 |===
 
-=== FollowHyperlink 
+=== FollowHyperlink
 Occurs when a hyperlink is clicked.
 
 |===
@@ -11304,7 +11304,7 @@ Occurs when a hyperlink is clicked.
 | SubAddress | For a hyperlink that represents an existing file or a range within the same workbook, the SubAddress is the bookmark in the linked file or the address within the same workbook, such as "Sheet1!A1".
 |===
 
-=== ListDataValidationCellChanged 
+=== ListDataValidationCellChanged
 Occurs after a cell that has list style data validation is changed.  Any change to the cell, including the value, format, etc., raises the event.
 
 |===
@@ -11317,11 +11317,11 @@ Occurs after a cell that has list style data validation is changed.  Any change 
 | SheetName | Name of the sheet that contains the edited cell.
 |===
 
-=== Pivoting 
+=== Pivoting
 Occurs before an Essbase pivot operation is initiated by the user dragging and dropping a member cell(s) with the right mouse button.
 
 
-=== RangeChanged 
+=== RangeChanged
 Occurs after a change to one or more cells in a range has been applied.
 
 |===
@@ -11330,19 +11330,19 @@ Occurs after a change to one or more cells in a range has been applied.
 | RangeAddress | Address of the changed range.
 |===
 
-=== RangeSelectionChanged 
+=== RangeSelectionChanged
 Occurs after the selection cells on the sheet has changed.
 
 
-=== RangeSelectionCleared 
+=== RangeSelectionCleared
 Occurs when the user has cleared the selected cells.
 
 
-=== RangeSelectionClearing 
+=== RangeSelectionClearing
 Occurs when the user clears the selected cells.
 
 
-=== RequestGridContextMenuID 
+=== RequestGridContextMenuID
 Occurs when the user right clicks a cell and before the context menu is displayed.
 
 |===
@@ -11356,7 +11356,7 @@ Occurs when the user right clicks a cell and before the context menu is displaye
 | ContextMenuID | Key of the popup menu tool used as the context menu.
 |===
 
-=== RequestSheetContextMenuID 
+=== RequestSheetContextMenuID
 Occurs when the user right clicks in the sheet tab area of a worksheet or anywhere on a chart sheet and before the context menu is displayed.
 
 |===
@@ -11367,7 +11367,7 @@ Occurs when the user right clicks in the sheet tab area of a worksheet or anywhe
 | ContextMenuID | Key of the popup menu tool used as the context menu.
 |===
 
-=== SQLExceptionOccurred 
+=== SQLExceptionOccurred
 Occurs when an exception occurs on the server during a SQL operation.
 
 |===
@@ -11380,7 +11380,7 @@ Occurs when an exception occurs on the server during a SQL operation.
 | ClientStackTrace | The string representation of the frames on the call stack of the client at the time the exception was thrown.
 |===
 
-=== SelectorSelectionChanged 
+=== SelectorSelectionChanged
 Occurs when the selected value(s) for any of the view's selectors change(s).
 
 |===
@@ -11389,7 +11389,7 @@ Occurs when the selected value(s) for any of the view's selectors change(s).
 | SelectorID | The ID of the selector.
 |===
 
-=== Shown 
+=== Shown
 Occurs when the view is initially shown.
 
 
