@@ -1,5 +1,6 @@
 name: dodeca
 title: Dodeca
+version: All Components
 start_page: ROOT:8.0/wbs-documentation-8.0.adoc
 asciidoc:
   attributes:
