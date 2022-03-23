@@ -1,0 +1,3275 @@
+= Version 4.1.0.1749 and Earlier
+// if an {imagesdir} attribute is not defined, define it relative to this file.
+ifndef::imagesdir[:imagesdir: ../images]
+
+[discrete]
+== Dodeca Framework
+
+*Build 1749*
+
+*September 16, 2009*
+
+Comments
+
+* New CommentRange setting: KeyItemsConditionString (#763)
+
+KeyItemsConditionString is a string that evaluates to True or False. It
+controls whether the KeyItemsString is evaluated for any given cell
+within the comment range. When used, the KeyItemsConditionString is
+typically a formula.
+
+Let's say, for example, that the comment range contains blank and locked
+cells that are not intended to have associated comments, and therefore
+should not have any associated key items. To exclude these cells, the
+KeyItemsConditionString can be set to the following:
+
+=Not(Or(IsBlank(@ACell()), @CellIsLocked()))
+
+When a given cell is blank or locked, the condition evaluates to False
+and the KeyItemsString is not applied to the cell.
+
+Alternatively, the same condition can be included in the KeyItemsString
+formula using the Excel IF function. For example, using the following,
+when a cell is blank or locked, the key items string evaluates to an
+empty string:
+
+=If(Or(IsBlank(@ACell()), @CellIsLocked()), "", "<__key items>__")
+
+In cases where many of the cells within the comment range are excluded
+from having comments, performance can sometimes be improved by using the
+KeyItemsConditionString instead of including the same condition in the
+KeyItemsString.
+
+* Note that beginning with Build 1673, it is not necessary to exclude
+the non-origin cells within a group of merged cells using the
+KeyItemsString formula. When a comment range contains merged cells (or
+groups of merged cells), the KeyItemsString is only evaluated for the
+origin cell for each merged group, instead of each individual cell.
+
+dodeca Servlet and dodeca-essbase Servlet
+
+* Several jar files needed to be added to selected application servers,
+because they do not ship with some application servers. Note that these
+jars do ship with the Tomcat configuration delivered by Oracle and will
+have no effect on customers using the 'batteries-included' Tomcat
+instances from Oracle. The new jars are the following:
+
+xercesImpl.jar (DOM Parser)
+
+xml-apis.jar (XML Parser supporting classes)
+
+xalan.jar (XSLT support classes)
+
+jta.jar (javax.transaction classes)
+
+These jar files are included in the WEB-INF\lib directory and may be
+removed if your application server already includes them in its
+distribution.
+
+Note: xercesImpl.jar replaced the older xerces-2.6.2.jar and
+xml-apis.jar replaced a slightly older version. The files added are from
+the Oracle distribution of Tomcat 5.5.17. (#745, #746)
+
+Essbase 11.1.1.3
+
+* Support added for APS 11.1.1.3
+
+_Please contact support@appliedolap.com to request an 11.1.1.3
+compatible version of the dodeca-essbase servlet._ (#744)
+
+Essbase Excel View
+
+* Added _HorizontalScrollBarVisible_ and _VerticalScrollBarVisible_
+properties.
++
+When set to Default, the appropriate scroll bar option setting in the
+Excel template is used. When set to True or False, the scroll bar
+visibility is set accordingly. (#758)
+
+image::image478.jpeg[image,width=483,height=146]
+
+* Export View to Excel Tool -- Fixed issue encountered when any of the
+view's selectors has an ID that contains a character that is not a valid
+character for an Excel defined name. (#747)
+
+Excel 2007
+
+The Excel 2007 file format is now fully supported for the Excel and the
+Excel Essbase view types. (#760)
+
+* Binary Artifact Metadata Editor -- Supports importing either an .xls
+and .xlsx files for an Excel binary artifact.
+* Save As Excel tool -- Allows the user to specify the file extension as
+either .xls or .xlsx, which determines the output Excel file's format.
+* Open In Excel tool -- For the Excel and the Excel Essbase view types,
+the Open in Excel tool opens the view's workbook using the same format
+as the view's Excel template. For the Adhoc and Script Excel view types,
+the view's new ExcelFileFormat metadata property determines the file
+format of the opened Excel file.
+
+Excel View and Essbase Excel View
+
+* Added a _CultureName_ property to support regional settings. (#752)
+
+In Excel, function arguments in formulas are separated by the character
+that is defined as the List Separator in the Regional Options settings
+for the local Windows environment. The character is typically a comma or
+a semicolon. Excel automatically converts the argument separator in an
+Excel file to the list separator in effect when the file is opened.
+
+In Dodeca, the _CultureName_ setting determines the list separator that
+is used for functions in Excel formulas for a given view, regardless of
+the regional settings of the user's Windows environment. The list
+separator that is defined for the view's culture, such as English
+(United States) or French (France), is handled by the view in the same
+way that Excel handles the list separator defined by the regional
+settings. Any formulas defined in the view's Excel template are
+automatically converted to use the view culture's list separator as the
+function argument separator. Any formulas entered by the user into the
+view's spreadsheet must also use the view culture's list separator. Any
+Excel formulas in the workbook scripts that are used by the view must
+also use the view culture's list separator as the function argument
+separator.
+
+By default, the _CultureName_ is set to "English (United States)". The
+formula function argument separator is a comma.
+
+Depending on the particular use case, the view's _CultureName_ property
+can be set at design time or set at runtime using a workbook script. For
+instance, if a view is used by users in different countries and users
+are able to enter formulas into the view's spreadsheet, it may be
+preferable to set the view's _CultureName_ to be consistent with the
+regional settings of the Windows environment. This allows users to use
+the argument separator they are accustomed to using in Excel.
+
+To set a view's _CultureName_ property at runtime, use the
+AfterConstruct event link to set the view's _CultureName_ using the
+@WindowsCultureName() function:
+
+image::image479.jpeg[image,width=379,height=240]
+
+In this scenario, it is also important to create workbook scripts that
+are not written for a specific culture. To create a culture-neutral
+workbook script, use the @SEP() function in place of function argument
+separators in Excel formulas. For instance, instead of using a comma as
+the argument separator in the Address formula:
+
+=Address(@LRow(), @LCol())
+
+Use the @Sep() function, which is replaced at runtime with the list
+separator for the view's culture. So, for example, if the view's
+_CultureName_ is "French (France)", the function returns a semicolon.
+
+=Address(@LRow()@Sep()@LCol())
+
+Caveats:
+
+* The Regional Options do not affect the language used for Excel
+function names. All the Excel function names must be the English
+version.
+* The character used to separate workbook script function arguments must
+always be a comma.
+
+* Added properties to control whether the SpreadsheetGear WorkbookView
+workbook-related dialogs are launched in response to shortcut keys. The
+properties are included in the "UI -- WorkbookView" category. (#755)
+
+image::image480.jpeg[image,width=514,height=211]
+
+[cols=",",options="header",]
+|=======================================================================
+|AllowChartExplorer |Controls whether the Chart Explorer is launched
+when an Excel chart is active and the F6 + Shift keys are pressed.
+|AllowRangeExplorer |Controls whether the Range Explorer is launched
+when a cell is active and the F6 + Shift keys are pressed.
+
+|AllowShapeExplorer |Controls whether the Shape Explorer is launched
+when a shape is active and the F6 + Shift keys are pressed.
+
+|AllowWorkbookDesigner |Controls whether the Workbook Designer is
+launched when the F3 key is pressed.
+
+|AllowWorkbookExplorer |Controls whether the Workbook Explorer is
+launched when the F6 key is pressed.
+|=======================================================================
+
+* Added the _AllowFindAndReplace_ property to control whether the Find
+and Replace dialog is launched from within the view's workbook when
+either the F5 + Shift keys, the Ctrl + F keys, or the Ctrl + H keys are
+pressed. By default, the property is set to True. (#756)
+
+* Added _AllowCopyCutToClipboard_ property to control whether the user
+is allowed to copy and cut from the view using the Ctrl+C and Ctrl+X
+keys, respectively. By default, the property is set to True. (#761)
+
+There are a couple of considerations when deciding whether to allow
+copying and cutting from the view to the clipboard. When the copied
+range is pasted into an Excel spreadsheet, any hidden rows and/or
+columns within the copied range are automatically unhidden in Excel.
+However, setting _AllowCopyCutToClipboard_ to False prevents a user from
+copying and pasting within a view and also from copying from one view
+and pasting into another view.
+
+* The following is a complete list of the keys and related actions
+supported by the WorkbookView user-interface component:
+
+[cols=",",options="header",]
+|=============================================================
+|Key |Action
+|F2 |Start Edit, Toggle Edit Modes
+|F3 |*Workbook Designer**
+|F5 |Go To Dialog
+|F5 + Shift |*Find and Replace Dialog**
+|F6 |*Workbook Explorer**
+|F6 + Shift |*Range Explorer, Shape Explorer, Chart Explorer**
+|F9 |Calculate
+|F9 + Ctrl + Alt |Calculate Full
+|Left |Move Selection Left
+|Left + Shift |Extend Selection Left
+|Left + Ctrl |End Left
+|Right |Move Selection Right
+|Right + Shift |Extend Selection Right
+|Right + Ctrl |End Right
+|Up |Move Selection Up
+|Up + Shift |Extend Selection Up
+|Up + Ctrl |End Up
+|Down |Move Selection Down
+|Down + Shift |Extend Selection Down
+|Down + Ctrl |End Down
+|Tab |Move Selection Right
+|Tab + Shift |Move Selection Left
+|Enter |Move Selection Down
+|Enter + Shift |Move Selection Up
+|Home |Select Left Cell
+|Home + Ctrl |Select Top-Left Cell
+|End |End Right
+|End + Ctrl |Select Last Used Cell
+|Page Up |Move Selection Up Entire Page
+|Page Up + Shift |Extend Selection Up Entire Page
+|Page Up + Alt |Move Selection Left Entire Page
+|Page Up + Alt + Shift |Extend Selection Left Entire Page
+|Page Up + Ctrl |Select Previous Sheet
+|Page Down |Move Selection Down Entire Page
+|Page Down + Shift |Extend Selection Down Entire Page
+|Page Down + Alt |Move Selection Right Entire Page
+|Page Down + Alt + Shift |Extend Selection Right Entire Page
+|Page Down + Ctrl |Select Next Sheet
+|Space + Shift |Select Entire Rows
+|Space + Ctrl |Select Entire Columns
+|Space + Ctrl + Shift |Select Entire Worksheet
+|Backspace |Start Cell Edit, Delete Selected Shapes
+|Backspace + Shift |Show Active Cell
+|Backspace + Ctrl |Show Active Cell
+|Delete |Delete Cell Contents, Delete Selected Shapes
+|Escape |Cancel Cell Edit, Clear Shape Selection
+|Ctrl + A |Select Entire Worksheet
+|Ctrl + B |Toggle Bold Font
+|Ctrl + C |*Copy to Clipboard**
+|Ctrl + D |Fill Down
+|Ctrl + F |*Find and Replace Dialog**
+|Ctrl + H |*Find and Replace Dialog**
+|Ctrl + I |Toggle Italic Font
+|Ctrl + R |Fill Right
+|Ctrl + U |Toggle Underline Font
+|Ctrl + V |Paste from Clipboard
+|Ctrl + X |*Cut to Clipboard**
+|Ctrl + Y |Redo
+|Ctrl + Z |Undo
+|=============================================================
+
+* Controlled by an _Allow<dialog or action>_ property
+
+* Added the _BackgroundThreadWorkbookCalculation_ property to control
+whether calculation of Excel formulas is performed on a background
+thread, which can significantly improve performance for workbooks where
+formulas are used extensively. (#757)
+
+Both the _AllowFindAndReplace_ and _BackgroundThreadWorkbookCalculation_
+properties appear in the Behavior category for an Excel View and an
+Excel Essbase View. The following is a screenshot of the Excel View's
+Behavior properties:
+
+image::image481.jpeg[image,width=624,height=111]
+
+Workbook Scripting
+
+* New Functions: _WindowsCultureName_ and _ViewCultureListSeparator_
++
+The _WindowsCultureName_ function returns the short name of the Windows
+regional options setting.
++
+The _ViewCultureListSeparator_ function returns the list separator
+defined for the culture configured as the view's CultureName. This
+function allows for the creation of culture-neutral workbook scripts by
+using the @SEP function in place of the function argument separator in
+Excel formulas. (#759)
++
+_Refer to the CultureName property description in the Excel View and
+Excel Essbase View section above for additional information about these
+functions._
+
+* New Method: _Close_
+
+The Close method allows a workbook script to close the view. (#748)
+
+* Added a Dimensions parameter to the _DataPointDimValuesMembers_,
+_DataPointDimValuesAliases_, and _DataPointDimValuesDisplayed_
+functions. (#751)
+
+By default, the @DPDimValsMbrs, @DPDimValsAliases, and @DPDimValsDisp
+return a delimited list of all the contributing dimension/member pairs
+for a specified datapoint.
+
+For example, the DataPointDimValuesMembers function can be used to
+return all the dimension/member pairs for the active cell:
+
+@DPDimValsMbrs()
+
+Using an example datapoint in the Sample Basic database, returns:
+
+Year=Jan;Measures=Sales;Product=100-10;Market=New York;Scenario=Budget
+
+The optional Dimensions parameter allows the script to specify the
+dimensions to be included in the result. For instance, the Dimensions
+parameter in the following example specifies that only the Market,
+Product, and Scenario dimension/member pairs should be included in the
+result. (Note that to use the default cell address, alias table, and
+delimiters, the parameters are not specified, but each must be denoted
+with a comma.) So, the function:
+
+@DPDimValsMbrs(, , , , Market;Product;Scenario)
+
+Using the same datapoint as the example above, returns:
+
+Market=New York;Product=100-10;Scenario=Budget
+
+Note: These functions can be used to generate part or all of the key
+items string for a comment range. However, it is always more efficient
+to get the key item values directly from the sheet when possible.
+
+* Modified the following datapoint related functions to remove the need
+to specify the CellAddress argument. If the CellAddress argument is not
+specified, the function uses the active cell address (or the cell being
+processed if a cell-by-cell processing block is active).
+
+DataPointDimValuesMembers
+
+DataPointDimValuesAliases
+
+Other datapoint related functions worked properly if the CellAddress
+argument was not specified, but the CellAddress argument was not
+documented as optional. The documentation was corrected for the
+following functions:
+
+DataPointDimLevel
+
+DataPointDimGeneration
+
+DataPointDimOrientation
+
+DataPointDimValueDisplayed
+
+DataPointDimValueMember
+
+DataPointDimValueAlias
+
+DataPointDimValuesDisplayed
+
+DataPointIsBlank
+
+DataPointIsDouble
+
+DataPointIsError
+
+DataPointIsMissing
+
+DataPointIsNoAccess
+
+DataPointIsZero
+
+DataPointIsReadOnly
+
+DataPointIsReadWrite
+
+Note: The AliasTable argument of several of these functions have also
+changed to indicate that the argument is optional. (#754)
+
+* [Print Method] _PrintToFile_ Overload added (#749)
+
+The PrintToFile overload allows a view to be saved to a Microsoft XPS
+file. (Currently, saving to a PDF is not supported.)
+
+Arguments include:
+
+_PrintWhat_ -- Options include Selection, Sheet, and Workbook
+
+_PrinterName_ -- Currently, only "Microsoft XPS Document Writer" is
+supported.
+
+_Filename_ -- The base name and extension of the output file. The value
+can include workbook script functions and/or Excel formulas.
+
+_FolderOption_ -- Options include MyDocuments or Desktop. If no option is
+specifed, the Folder argument is used.
+
+_Folder_ -- When the FolderOption is not specified, indicates the path of
+the target folder where the output file is saved. The value can include
+workbook script functions and/or Excel formulas.
+
+_IncrementFilename_ -- When True, the base file name is a appended with a
+"(<number>)" if a file with the same name already exists in the target
+folder. For example, if the output file name is "Income Statement.xps",
+and a file with that name already exists, the output file is named
+"Income Statement (2).xps".
+
+The following example illustrates using the PrintToFile overload to save
+a view's workbook to a file that uses the view's ID as the base file
+name with an .xps extension. The file is saved to the MyDocuments
+folder.
+
+image::image482.jpeg[image,width=376,height=400]
+
+* New functions added to support getting information for a member cell:
+(#753)
+
+MemberCellDimensionNumber
+
+MemberCellIsDimension
+
+MemberCellIsExplicitlyShared
+
+MemberCellIsImplicitlyShared
+
+MemberCellIsLabelOnly
+
+MemberCellIsNeverShare
+
+MemberCellIsParent
+
+MemberCellIsStoredData
+
+<<<
+
+*Dodeca Framework Build 1712*
+
+*August 18, 2009*
+
+The version of SpreadsheetGear has been upgraded from 4.0.11.106 to
+5.1.1.112. (The SpreadsheetGear WorkbookView user control is the
+spreadsheet user-interface component used for Excel-based views.) Among
+the new features are the following:
+
+* Support for the 93 functions that are in the Excel 2003 Analysis
+Toolpak, as well as the undocumented DATEDIF function. This brings the
+total number of supported functions to 331.
+* Drag Fill / Auto Fill user interface, including support for numbers,
+dates, times, month names, day names, and certain text patterns.
+* Charting enhancements, including chart axis title rendering, bubble
+chart rendering, and rotated text support.
+* Rotated text support (in cells and charts)
+* Printing support for the active sheet, a selection, or an entire
+workbook.
+
+Printing Tools
+
+* Print Sheet, Print Workbook, and Print Selection
+
+Print Preview Sheet, Print Preview Workbook, and Print Preview Selection
+(#739)
+
+The previous Print and Print All Worksheets tools (although still
+supported) have been replaced with tools that print the active sheet,
+the entire workbook, or a selection. An Essbase Excel view or an Excel
+view can now be configured with a ViewToolbarsConfigurationID that
+references a toolbar configuration that contains the Print popup menu
+tool as well as the Print Preview popup menu tool. These popup menu
+tools are configured as segmented popup menu tools, which behave like a
+button when the tool's icon is clicked and like a menu when the dropdown
+arrow is clicked. Clicking the icon is the same as clicking the Print
+Sheet tool (for the Print popup menu tool) and Print Preview Sheet tool
+(for the Print Preview popup menu tool) from the dropdown list.
+
+image::image483.jpeg[image,width=526,height=204]
+
+image::image484.jpeg[image,width=388,height=165]
+
+An Essbase Excel view or an Excel view can also be configured with a
+MergeableToolbarsConfigurationID that references a toolbars
+configuration that contains the File / Print and Print Preview menus,
+which contain the related print and print preview tools.
+
+image::image485.jpeg[image,width=548,height=342]
+
+In keeping with the Excel paradigm, when a print tool is selected from
+the view's toolbar, the print dialog is not displayed; however, when a
+print tool is selected from the File/Print menu, the print dialog is
+displayed.
+
+These tools have been added to the appropriate toolbars configurations
+in the metadata starter kit. If the starter kit was used to seed a
+tenant's metadata and if changes have not been made to the toolbars
+configurations, then the toolbars configurations can be imported from
+the metadata_starter_kit.zip installed in the installation path, such as
+C:\Program Files\Applied OLAP\Dodeca Framework 4.1.0.0\metadata, which
+will overwrite the existing toolbars configurations.
+
+If changes have been made to the toolbars configurations, such as by
+adding custom context menus, then the new print tools can be added to an
+existing toolbars configuration without overwriting the existing
+toolbars configurations.
+
+The following describes the steps necessary to add the Print and Print
+Preview menus to a mergeable toolbars configuration, such as Essbase
+View Main All:
+
+1.  From the Toolbars Configurations Metadata Editor, select a toolbars
+configuration that is used as a mergeable toolbars configuration. Then,
+open the Toolbars Designer.
++
+image::image486.jpeg[image,width=532,height=378]
+2.  Since the previous tools are no longer needed, delete the Print All
+Worksheets, Print Preview, and Print tools.
++
+image::image487.jpeg[image,width=560,height=405]
+3.  To add the new tools, click the Import Standard Tools and Toolbars
+button located at the lower left. When the wizard opens, advance to the
+Select Popup Menu Tools page by clicking next. Then, check the
+SGPrintMenu and SGPrintPreviewMenu tools.
++
+image::image488.jpeg[image,width=512,height=364]
+4.  Click Next. The print tools are automatically checked. Now, click
+Finish.
++
+image::image489.jpeg[image,width=512,height=364]
+5.  To add the Print and Print Preview menu tools to the File menu,
+select the Popup Menu Designer tab. Then, select the File menu from the
+Popup Menu Tool dropdown list at the upper left.
++
+image::image490.jpeg[image,width=624,height=363]
+6.  Drag the Print Preview and Print popup menu tools from the list of
+available tools in the right panel to the list of tools in the File
+popup menu tool in the left panel.
++
+image::image491.jpeg[image,width=624,height=363]
+7.  By default, the Print and Print Preview popup menu tools are
+configured as segmented popup menu tools. When displayed in the File
+menu, it is more appropriate for the tools to be configured as standard
+popup menu tools.
++
+For both the Print and Print Preview popup menu tools, change the
+DropDownArrowStyle from Segmented to Standard.
++
+image::image492.jpeg[image,width=624,height=364]
+8.  Since the Print tools display the Print dialog when clicked from the
+File menu, append an ellipsis "--" to the caption of the Print Sheet,
+Print Workbook, and Print Selection tools.
++
+image::image493.jpeg[image,width=624,height=438]
++
+The steps are similar for adding the Print and Print Preview tools to a
+toolbars configuration that is assigned to a view as the
+ViewToolbarsConfigurationID.
++
+In Step 5, instead of adding the Print and Print Preview popup menu
+tools to the File menu, the tools are added to the Standard toolbar
+using the Toolbar Designer tab.
++
+image::image494.jpeg[image,width=624,height=438]
++
+Steps 7 and 8 are not necessary.
++
+If you have any questions about the new print and print preview tools
+and/or need assistance with updating the toolbars configurations, please
+contact us at support@appliedolap.com.
++
+Workbook Scripting
+
+* New Method: Print
+
+The Print method provides two overloads: Print and Preview. Both
+overloads support a PrintWhat argument, which can be set to Sheet,
+Workbook, or Selection. The Print overload also supports a ShowDialog
+argument, which controls whether the Print dialog is displayed. (#740)
+
+<<<
+
+*Dodeca Framework Build 1673*
+
+*July 30, 2009*
+
+Application
+
+* Authentication Services
+
+The following Essbase authentication services are now supported _out of
+the box_: _EssbaseUserRolesFromSqlPassthroughDataSets_ and
+_EssbaseUserRolesFromGroupNames_
+
+When an application is configured with either of these services, the
+user is prompted at startup for an Essbase user name and password. The
+service authenticates the user by attempting to connect to the Essbase
+database that is configured for the service.
+
+With the _EssbaseUserRolesFromSqlPassthroughDataSet_* service, the
+service can optionally be configured to query a relational database for
+the role or roles to which the user is assigned.
+
+With the _EssbaseUserRolesFromGroupNames_ service, the names of the
+Essbase groups to which the user is assigned are obtained. (#715)
+
+*****The _EssbaseUserRolesFromSqlPassthroughDataSets_ service provides
+the same functionality as the _EssbaseAuthenticationService_, which is
+supported by the _EssbaseAuthentication_ module. The module was
+previously included with the __metadata_starter_kit.__zip. If you are
+currently using the _EssbaseAuthenticationService_, we recommend that
+you start using the _EssbaseUserRolesFromSqlPassthroughDataSets_
+instead, and remove the _EssbaseAuthentication_ module from your
+application(s).
+
+*Please note that the _EssbaseUserRolesFromGroupNames_ service requires
+an updated dodeca-essbase servlet and is only supported for Essbase
+versions 9.3.0 and higher.*
+
+* [View Selectors] Fixed Issue: When a hierarchy that is configured for
+a view selector no longer exists, the following error is presented:
+"Unable to initialize the view selector. Unable to get the hierarchy
+metadata. Unable to retrieve the checksum for binary artifact
+"SAMPLE.HIERARCHY.CategorizedViewsSG.1". There is an error in XML
+document (2, 184). <BinaryArtifacts xmlns=''> was not expected."
+
+Resolution: A more informative error message is now presented, such as
+"Unable to initialize the view selector. Unable to get the "<hierarchy
+ID>" hierarchy metadata. The ViewSelectorTree is configured with the
+hierarchy "<hierarchy ID>", which is not an existing hierarchy ID."
+(#717)
+
+Comments
+
+* Fixed Issue: When a comments cell value is cleared using the Delete
+key, the cell value is set to an empty string, instead of null.
++
+Resolution: Clearing a comments cell value now sets the value to null.
+(#720)
+
+* [CommentRange] Modified to throw the following exception when a
+comment range contains discontiguous areas:
+
+A comment range contains discontiguous areas. A comment range can only
+contain a single area. CommentRange.Caption =
+"<__CommentRange.Caption__>", CommentRange.Address =
+"<__CommentRange.Address__>". (#707)
+
+* [CommentRange] Fixed Issue: When a comment range's Address property
+does not match the actual defined range based on a case-sensitive
+comparison, an exception similar to the following is raised: "Error
+setting up comments. AppliedOLAP.Dodeca.Common.Range failed. No
+defined names matching <address property value>." For example, if the
+Address property is set to My.Range and the actual range name is
+My.range, the exception occurs.
+
+Resolution: A case-insensitive comparison is now used to determine
+whether the actual range name matches the configured range name. (#703)
+
+* [CommentRange] Fixed Issue: When a comment range is configured with
+BaseKeyItems and the KeyItemsString is not specified, comments cannot be
+added to cells within the range.
+
+Resolution: When BaseKeyItems are defined and no KeyItemsString is
+specified, the key items for each cell (or each group of merged cells)
+within the range are the same. (#706)
+
+* [Save Comments] Fixed Issue: After clicking the Save Comments tool,
+the user is prompted whether to save the changes, lose the changes, or
+cancel the build. When the user cancels the build, the view remains
+covered.
++
+Resolution: When the user cancels the build, the view content is
+uncovered. (#709)
+
+* Client-side Optimizations:
+
+1.  When a comment range contains merged cells (or groups of merged
+cells), the KeyItemsString is only evaluated for the origin cell of each
+merged group, instead of each individual cell.
+2.  When a comment range's CommitPolicy is set to User, the amount of
+time required to save the comments has been significantly reduced.
+Previously, the amount of time increased progressively with each
+subsequent save. (#721)
+
+* *Optimization Recommendation:* BaseKeyItems should typically only be
+used when the KeyItemsString is not a formula that excludes cells within
+the comment range. For example, if the KeyItemsString excludes locked
+cells within the range, then BaseKeyItems should not be used, because
+the BaseKeyItems always apply to all cells within the range. Although
+the comment range can be configured to prevent the user from adding
+comments to a locked cell, as in this example, there is overhead
+incurred at runtime for each cell that potentially can have associated
+comments. To optimize performance, include shared key items in the
+KeyItemsString instead of using the BaseKeyItems, when any cell within
+the comment range is excluded based on the resolved KeyItemsString.
+* Server-side Comment Query Optimization: Previously, the comment query
+functionality issued a query to the underlying relational server for
+each comment id or key hash posted to the server. In certain
+circumstances, this could cause a large number of queries to be posted
+to run against the relational server, which is inefficient. The query
+algorithm was refactored on the server to use the SQL 'IN' clause to
+make the queries more efficient for queries that pass either a CommentID
+or a KeyHash code to the server. (#712) +
+ +
+*Note*: The number of comments included in the IN clause may be
+configured in the dodeca.properties file by setting the
+dodeca.comments.query.batch.size property. The default value is 1000.
+
+dodeca Metadata Servlet
+
+* Fixed Issue: The server uses many resources when querying large
+Binary Artifact objects. This issue is encountered, for example, after
+a very large Excel workbook has been uploaded to the server as a binary
+artifact. When the Binary Artifact Metadata Editor is then subsequently
+opened, the server appears to use too many resources when querying for
+the list of existing binary artifacts.
++
+Resolution: The Dodeca metadata server was refactored to address this
+issue. (#711)
+
+dodeca-essbase Servlet
+
+* Fixed Issue: Values sent to an ASO database are not persisted,
+although no error is reported.
++
+Resolution: Updated the Essbase locking mechanism for ASO to properly
+commit writeback transactions. (#708)
+* New functionality: The follow methods were added to get user and group
+information:
+** GetOlapGroups
+** GetOlapGroupsForUser
+** GetOlapUsers
+** GetOlapUsersForGroups
++
+GetOlapGroups returns a list of Essbase groups. Optionally, an
+application and/or database may be passed to the method to filter the
+results to include only groups that have access to the
+application/database. If there are no groups that meet the criteria, or
+for pre-version 9.3.0 servers, this function will return an empty
+<Groups/> element.
++
+GetOlapGroupsForUser gets a list of Essbase groups that has as a member
+the username used to connect to the Essbase server. If the user belongs
+to no groups, or for pre-version 9.3.0 servers, this function will
+return an empty <Groups/> element.
++
+GetOlapUsers returns a list of Essbase users. Optionally, an application
+and/or database may be passed to the method, along with an
+authentication protocol and a flag to indicate externally authenticated
+users only, to filter the results to include only users that meet the
+specified criteria. If there are no users that meet the criteria, or for
+pre-version 9.3.0 servers, this function will return an empty <Users/>
+element.
++
+GetOlapUsersForGroups returns lists of Essbase users that are members of
+given Essbase groups. This method requires administrative privileges on
+the Essbase server to run successfully. If there are no users in the
+groups, this function will return empty <Group/> elements nested inside
+an empty <Groups/> element. On pre-version 9.3.0 servers, this function
+will return an empty <Groups/> element. (#727)
+* Fixed Issue: Report script \{SKIP} commands used in the
+GetMemberStringsFromReport and GetMemberObjectsFromReport methods did
+not work.
++
+Resolution: The GetMemberStringsFromReport and
+GetMemberObjectsFromReport methods were originally written to return
+only non-blank rows returned from a report script. The functionality was
+modified to support the report script language \{SKIP} command. (#728)
+
+Essbase Connections Metadata Editor
+
+* [Import Connections]: Changed the default Connection ID format from
+[Server].[Application].[Database] to [Application].[Database], since
+many Dodeca administrators use a different Essbase server for
+development versus production. The [Server] substitution string is still
+supported and can be added to the connection ID format as needed. (#729)
+
+Essbase Selector Metadata Editor
+
+* [Import Dimensions] Fixed Issue: Toggling the display of attribute
+dimensions unchecks all checked dimensions.
++
+Resolution: Toggling the display of attribute dimensions unchecks only
+attribute dimensions and only when the attribute dimensions are toggled
+from visible to hidden. (#734)
+* [Import Dimensions] Added ability to toggle the checked state of all
+dimensions. (#735)
++
+Essbase Selector Tree
+* [MemberToolTipOptions ]: Added a Consolidation operation option to the
+MemberToolTipOptions. The possible consolidation values include: Add,
+Subtraction, Multiplication, Division, Percent, Ignore, Never (#731)
+* [MemberToolTipOptions]: When the Comment or Formula option is enabled,
+but a comment or formula is not defined, the "Comment" or "Formula"
+label is not displayed in the member tip. (#731)
+
+Essbase Send Tool
+
+* Fixed Issue: The Send tool was inappropriately prompting the user to
+confirm an operation when a non-sendable sheet had been modified. (#737)
+
+Excel Essbase View
+
+* [AutoFitColumnWidth] Fixed Issue: When an Essbase view's
+_AutoFitColumnWidth_ property is True, hidden columns with the retrieve
+range become visible.
+
+Resolution: Hidden columns within the retrieve range are not auto-fit
+and remain hidden. (#704)
+
+* [Selector] Fixed Issue: When the view has a selector configured with
+a selector list that has the _AutoOpenTree_ or _AutoOpenListbox_
+property set to True and the _ToolVisibleInToolbar_ is also set to True,
+the selector is hidden with the view opens. (#719)
+
+Excel Formatting Tools
+
+* Fixed Issue: The Increase Decimal and Decrease Decimal formatting
+tools cause the client application to lock up when a large number of
+cells is selected.
+
+Resolution: Modified the approach to be consistent with the equivalent
+Excel tools, which adjust the decimal places based on the active cell's
+number format and then set the number format of all the cells in the
+selected range to the modified format assigned to the active cell.
+This approach also resolved the issue encountered when the selection
+includes a large number of cells. (#702)
+
+Metadata Editors
+
+* After committing metadata changes in any of the following metadata
+editors, the previously selected metadata instance is restored as the
+active instance: Applications, Views, View Property Sets, Selector
+Lists, Toolbars Configurations, Binary Artifacts, Workbook Scripts,
+Essbase Connections, Modules, SQL Passthrough Datasets. (#723)
+* Collapse All / Expand All context menu options are available for the
+Settings area in the Applications, Views, and View Property Sets
+metadata editors. (#724)
++
+image::image495.jpeg[cid:image001.jpeg@01CA0EC2.47BE7970,width=433,height=354]
+
+View Metadata Editor
+
+* NamedPropertySets Editor -- The dialog now has a splitter bar, which
+allows for resizing the width of the Defined Property Sets list. (#722)
+
+Workbook Scripting
+
+* [SetSelector Method] Fixed Issue: The Clear overload does not clear
+the selection. (#710)
+
+* [Import View from Excel] Enhancement: When an Excel Essbase view is
+imported from Excel, a workbook script can access the external workbook
+using external references. (#716)
+
+The following events are raised during the import processing:
+
+_BeforeExcelImport_, _AfterExcelImport_, _BeforeImportWorksheet_, and
+_AfterImportWorksheet_
+
+A "WorkbookName" event property has been added for each of these events,
+which allows a workbook script to use Excel external references to
+access the Excel file, such as with the following formula:
+
+='[@EPVal(WorkbookName)]Input'!@ACell()
+
+The @EPVal(WorkbookName) evaluates to the name of the external workbook,
+which is resident in memory during the import, so the workbook is
+treated like an opened external workbook in Excel. So, for example,
+this allows a workbook script to copy values, formulas, and/or
+formatting, etc. from the external workbook into the view's workbook.
+The script can also prevent the default processing* from being performed
+by using the _CancelEvent_ method from within the
+_BeforeImportWorksheet_ event link.
+
+*By default, the data within each send range is copied from the external
+workbook to the view's workbook.
+
+By way of example, the following workbook script illustrates this
+functionality:
+
+Let's say that when a specific sheet is imported that you want to set
+the value of each unlocked cell within a specific range in the view's
+workbook to the value from the corresponding cell in the external
+sheet. The DoBeforeImportWorksheet in the screenshot below is
+configured accordingly:
+
+image::image496.jpeg[cid:image002.jpeg@01CA0EC2.47BE7970,width=498,height=354]
+
+The MethodCondition uses the BeforeImportWorksheet event property
+"SheetName" to restrict the processing of this method to only the Input
+sheet. This is important when the workbook contains multiple sheets.
+
+=IF ("@EPVal(SheetName)"="Input", TRUE, FALSE)
+
+The CellCondition excludes locked cells based on whether the cell in the
+view's workbook is locked.
+
+The Entry uses the BeforeImportWorksheet event property "WorkbookName"
+to reference the external workbook that is being imported. The value is
+obtained from the same cell location in the external worksheet as the
+current cell within the CellByCell loop.
+
+='[@EPVal(WorkbookName)]Input'!@ACell()
+
+Using the CopyRange method with the Specify overload could be used to
+copy an entire range from the external workbook by using an external
+reference for the CopyRange argument; a local range within the view's
+workbook as the PasteRange; and the PasteType (i.e. All, Formats,
+Formulas, Values, etc.) to control what gets copied.
+
+Note: The Before/AfterImportWorksheet events also expose a SheetName
+event property, which can be accessed using @EPVal(SheetName).
+
+<<<
+
+*Dodeca Framework Build 1603*
+
+*June 8, 2009*
+
+Application
+
+* New setting: _TabbedWindowShowTab_ controls whether the tab area of
+tabbed window groups is visible. (#687)
+* New setting: _ViewSelectorAllowResize_ controls whether the view
+selector can be resized by the user. (#687)
+* Default Admin Toolbars: Added Utilities/Clear Workspace Layout Cache
+tool, which clears the workspace layout from the local cache. When the
+application's CacheWorkspaceLayout is set to True, the workspace layout
+is cached when the application is exited. (#694)
+
+image::image497.jpeg[image,width=396,height=178]
+
+* Fixed Issue: When using the Default Admin Toolbars (or the Essbase
+Admin Console toolbars configuration from the metadata_starter_kit), the
+order of the Window and Help menus is reversed when a view that has a
+MergeableToolbarsConfigurationID is opened. (#696)
+
+Excel Essbase View
+
+* Fixed Issue: Worksheet tokens that contain special characters are not
+being replaced properly. With this build, in addition to square
+brackets, which are already supported, worksheet tokens can now contain
+the following additional special characters:
+
++ ^ $ . | \{ } ( ) * ?
+
+(#684)
+
+* Modified the ChartRetrieveRangeInfo: Added _TitleTop_ and _SheetName_
+settings
+
+_TitleTop_ is the text displayed as the title at the top of the chart
+within the chart control area. The value can be tokenized.
+
+_SheetName_ is the name of the sheet that contains the data to be
+represented by the chart. The _SheetName_ setting is used instead of the
+_RetrieveRangeName_ when the "used range" of a worksheet represents the
+Essbase retrieve range. To configure a chart to represent the used range
+of a worksheet, use the _SheetName_ to specify the name of the
+worksheet, and leave the _RetrieveRangeName_ blank.
+
+The _RetrieveRangeName_ is not a new property, but the description has
+been updated per the addition of the _SheetName_ property.
+
+_RetrieveRangeName_ is the defined range name (i.e.
+Ess.Retrieve.Range.<identifier>) that represents the Essbase retrieve
+range that contains the data to be represented by the chart. When the
+chart represents a sheet-level range, the range name should either
+include the worksheet name as part of the range name by using the Excel
+defined name convention, such as 'Market by
+Quarter'!Ess.Retrieve.Range.1 OR use the _SheetName_ property to specify
+the name of the worksheet. (#691)
+
+Excel Essbase View, Ad hoc Essbase View, and Script Essbase View
+
+* When an Essbase view is configured to use a view UI that contains one
+or more UltraChart instances, such as _WorkbookViewAndUltraChart_ and
+_WorkbookViewAndUltraChart2_, the charts are drillable. (#693)
+
+Export Metadata to Local Zip File Utility
+
+* Fixed Issue: If the specified zip file already exists and is
+read-only, the application aborts with an unhandled exception. (#683)
+
+Toolbars Configuration Metadata Editor
+
+* Toolbars Designer -- Modified to display both the tool caption and key
+as the tooltip on the Toolbars Designer and Popup Menu Designer. (#697)
+* Import Standard Tools and Toolbars (and Import Tools and Toolbars from
+a Toolbars Configuration) -- The Toolbars, Popup Menus, and Tools are now
+sorted in ascending order by key. (#698)
+
+View User-Interface
+
+* The WorkbookViewAndUltraChart and WorkbookViewAndUltraChart2 view
+user-interfaces, which are supported as options for a view's
+_WindowsViewUIObjectTYpeID_ setting, no longer hide the dockable control
+panes when the view is covered. Instead, the dockable control panes
+remain visible, but the chart controls that are contained by the windows
+are hidden, which results in a better visual presentation when the view
+is built. (#686)
+
+Workbook Script
+
+* Fixed Issue: If the Toolbars Configuration Metadata Editor's
+_Configure Tools_ dialog is used to add or modify a
+_WorkbookScriptToolController_ tool that has a workbook script
+configured as the WorkbookScriptID argument and the _ProcedureName_,
+_EnabledPropertyName_, _CheckedPropertyName_, _ValuePropertyName_, or
+_VisiblePropertyName_ argument is specified by selecting a value from
+the property value's dropdown list, then the following exception is
+thrown the next time a view that uses the same workbook script is
+opened: "Unable to open view <ViewID>. Specified method is not
+supported." There are also other possible scenarios that can result in
+the same exception. (#685)
+
+Workspace Layout
+
+* This is a BREAKING CHANGE.
+
+For an application for which either of the following is true, any
+existing workspace layout will have to be recreated.
+
+\1. The ViewSelectorCaption value is set to something other than the
+default value, which is an empty string.
+
+\2. The ViewSelectorCaptionTab is set to something other than the
+default value, which is "View Selector"
+
+If the application's WorkspaceLayoutBinaryArtifact setting is assigned a
+workspace layout, the view selector may not be docked properly when the
+application starts up. If not, use the Application Setup Utility to
+clear the WorkspaceLayoutBinaryArtifact setting. You should then be able
+to startup the application, recreate the workspace layout binary
+artifact, and then assign the new layout to the application. (#688)
+
+<<<
+
+*Dodeca Framework Build 1569*
+
+*May 7, 2009*
+
+Comments
+
+* Fixed Issue: In the View Metadata Editor, the Comment Range
+Configurations Editor and Comment Key Items Editor do not update the
+item's label in the list when a comment range's caption or a base key
+item's name is changed. (#672)
+
+Excel Essbase View
+
+* Fixed Issue: If the _AllowSend_ setting is True and the view's toolbar
+contains the Send tool, the user is prompted when attempting to rebuild
+the view if any values have changed. If the user clicks "No", the
+rebuild is cancelled, but the view remains covered. This issue was
+introduced in Build 1498 with a change to the Build View tool. The issue
+is being addressed with a change to the Send tool. (#680)
++
+View Selector Tree
+* Fixed Issue: The tree displays duplicate root nodes for a hierarchy
+when the hierarchy is mapped to multiple roles (and the current user is
+assigned multiple roles) and the _HierarchyRootNodeDisplayPolicy_ is
+_Hierarchy_. (#678)
+
+View Selectors
+
+* Enhancement: When the ViewSelectorProperties _AllowEditViewMetadata_
+setting is True, an "Edit Excel Template" item is displayed on the
+context menu if the view is assigned an Excel template binary artifact.
+When the menu item is clicked, the Binary Artifacts metadata editor is
+opened or activated and the view's Excel Template binary artifact is
+automatically selected. This menu item is only displayed for an Excel
+view or an Excel Essbase view. (#677)
+
+This capability is supported for both the ViewSelectorExplorerBar and
+the ViewSelectorTree. It is intended for use with an Admin application
+as a way to quickly access a view's Excel template binary artifact
+directly from the view selector. By default, the setting is False to
+avoid unintentionally giving end users access to the metadata.
+
+image::image498.jpeg[image,width=364,height=360]
+
+Workbook Scripting
+
+* Fixed Issue: When the _BuildRangeFromScript_ method's _CopyFromRange_
+argument is assigned a range and either rows or columns are being added
+(_Insert_ = _False_), the method increments the current row (when adding
+rows) or current column (when adding columns) by 1 instead of the total
+number of rows/columns in the range. This causes all but the first row
+(when adding rows) or first column (when adding columns) of each copied
+range to be overwritten by the subsequent copied range. (#682)
+* Modified EventPropertyValue @EPVal(<PropertyName>) function: The
+function now allows the PropertyName to be an EventArg that represents
+an object reference followed by a period "." and property name, which
+can also be an object reference followed by a period "." and property
+name, and so on. (#681)
+
+<<<
+
+*Dodeca Framework Build 1552*
+
+*April 21, 2009*
+
+Comment Range
+
+* Added Formula Editor Dialog for the following view comment range
+settings: AllowAddString, AllowDeleteString, AllowUpdateString,
+ContextString, and KeyItemsString. (#671)
+
+Comments Explorer
+
+* Added support for multi-line comments. The Comments Explorer displays
+the entire comment, including all the comment lines, and wraps the text
+as needed when the width of any line exceeds the width of the comment
+field. When a comment field is activated by the user, a pop-up editor
+window displays on top of the field. The user can advance to a new line
+using the Enter key. To exit the cell, the user can either press the Tab
+key or click the mouse outside the edit window. Pressing the Escape key
+cancels the edit. (#669)
+* Optimized the Comments Explorer to address the delay when entering a
+comment encountered when the view contained many comments ranges. (#665)
+* Optimized the implementation of the saving of comments by avoiding
+reloading the comments when the save is in response to the view being
+rebuilt, refreshed, or closed. (#666)
+* Modified the prompt to include the name of the view when the user
+attempts to build, refresh, or close a view that has unsaved comment
+changes. (#674)
+* Set the Horizontal/Vertical orientation state button caption to
+"Vertical" when "on" and "Horizontal" when "Off". The caption is used as
+the tooltip. (#676)
+* Fixed Issue: The "Response" button is enabled when no comment rows
+exist and when no comment is selected.
+
+Essbase Login Service
+
+* A new Essbase Login Service, EssbaseLoginDialogWithGenericCaption, is
+now available that does not display the Server/Application/Database in
+the login dialog caption. (#670)
+
+Metadata Editors
+
+* The following secondary forms were modified to display with a larger
+initial size and they now contain a splitter bar: SQLPassthroughDataSet
+Query Editor, Comment Range Configuration Editor, Comments Key Items
+Editor, and the Essbase Excel View's Chart Retrieve Range Information
+Editor. (#668)
+
+Selector Listbox (and Essbase Selector Listbox)
+
+* Fixed Issue: The "Select All" button is not enabled when the listbox
+is displayed. (#675)
+
+Workbook Script Metadata Editor
+
+* Fixed Issue: When the active workbook script is deleted and the user
+clicks the Commit button, an "Object reference not set to any instance
+of an object" is thrown. (#667)
+
+<<<
+
+*Dodeca Framework Build 1527*
+
+*March 31, 2009*
+
+Comments
+
+* Added LastUserID and LastDateTime to the Comments Explorer. (#656)
+* Added tokens related to the current comment before AllowUpdateString
+and AllowDeleteString are evaluated. The following tokens are available
+for the current comment: [T.Comment.CreatedBy],[T.Comment.CreatedDate],
+[T.Comment.UpdatedBy], [T.Comment.UpdatedDate] This allows the developer
+to use formulas for AllowUpdateString and AllowDeleteString that are
+evaluated based on the values of the comment dates and UserIDs. (#661)
+* The displayed comment dates are converted to local time/date format.
+(#655)
+* Added CommentRange.AllowAddString property: Allows a developer to
+control whether comments can be added on a cell-by-cell basis within a
+comment range. (#660)
+* Added CommentRange.ExcelFormat property: Allows a developer to specify
+how the Excel comments are constructed. The options include the
+following:
+** Comment, Comment only
+** UserComment, Username: Comment
+** TimeComment, (m-d-yy h-m-s): Comment
+** UserTimeComment, Username (m-d-yy h-m-s): Comment (#659)
+
+* Added CommentRange.DateFormat property: Allows a developer to specify
+the format of the dates when displayed in the Comments Explorer (#659)
+* Modified the Comments Explorer to display the CreatedBy and
+CreatedDate in the UpdatedUserID and UpdatedDate columns if the latter
+two columns are empty. This allows the developer to only display the
+latter two columns, rather than having to display Created columns and
+LastUpdated columns. (#659)
+
+Toolbars Configuration MetadataEditor
+
+* Fixed the following issues with the Toolbars Designer:
+** The ImageSmall in the Basic Properties grid cannot be cleared.
+** A tool's image in the tools list is not updated when the small image
+is changed. This is an issue when the ImageSmall setting is edited in
+the Basic Properties grid and also when the
+SharedProps.AppearancesSmall.Appearance.Image is edited in the All
+Properties grid.
+** The Commit button is not enabled when the small image changes. (#664)
+
+View Hierarchies Metadata Editor
+
+* The Name setting for a hierarchy item is now optional. If not
+specified, the ID is used instead. This avoids having to enter both an
+ID and a name when an item is created.
+
+* Hierarchy Validation
++
+A specific hierarchy can now be validated on demand by selecting
+_Validate Hierarchy_ from the context menu.
++
+Note: All hierarchies are automatically validated prior to committing.
++
+image::image499.jpeg[image,width=367,height=436]
++
+The errors are reported and the offending items are highlighted, but the
+errors do not prevent a hierarchy from being committed. The view
+selectors ignore non-existent views and invalid workspace layout items.
++
+image::image500.jpeg[Hierarchy.jpeg,width=504,height=405]
++
+Beginning with this build, potential validation errors are 1) a
+non-existent view included in a hierarchy; 2) a workspace layout item
+that is not assigned a layout; and 3) a workspace layout item that is
+assigned a layout that does not exist.
+
+Workbook Scripting
+
+* Added SendEmail Method: The arguments, which can all be calculated
+within the context of the view, include: AttachView, Bcc, Cc, Message
+(body), Prompt (whether to simply send or wait for use to click Send),
+Subject, and To (recipient) (#658)
++
+Workspace Layout
++
+The physical layout of the windows in a Dodeca application workspace,
+including the docked window that contains the view selector and the
+tabbed windows that contain specific views, saved views, or metadata
+editors, can now be captured, persisted, and restored.
++
+Workspace layouts can be utilized in several ways:
+
+* A workspace layout can be saved as a binary artifact, associated with
+an application, and automatically loaded at startup. So, for example, an
+application can function as a dashboard by configuring the application
+with a pre-defined layout of views that are automatically opened and
+presented at startup.
+* A workspace layout can be saved as a binary artifact, added to a view
+hierarchy, and can then be opened and loaded from a view selector. As
+with the previous example, these predefined layouts can be thought of as
+dashboards.
+* A workspace layout can be saved as a file to the file system and then
+opened and loaded on demand. This gives a user the ability to create a
+personal library of layouts, which are persisted locally.
+* An application can be configured to cache the current layout when the
+application is exited, then automatically restored at startup.
++
+The default Admin application toolbars configuration contains the Layout
+menu.
++
+image::image501.jpeg[image,width=336,height=201]
++
+The _Save Layout as Binary Artifact_ and _Load Layout from Binary
+Artifact_ tools are intended for Admin use only. A WorkspaceLayout
+binary artifact can also be created using the Binary Artifact Metadata
+Editor. The _Save Layout as File_ and _Load Layout from File_ can be
+added to the toolbars configuration used by a User application to allow
+users to persist and load layouts locally.
++
+The _Save Layout as Binary Artifact_ and _Save Layout as File_ tools
+save the current workspace layout, which includes the 1) docked
+location, size, and pinned/unpinned state of the view selector and 2)
+the location and grouping of the tabbed windows that contain specific
+views and metadata editors.
++
+The WorkspaceLayout binary artifact can be associated with an
+application using the _WorkspaceLayoutBinaryArtifact_ property. The
+layout is automatically loaded at startup. When the
+_CacheWorkspaceLayout_ setting is True, the current layout is cached
+locally when the application exits and loaded at startup.
++
+If layout caching is enabled and the _WorkspaceLayoutBinaryArtifact_ is
+assigned a workspace layout, then the metadata-based layout is loaded
+the first time the application is run and then the current layout is
+cached each time the application is exited and loaded the next time the
+application starts up.
++
+image::image502.jpeg[image,width=533,height=244]
++
+The layout can also be added to a hierarchy, which allows a user to open
+layouts from the view selector Explorer Bar or tree.
++
+image::image503.jpeg[image,width=624,height=398]
++
+Remarks:
+
+* A workspace layout does not retain content-related information for the
+views that are open when the layout is saved. When a layout is loaded,
+each view in the layout is automatically opened just as if the view was
+opened from the view selector. All of a view's current metadata settings
+are applied and, if the view contains selectors, the default selections
+are set based on the current configuration, and not on the selections in
+place when the layout was saved.
+* If the layout contains a saved view, the last version of the saved
+view is opened.
+* Any view or saved view that was deleted after the layout was saved is
+ignored when the layout is loaded. In other words, no error is
+generated.
+* Since any metadata editor that is open when a layout is saved is
+included in the layout and opened when the layout is loaded, care should
+be taken to not inadvertently include metadata editors in layouts that
+are used by non-Admin applications.
+
+<<<
+
+*Dodeca Framework Build 1498*
+
+*March 9, 2009*
+
+Application Metadata Editor
+
+* The ViewSelectorProperties.HierarchyToRoleMapping now allows multiple
+hierarchies to be mapped to the same role. (#651)
+
+Toolbars Configuration Metadata Editor
+
+* Fixed Issue: When a toolbar is repositioned by dragging and dropping
+the toolbar in the Preview area, the Commit button is not enabled, and
+if committed, the new location is not persisted. (#646)
+* Fixed Issue: Step 1) A new toolbars configuration is created either by
+using the New tool or by copying an existing toolbars configuration.
+Step 2) The Configure Tools dialog is used to configure a tool, and the
+new toolbars configuration is committed when the dialog is closed. Step
+3) Go to the View Metadata Editor and attempt to assign the new toolbars
+configuration to a view. The dropdown list does not contain the
+instance. (#654)
+
+View Hierarchy Metadata Editor
+
+* Fixed Issue: Unable to drag an item and insert above another item.
+(#649)
+* When the user clicks the right mouse button on a node, the node
+automatically activates and becomes the selected node, and the context
+menu displays. Previously, to display the context menu for a node, the
+node would have to be selected with the left mouse button first, and
+then clicked with the right mouse button. If the right mouse button is
+clicked within the tree, but not on a node, the context menu is
+displayed for the currently selected node, and if no node is selected,
+the context menu contains only non-item options. (#650)
+
+Workbook Scripting
+
+* Added SetSelector method. The General overload supports setting the
+selection, setting whether the selector requires a selection, and/or
+setting the visibility of the selector tool in the toolbar. The Clear
+overload clears the selection. (#652)
+
+* Modified AfterBuild event to be cancellable. This allows the workbook
+script to cancel the build processing upon completion. When the
+AfterBuild event is cancelled, none of the usual "after build"
+processing occurs, such as uncovering the view content, updating the
+view caption, refreshing the other tools, etc. (#647)
+
+Workbook Script Metadata Editor
+
+* Fixed Issue: Error encountered when saving a script that contains a
+procedure with no methods. This issue was introduced in the last build.
+(#653)
+* Procedure validation: On commit, when an event link is assigned a
+procedure that has been deleted, the user is prompted with the following
+options: 1) Remove the event link, 2) Clear the procedure name from the
+event link, or 3) Cancel the deletion of the procedure. (#648)
+
+<<<
+
+*Dodeca Framework Build 1483*
+
+**February 25,
+2009**image::image504.jpeg[image,width=16,height=16]
+
+View Selector Tree
+
+* Fixed Issue: When the AllowEditViewMetadata property set to False, the
+context menu contains the Edit View (and Edit WorkbookScript) items.
+Although the items do not contain the view ID (and workbook script ID),
+the user is still able to navigate to the metadata editor.
+
+<<<
+
+*Dodeca Framework Build 1481*
+
+*February 24, 2009*
+
+The version of SpreadsheetGear has been upgraded from 4.0.8.104 to
+4.0.11.106.
+
+Application
+
+* Changed the default value for the _ViewSelectorCaptionTab_ setting to
+"View Selector" and for the _ViewSelectorToolTip_ setting to "To open a
+view, click on the view name with the left mouse button." Previously,
+the default for both settings was an empty string. (#608)
+* Application Branding -- An image, such as a company logo, can be
+displayed at the top of the view selector. In the View Selector section
+of the application metadata, the ViewSelectorProperties includes *Image*
+and *ImageBackColor* settings. The settings are supported for the
+ViewSelectorExplorerBar and the ViewSelectorTree. (#642)
++
+image::image505.jpeg[image,width=624,height=387]
+
+At runtime, the image is scaled only when the width of the view selector
+is less than the width of the image.
+
+* An application can be configured to allow navigating from a view in
+the view selector to the view's properties in the View Metadata Editor
+or to the view's workbook script in the Workbook Script Metadata Editor.
+When the ViewSelectorProperties *AllowEditViewMetadata* setting is True,
+an "Edit View" item is displayed on the context menu. The item opens or
+activates the View Metadata Editor and selects the view's metadata. If
+the view is assigned a workbook script, an "Edit Workbook Script" item
+is also displayed on the context menu, which opens or activates the
+Workbook Script Metadata Editor and selects the view's workbook script.
+(#643)
+
+This capability is intended for use with an Admin application as a way
+to quickly access a view's metadata or workbook script settings directly
+from the view selector. By default, the setting is False to avoid
+unintentionally giving end users access to the metadata.
+
+image::image506.jpeg[Screenshot.bmp,width=589,height=495]
+
+Comments
+
+_Comments are supported for the Excel View and Essbase Excel View
+types._
+
+* BREAKING CHANGE: The _OnSheetCommentsRangeHandler_ has been replaced
+by the _WorkbookViewCommentsRangeHandler_. Comment ranges configured to
+use the OnSheetCommentsRangeHandler will have to be reconfigured to use
+the WorkbookViewCommentsRangeHandler.
+* Comment ranges: One or more comment ranges can be configured for a
+view. A range can be configured to display comments in the cells of the
+range, or only link the comments to the cells of the range, presumably
+using the Comments Explorer to display and edit the comments. Comment
+ranges can be configured for only one comment per cell, multiple
+comments per cell, or threaded comments per cell.
+* *Comments Explorer*: A view can be configured to display the new
+Comments Explorer. The explorer can be configured to allow adding,
+changing, and deleting comments. It can also be configured to display
+the values that link the comments to the cell, as well as a configurable
+context string that can provide information about the value that was in
+context when the comment was saved.
+
+image::image507.jpeg[cid:image003.jpeg@01C995D9.64486E00,width=624,height=345]
+
+Essbase Excel View
+
+* New Setting: The *EnforceEssbaseFilterOnOpenViewForDrillthrough*
+setting applies when the _DataCellDoubleClickPolicy_ is
+_OpenViewForDrillthrough_. It controls whether the view is opened when
+the user double-clicks a data cell, but does not have access to the cell
+based on an Essbase filter. The setting defaults to True, which prevents
+the drillthrough when the user does not have access to the data cell.
++
+The OpenViewForDataCellToolController also supports an
+*EnforceEssbaseFilter* tool argument, which is used to determine whether
+the tool is displayed on the context menu when the user right clicks on
+the active cell. (#618)
+* Fixed Issue: The view throws an exception when a chart sheet is
+activated. (#609)
++
+Essbase Excel View and Excel View
+* The error message previously displayed when the
+_ExcelTemplateBinaryArtifact_ does not contain an Excel file has been
+replaced. (#641)
+
+An example of the previous error message:
+
+Unable to build the view. Unable to open Excel file "C:\Documents and
+Settings\user\Application Data\Applied OLAP,
+Inc.\Dodeca\4.1.0.0\SAMPLE.GENERAL.Test.1". Unrecognized file type.
+
+Has been replaced with:
+
+Unable to open the Excel template "C:\Documents and
+Settings\user\Application Data\Applied OLAP,
+Inc.\Dodeca\4.1.0.0\SAMPLE.GENERAL.Test.1". The file size is 0 bytes.
+Verify that the binary artifact "Test, Version 1" contains the Excel
+file.
+
+Essbase Views
+
+* Fixed Issue: When the _EssProperties.UseBothForRowDimension_ is True,
+any code that attempts to determine the dimension layout for a cell that
+contains the alias fails. (#621)
+
+Hierarchy Metadata Editor
+
+* New Context Menu options: Expand All Hierarchies, Collapse All
+Hierarchies. (#627)
+* Renamed Context Menu options: Expand All is now Expand All Items, and
+Collapse All is now Collapse All Items. These options affect the nodes
+within the active hierarchy. (#628)
+* Drag and Drop is now supported for moving and copying hierarchy items
+and views within a hierarchy or across hierarchies. The context menu
+options for Cut/Copy/Paste are still supported. (#644)
+
+* Fixed issue: When the Hierarchy Metadata Editor Explorer Bar, which
+displays the hierarchies, is initially filled or refreshed after a
+Commit, or when a new hierarchy is added, a box is temporarily displayed
+in the upper left area of the Explorer Bar. (#625)
+
+Selector ComboBox
+
+* Fixed Issue: When a selector combobox defaults the selection to an
+item that is not the first item in the dropdown list and the selector
+list is not configured to validate the selection, and the user then
+selects the first item, then the default item remains selected when the
+user exits edit mode. (#617)
+
+SelectorListBox, EssbaseSelectorListBox, and EssbaseSelectorTreeView
+
+* A view's *SelectorDockedControlGroupStyle* setting configures the
+layout of the view's selector controls as one of the following: tabbed,
+stacked, sliding headers, or side-by-side. By default, the selector
+controls are tabbed.
+
+The following screenshots show a few examples of different layouts using
+the _SelectorDockedControlGroupStyle_ and
+_SelectorDockedControlLocation_ settings. This first screenshot shows
+the selectors stacked and docked on the right. The second screenshot
+shows the selectors side-by-side and docked on the bottom. And, the last
+screenshot shows the selectors displayed with sliding headers and docked
+on the right. (#645)
+
+image::image508.jpeg[Stacked.bmp,width=418,height=378]
+
+image::image509.jpeg[SideBySide.bmp,width=508,height=408]
+
+image::image510.jpeg[Sliders.bmp,width=508,height=371]
+
+Essbase Selector TreeView
+
+* The *ShowFind* setting allows the search capability to be disabled by
+hiding the "Find" area located at the bottom of the control.
+* For an EssbaseSelectorTreeView, the members that are generated from a
+selector list are referred to as the _base_ members. Base members can be
+added to the tree as either root nodes, which is the default, or as
+descendant nodes. The behavior is configured using the
+*BaseMemberNodePolicy*. The options include _AddBaseMemberAsRootNode_
+and _AddBaseMemberAsDescendantNode._
+
+When base members are added as descendant nodes, the ancestor nodes are
+automatically added to the tree. The
+*BaseMemberAsDescendantNode_RootNodeMemberPolicy* setting controls which
+member (or members) is used as the root node. By default, the root node
+is the dimension. Alternatively, the root node can be based on
+generation, level, or member name. The options include _UseDimension,
+UseSpecifiedGenNumber, UseSpecifiedGenName, UseSpecifiedLevelNumber,
+UseSpecifiedLevelName,_ and _UseSpecifiedMemberName._ When the policy is
+__UseSpecifiedMemberName__**,** the
+*BaseMemberAsDescendandNode_RootNodeMemberValue* setting specifies the
+member name(s).
+
+The *RootNodeExpansionPolicy* includes a new option,
+_ExpandAllRootNodesAndPrefilledDescendantNode._ All root nodes along
+with all prefilled descendant nodes are expanded. This option is
+intended for use when the _BaseMemberNodePolicy_ setting is
+_AddBaseMemberAsDescendantNode_ and you want the tree to automatically
+expand to show the base members. This option can also be used when the
+Prefill setting is True and you want the tree to automatically expand to
+show all the nodes. Since prefilling the tree and automatically
+expanding all nodes increase the amount of time the tree takes to
+display, the total number of members represented by the tree should be
+taken into account before enabling these options.
+
+For instance, you can limit the members displayed in the tree based on a
+UDA. For example, with the _SelectorListObjectTypeID_ set to
+_EssbaseReportScript_, and the report script defined to return all the
+Market members that are assigned the Small Market UDA:
+
+<ROW (Market)
+
+<LINK (<UDA (market, "Small Market"))
+
+!
+
+And, with the following SelectorControlProperties settings:
+
+BaseMemberNodePolicy = AddBaseMemberAsDescendantNode
+
+BaseMemberAsDescendantNode_RootNodeMemberPolicy =
+UseSpecifiedDescendantNode
+BaseMemberAsDescendandNode_RootNodeMemberValue = 2
+
+RootNodeExpansionPolicy = ExpandAllRootNodesAndPrefilledDescendantNode
+
+The base members are all Small Market members and the root nodes
+represent the 2^nd^ generation members that are ancestors of Small
+Markets, which happens to be all the 2^nd^ generation members in the
+Market dimension. If West, for example, did not contain a Small Market,
+there would be no root node for West.
+
+image::image511.jpeg[smallmarkets.bmp,width=175,height=268]
+
+This is only one example. The base members can be generated based on an
+EssbaseDelimitedString, an EssbaseReportScript, an EssbaseMemberQuery,
+or an EssbaseSQLPallthroughDataSet. (#610)
+
+Workbook Script Metadata Editor
+
+* Opening a workbook script in the editor is much faster. The change
+resulted in a 90% reduction in load time. (#623)
+* Hide Null Arguments -- A toolbar button has been added that toggles the
+display of method argument rows that have no value specified. With these
+rows hidden, the amount of space used by the Procedures grid is reduced
+and the tool arguments with a specified value can be reviewed more
+easily. (#611)
+* Bookmarks -- With this feature, you can place a bookmark on any row of
+the Procedures grid. The following buttons have been added to the
+toolbar: *Next Bookmark, Previous Bookmark,* and *Clear All Bookmark*.
+The bookmarks are saved with the script, which allows the bookmarks to
+be navigated the next time the script is opened. (#639)
+* Column Headers location options -- The location of the column headers
+in the Procedures grid can be changed. By default, the column headers
+are positioned at the top of the grid. Using the Column Headers dropdown
+list on the context menu, the location of the headers can be set to
+_Top_, _Embedded_, or _None._ Setting the location of the column headers
+to _Top_ or _None_ makes more vertical space available for the
+procedures, methods, and arguments. (#619)
+
+Column headers positioned at the top of the Procedures grid:
+
+image::image512.jpeg[WSScreen1.bmp,width=624,height=272]
+
+Column headers embedded for each procedure, method, and argument list:
+
+image::image513.jpeg[WSScreen2.bmp,width=624,height=327]
+
+Column headers hidden:
+
+image::image514.jpeg[WSScreen3.bmp,width=624,height=293]
+
+* Add/Insert New Method options -- The context menu provides two options
+for adding a new method relative to the selected row: _Add a new Method
+below the selected row_ and _Insert a new Method above the selected row_
+(#613)
+* Export to Excel -- Added a *View in Excel* button to the toolbar, which
+exports the workbook script to Excel. The Excel file can be used for
+documentation purposes, etc. (#624)
+* Fixed Issue: Error encountered when opening a large script:
+"SplitterDistance must be between Panel1MinSize and Width -
+Panel2MinSize." (#620)
+
+Workbook Scripting
+
+* BREAKING CHANGE: Renamed the _SetComment_ method to _SetExcelComment_.
+Any scripts that use the _SetComment_ method must be modified to use the
+_SetExcelComment_ method. (#614)
+* BREAKING CHANGE: Renamed _AddComment_ method to _SetComment_. Any
+scripts that use _AddComment_ must be modified to use the _SetComment_
+with the Add overload. (#616)
+* BREAKING CHANGE: Renamed _DeleteComment_ method to _SetComment_. Any
+scripts that use _DeleteComment_ must be modified to use the
+_SetComment_ with the Delete overload. (#615)
+* The default values for certain method arguments have been dropped.
+This change was made to allow for reducing the size of the serialized
+workbook script by only serializing argument values that have been
+specified. This should not impact the values of arguments in existing
+scripts. (#622)
+
+When the following arguments are used in new scripts, the previous
+default values will have to be entered as required for the desired
+behavior:
+
+Method.Argument Default Value Was
+
+AddDataCache.Delimiter ;
+
+AddDataCache.ListDelimiter |
+
+AddProperty.DataType string
+
+AddProperty.Initialize TRUE
+
+AddTokensForSubstVars.TokenName [T.<VarName>]
+
+BuildRangeFromScript.BuildRowsOrColumns Rows
+
+BuildRangeFromScript.Delimiter ;
+
+BuildRangeFromScript.EnterNumbersAsText TRUE
+
+BuildRangeFromScript.ListDelimiter |
+
+BuildRangeFromScript.StartCell A1
+
+CancelEvent.Cancel FALSE
+
+ClearRange.Clear All
+
+EssbaseRunCalc.BackgroundCalc FALSE
+
+ExecuteProcedure.MethodCondition TRUE
+
+ExitProcedure.Exit FALSE
+
+SaveWorkbook.IncrementFilename TRUE
+
+SetActiveWorkbook.SpecifyWorkbookBy Index
+
+SetComment.MatchAny FALSE
+
+SetEntry.Error None
+
+SetPageBreak.BreakSetting Manual
+
+SetPageBreak.Orientation Horizontal
+
+SortRange.SortBy All
+
+UnloadWorkbook.SpecifyWorkbookBy Index
+
+* Modified _SetColumnWidth_ and _SetColor_ methods -- Removed
+ColumnByColumn argument and added CellByCell and ReverseOrder arguments.
+(#633)
+* Added *ForEach* method -- This method runs a specified Procedure for
+each value of the loop. The method has 2 overloads:
+
+* _NumberToNumber_ -- For a loop like "for i = start number to end
+number"
+* _DataCache_ -- Loops on the values in the specified DataCache
+
+One of the method's arguments is PropertyName. If specified, each
+iteration of the loop adds a Property with the specified name and the
+value of the loop's current value. As a result, the @PVal() Function can
+be used to get the value.
+
+Using the DataCache overload, the ForEach method can loop through values
+from any of the list sources supported by the AddDataCache method, such
+as DelimitedString, SQLPassThroughDataSet, and EssbseReportScript.
+(#640)
+
+* Added *UpdateSelectorCache* method -- This is useful when selection
+changes are used by the script after the view is built or in lieu of
+building the view, but still need to be cached in order to be used as
+the default selection by another view. (#634)
+
+* Modified _SetWorksheetOptions_ method -- Added the following overloads:
+_FreezePanes_, _Scroll_, and _Splitters_. (#638)
+* Modified _AddProperty_ method -- Added data type validation. The value
+of the property being added is now validated based on the specified data
+type. An error is thrown if the specified value cannot be converted to
+the specified data type. (#631)
+* Fixed Issue: The _AddDataCache_ throws a "No connection ID" exception
+on overloads that don't require an Essbase connection ID. (#635)
+* Fixed Issue: Renaming a Procedure does not change the name specified
+in other Methods that call the changed Procedure. Every occurrence of
+the Procedure name should be changed automatically. (#637)
+* The following formula causes an endless loop in the WBS evaluation
+routine:
++
+=@WSEval("Address(Row(WeekBeginDates), Column(@Selection()))" (#636)
++
+The evaluation routine has been modified to fail after 1,000 iterations
+as with the following example:
++
+Unable to execute the workbook script procedure
+"HandleAddResourceButton".
++
+WorkbookScript Method failed:
++
+AppliedOLAP.Dodeca.Windows.WorkbookView.WorkbookViewShowMessageBoxMethod
++
+WorkbookScript: SMARTMPS Input
++
+Procedure: HandleAddResourceButton
++
+Called from: Tool: AddResource; ToolClick
++
+Overload: General
++
+Arguments: [Message==@WSEval("Address(Row(WeekBeginDates),
++
+Column(@Selection()))" ];
++
+Exception:
++
+Error resolving formula.
++
+Argument: Message
++
+Formula: =@WSEval("Address(Row(WeekBeginDates), Column(@Selection()))"
++
+Unable to solve formula after 1,000 iterations.
+
+<<<
+
+*Dodeca Framework Build 1321*
+
+*December 12, 2008*
+
+Selectors and Essbase Selectors Metadata Editors
+
+* Fixed Issue: The following exception was thrown when the metadata
+editor was already open and the Admin/Selectors or Essbase Selectors
+tool was clicked: "The ActiveMetadataInstanceIdAndVersion property is
+not implemented by SelectorMetadataEditor." (#604)
+
+Starter Kit Metadata
+
+* The Start Kit metadata has been revamped. Several toolbars
+configurations were removed, and others renamed and edited to remove
+extraneous tools. (#606)
+
+Workbook Scripting
+
+* EssbaseRunCalc Method -- Added BackgroundCalc argument, which controls
+whether the calculation is run synchronously or asynchronously. (#605)
+
+* Fixed Issue: An error is generated when the ProcedureName is left
+empty. The Workbook Script Metadata Editor no longer allows an empty
+procedure name. (#603)
+
+<<<
+
+*Dodeca Framework Build 1308*
+
+*December 8, 2008*
+
+The versions of SpreadsheetGear and Infragistics NetAdvantage have been
+upgraded for this build. SpreadsheetGear was upgraded from
+SpreadsheetGear 2007 (3.1.0.104) to SpreadsheetGear 2008 (4.0.8.104).
+NetAdvantage was upgraded from NetAdvantage 2007, Vol. 3 to NetAdvantage
+2008, Vol.3 (8.3.20083.1009).
+
+NetAdvantage 2008, Volume 3
+
+*IMPORTANT: We recommend that you upgrade your toolbar configurations to
+NetAdvantage 2008, Vol. 3 by exporting and importing your toolbars
+configurations. To do this, use the Export and Import tools from the
+Toolbars Configuration Metadata Editor. These tools export and import
+the native NetAdvantage UltraToolbarsManager layout files. If you have
+any questions, please contact us.*
+
+SpreadsheetGear 2008
+
+_SpreadsheetGear is the vendor of the spreadsheet control used by the
+Essbase view types and the Excel view type._
+
+SpreadsheetGear 2008 includes enhancements to the WorkbookView
+spreadsheet control, including (but not limited to) the following:
+
+* Added support for chart rendering including the most commonly used
+chart types and options. Supported chart types include area, bar,
+column, line, pie, stock and XY scatter. Supported chart type options
+include multiple chart groups (combination charts), stacked and 100%
+stacked values, bar gap and overlap, line markers, drop lines, hIgh-low
+lines, open-close bars, exploded pies, and data point labels. Supported
+axes options include primary and secondary axes sets, auto and manual
+scaling, major gridlines and tick marks, reversed axes, and tick label
+positions. Supported general chart options include chart titles,
+legends, theme colors, auto colors, number formats and fonts.
+
+_*This version of SpreadsheetGear includes support for 2D charts only
+and does not support axis titles. You may encounter other limitations as
+this is the first release of SpreadsheetGear that includes charting.*_
+
+_Refer to the following for additional information:_
+
+_http://www.spreadsheetgear.com/support/samples/imaging.aspx_
+
+_An Excel template used by an Essbase Excel view or a generic Excel view
+can now contain charts, which are retained within Dodeca, and persisted
+when the view is opened in or saved to Excel._
+
+* Increased the maximum number of rows and columns from 65,536 rows and
+256 columns to 1,048,576 rows and 16,384 columns.
+
+Application User Interface
+
+* Dockable windows (such as the view selector, item selectors, and the
+Comments Explorer) now display drag indicators when dragged. The
+indicators provide a visual cue that makes it easier for a user to know
+and indicate where to dock the window being dragged. (#593)
+* An application can be configured to display a close button on each
+View and Metadata Editor window tab. The new application metdata
+setting, _TabbedWindowCloseButtonVisibility_, has 4 possible values:
+_Always_, _WhenSelected_, _WhenSelectedOrHotTracked_, and _Never_. By
+default, the setting value is _WhenSelectedOrHotTracked_. When the
+setting value is _Never_, the close button appears at the right of the
+windows tab area as previously supported. (#592)
+
+Binary Artifact Metadata Editor
+
+1.  Fixed Issue: The "Object reference not set to an instance of an
+object" exception is raised when attempting to export a binary artifact
+that represents an Excel template when the Excel file is already open.
+Now, instead of the exception, a message box is displayed with the
+following error: "The process cannot access the file '<file name>',
+because it is being used by another process." (#585)
++
+ClickOnce Deployment
+
+* The Symantec migration tool fails to set proper security in the
+registry, which results in ClickOnce deployment from completing. (#594)
+
+_Please contact us for additional details if you use Symantec and are
+experiencing any issues with ClickOnce deployment._
+
+* The following error was encountered by a customer upon application
+launch: "Binary stream '0' does not contain a valid BinaryHeader.
+Possible causes are invalid stream or object version change between
+serialization and deserialization." (#596)
+
+When this error is encountered, take the following steps on the client
+machine:
+
+1.  Delete the <userhome>\Local Settings\Apps\2.0\* directories. This is
+where any serialized metadata is stored. Then, test by attempting to run
+the application.
+2.  If the above does not resolve the issue, repeat Step 1 plus remove
+the isolated storage caches at <userhome>\Local Settings\Application
+Data\IsolatedStorage\*. Then, test by attempting to run the application.
+3.  Finally, if not already installed, we highly recommend installing
+the .NET Framework Version 2.0, Service Pack 1. Test again.
+
+_If the error persists, please contact us._
+
+ClickOnce Prep Utility
+
+* The ClickOnce Prep Utility now supports the ability to export the
+setting values, excluding the certificate password and/or thumbprint, to
+a text file. (#589)
++
+Comments
+
+* Certain comments functionality, like the WorkbookView comment range
+handler and the Comments Explorer are still under development.
+Preliminary development can be done with them, but there are known
+issues. The functionality is expected to be ready in a couple of weeks.
+
+Dodeca Metadata Service
+
+* DDL generation report is now available on the Dodeca metadata service
+(#587)
+
+Several customers have requested a way to get the DDL for the Dodeca
+metadata table structure. This capability is now available by going to a
+web browser and typing in the location of the metadata service* and then
+selecting the option to generate DDL.
+
+*The format of the metadata service address is:
+
+http://<server>:<port>/dodeca/metadata-service
+
+The DDL generated is based on the database type configured in your
+hibernate.properties file and includes the DDL to drop an existing
+schema and create a new schema. It also includes the DDL to update a
+schema, so you can see changes to the schema definition.
+
+_Note: The update schema functionality does not show changes in column
+widths and thus should be used for informational purposes only._
+
+Essbase Adhoc View
+
+* Fixed Issue: If an Adhoc view is opened, but not built, and the user
+opens the Essbase Options dialog, the dialog is empty. (#600)
++
+Excel Essbase View
+
+* Fixed Issue: When an Excel Essbase View is configured with the
+SelectorsVisibleOnDrillthroughSheet set to False and the user unpins a
+selector when a template sheet is active, then activates a drill-through
+sheet, and then reactivates the template sheet, the selector becomes
+unpinned. (#602)
++
+Import/Export Metadata
+
+* The Import/Export Metadata from/to a Local XML File utility dialogs
+now display a date format that can be sorted. Previously, the dates
+could not be sorted, so it was difficult to find metadata artifacts that
+had recently changed. (#598)
+
+Splash Screen
+
+* Fixed issue: If the user double-clicked on the splash screen to close
+it at exactly the same time a timer event was being called on the splash
+screen itself, an exception was raised. (#601)
+
+Tool Controllers
+
+* A tool argument value can now contain a forward slash. (#597)
+
+_This issue was reported by a customer who needed to assign a member
+name that contained a forward slash as the value of a worbook script
+tool controller argument._
+
+Toolbars Configuration Metadata Editor
+
+The Toolbars Configuration Metadata Editor now supports new utilities:
+Toolbars Designer and Configure Tools.
+
+The Toolbars Designer supports adding/editing/deleting toolbars and
+tools, as well as adding and removing tools contained by toolbars and
+popup menus.
+
+_Note: Since views use popup menu tools as context menus, you are able
+to create and modify context menus._
+
+image::image515.jpeg[image,width=624,height=485]
+
+Accessible from the designer, the Import Standard Tools and Toolbars and
+the Import Tools and Toolbars from a Toolbars Configuration wizards
+support importing existing tools and toolbars.
+
+The Configure Tools utility supports the ability to customize
+configurable standard tools by specifying tool argument values and to
+configure custom tools by mapping a tool to a tool controller and
+specifying tool argument values.
+
+image::image516.jpeg[image,width=624,height=416]
+
+Workbook Script Tool Controller
+
+* In the Tool Arguments Builder and the new Configure Tools utilities,
+when the WorkbookScriptID property is specified, the ProcedureName and
+various property name properties can now be selected from dropdown
+lists. (#584)
+
+Workbook Scripting
+
+* Fixed SetEntry method issue: Could not use functions in the SheetSpec
+argument or use an address for the Range argument. (#595)
+* Fixed issue encountered when the ExcelEssbaseView.BeforeRangeRetrieve
+event (as well as other Essbase operations "before" events) was
+cancelled: An exception was thrown with the following message "The
+retrieve range name "<retrieve range name>" is not an existing retrieve
+range for the "<sheet name>". (#599)
+
+<<<
+
+*Dodeca Framework Build 1244*
+
+*October 28, 2008*
+
+Comments Functionality
+
+* Fixed Issue: When prompted to save comments, the working status was
+not going away when the user selected Cancel. This issue is specific to
+the OnSheet comment range handler. (#583)
+* Fixed Issue: On a two sheet view, with comments on the second sheet,
+if you selected the second sheet, then selected the first sheet again,
+and then clicked the Build button, you were prompted for whether or not
+to save the unsaved comments, even though none had changed. And, if you
+selected "yes", the comment value from the wrong sheet was used. (#582)
+
+Workbook Scripting
+
+* Fixed Issue with BuildRangeFromScript method: An exception was being
+thrown by the method regarding a missing Essbase connection for the
+overload did not support an Essbase connection. (#579)
+
+Tool Arguments Builder
+
+* WorkbookScriptToolController Enhancement: When specifying the settings
+for a WorkbookScriptToolController, you can select the ProcedureName and
+each of the various property name settings from a dropdown list of
+available values based on the workbook script specified as the
+WorkbookScriptID setting. (#584)
+
+ClickOnce Installation
+
+* Proventia anti-malware software (firewall/virus protection hybrid)
+blocks a ClickOnce installation.
+
+This issue is encountered on machines with an old version of the
+Proventia software. A dialog box with a "Details" button is displayed
+indicating the installation failed. The button is either disabled or,
+when the button is clicked, an empty document is presented.
+
+The issue can be resolved by upgrading the Proventia software. Please
+contact us for specific instructions. (#580)
+
+* Conflict between ClickOnce and Kensington Mouseworks causes ClickOnce
+applications to crash.
+
+The current versions of Kensington Mouseworks have a problem in one of
+their driver DLL's that crashes all ClickOnce applications. The issue
+occurs in a DLL that is loaded with every Windows process, and crashes
+that process if the executable path is longer than 128 characters. Since
+the ClickOnce store uses directory obfuscation when storing an
+application's files, this issue affects all ClickOnce applications.
+
+The only current workaround is to use Add/Remove Programs to uninstall
+Kensington Mouseworks. This requires a reboot to restore the minimal
+drivers Windows needs for mouse input. After the reboot, any advanced
+functionality provided by the Kensington hardware will not work. (#581)
+
+<<<
+
+*Dodeca Framework Build 1234*
+
+*October 17, 2008*
+
+Comments Functionality
+
+* Added a new _RangeHandlerObjectTypeID_ option to the CommentRange
+configuration. The _WorkbookView_ comment range handler implements the
+usage of script formulas in the new _ContextString_ and _KeyItemsString_
+comment properties. With this functionality, comments can be linked to
+the sheet without using a KeyItems range or a Contexts range. (#571)
+* Fixed issue: The Comment key items were being deleted when the comment
+was updated. (#576)
++
+Excel Essbase View
+* New Setting: ShowFormulaBarOnDrillthroughSheet (#572)
+
+In addition to the existing _ShowFormulaBar_ setting, the Excel Essbase
+view now supports a _ShowFormulaBarOnDrillthroughSheet_, which controls
+whether the Formula Bar is visible when the active sheet is a
+drillthrough sheet. The _ShowFormulaBar_ setting now only applies to
+non-drillthrough sheets.
+
+Excel and Excel Essbase ViewsU
+
+* The _ActiveSheetChanged_ event is now raised when the initial sheet is
+activated after the template is loaded. (#568)
+
+Workbook Scripting
+
+* The _EssbaseRunCalc_ method now runs on a background thread. (#573)
+
+The view's toolbars and selectors are disabled while the calculation is
+running, but the user is able to interact with other views. The view's
+status bar displays "Calc running" while the calculation is underway and
+"Calc completed" when the calculation is done. When the calculation is
+completed, the workbook script procedure resumes with the next method
+following the EssbaseRunCalc method.
+
+* Fixed issue in the Workbook Script Metadata Editor where the Commit
+button was not being enabled when a Procedure name was changed and the
+Tab button was then clicked. (#570)
+
+Essbase Selector TreeView
+
+* Fixed Issue: When the root node was a non-dimension member, a search
+would return members that were not descendants of the root node
+member(s). (#575)
+
+IMPORTANT: This fix requires a new Essbase serviet, which was previously
+named ActiveOLAP and is now named dodeca-essbase. Please contact us for
+a new release of the servlet.
+
+Auto Build Tool Controller
+
+* Fixed issue: If the view's AutoBuildOnOpen setting was false and the
+user did not explicitly build the view before changing a selection and
+the "Auto Build" tool state was On, then the first selection change
+triggered the first build, yet the view UI remained covered after the
+build completed. (#569)
+
+Workbook Script Tool Controller
+
+* Fixed issue encountered when a state button tool is mapped to a
+workbook script tool controller and the ValuePropertyName tool argument
+is specified. The workbook script property specified as the value
+property was not being updated when the state button's checked state was
+toggled by the user. (#578)
+
+Tool Controller Debug Tool Argument
+
+* The following tool controllers now support a Debug tool argument:
+
+OpenViewForDataCellToolController
+
+OpenViewForMemberCellController
+
+All the Essbase operations tool controllers, such as
+KeepOnlyToolController, ZoomInToolController, etc.
+
+The argument is a Boolean that defaults to false. To turn on debugging,
+specify /x=true in the tool arguments string.
+
+For these tools, the context menu tool visibility is set based on
+whether the selected cell(s) passes the criteria defined by the tool
+arguments. If debugging is on, a message box is displayed after the
+right button is clicked and before the context menu is displayed. The
+message box contains the tool argument values, information about the
+selected cell(s), and diagnostics.
+
+For example, the message box below was displayed by the "Open View for
+Member Cell" tool controller that was configured to display the tool
+only when Market members are selected. As indicated, only one of the 3
+selected cells qualified, since one of the cells was a Year, and another
+a Scenario.
+
+image::image517.jpeg[image,width=320,height=341]
+
+<<<
+
+*Dodeca Framework Build 1216*
+
+*October 1, 2008*
+
+Manage Saved View
+
+* A status bar has been added to the Manage Saved View dialog. When a
+view is opening, the message "Opening <view name>" is displayed in the
+status bar. Typically, opening a saved view happens so quickly that the
+message is not seen, but when there is a delay, the message provides a
+visual cue to the user that something is happening. (#565)
++
+AutoBuild Tool
++
+The AutoBuild tool is a state button tool that, when On, automatically
+builds the view when a selection changes. (#555)
++
+Excel View and Essbase Excel View
+* The ActiveSheetChanged event is raised when the Excel template is
+loaded.
++
+Excel Essbase View
+* Fixed an issue with the datapoint UDA-based member filtering. This
+issue was introduced with the last build. (#560)
++
+Workbook Scripting
+* The Formula Editor dialog now shows function documentation. (#558)
+* AddTokensForSubstVar Method: Added Username and Password arguments.
+(#563)
+* ActiveSheetChanged EventLink: For an Excel View and Essbase Excel
+View, the ActiveSheetChanged event is raised when the view's template is
+loaded. The activated sheet is the template's active sheet. This allows
+any logic associated with the ActiveSheetChanged EventLink to be
+executed for the template's initial active sheet. (#568)
+* New Method: SetCover
+
+The SetCover method controls whether the view content is shown or
+hidden. (#557)
+
+* New Method: SetToolbarVisible
+
+This method can be used to show or hide a specified view toolbar. The
+tool arguments include a ToolbarKey and Visible value. This method
+allows you, for example, to control whether any given toolbar is visible
+based on the active sheet by calling the method from the
+ActiveSheetChanged event link. For instance, with an ExcelEssbaseView,
+you may want a particular toolbar to be displayed only when the active
+sheet is a drillthrough sheet. (#566)
+
+* New Function: EssConnectionPropertyValue, @EssConnPValue(ConnID,
+PropertyName)
+
+This function returns an Essbase connection's property value given the
+connection ID and the property name. (#556)
+
+* New Function: ActiveSheetName, @ASheet()
++
+This function returns the name of the active sheet. (#561)
+* New Event Links: Before/AfterRangeSend
++
+These events are only applicable to an ExcelEssbaseView. (#567)
++
+Previously, the Before/AfterSheetSend events were raised for each send
+range. With this build, these events are raised only once for a sheet
+and the Before/AfterRangeSend events are raised for each send range.
++
+The Before/AfterSheetSend event property is SheetName.
++
+The Before/AfterRangeSend event properties are SheetName and RangeName.
++
+*IMPORTANT*: If you are currently using the Before/AfterSheetSend event
+links, you may want to use the Before/AfterRangeSend event links instead
+depending on whether the associated logic should be executed for each
+send range or only once for the sheet.
+
+* Workbook script error messages now include the script ID. (#562)
+
+* Fixed the OpenView method issue that raised the following exception:
+"Unable to execute the workbook script procedure <procedure name>.
+Collection was modified; enumeration operation may not execute." The
+issue only occurred when a workbook script tool controller called the
+OpenView method in a procedure in the view's workbook script instead of
+a separate workbook script. (#559)
+* Resolved issues encountered with the Essbase-related methods that
+support the EssbaseConnectionID, Username, and Password arguments. The
+connection, username and password that are used by the method are
+determined as follows:
+
+Arguments: No EssbaseConnectionID specified; No Username/Password
+specified.
+
+Behavior: The view's connection is used. The current username and
+password associated with the connection are used. This could come from
+the "phantom" username and password stored in the connection's metadata
+or the username and password that the user may have already entered. If
+no username and password is associated with the connection, the user is
+prompted.
+
+Arguments: No EssbaseConnectionID specified; Username/Password
+specified.
+
+Behavior: The view's connection is used. The specified username and
+password arguments are used for the connection.
+
+Arguments: EssbaseConnectionID specified; No Username/Password
+specified.
+
+Behavior: The specified connection is used. The current username and
+password associated with the connection are used. This could come from
+the "phantom" username and password stored in the connection's metadata
+or the username and password that the user may have already entered. If
+no username and password is associated with the connection, the user is
+prompted.
+
+Arguments: EssbaseConnectionID specified; Username/Password specified
+
+The specified connection, username, and password are used. (#564)
+
+* Fixed issue with the Save View As and Save View tools remaining
+disabled when a script calls the BuildView method in a
+SelectorSelectionChanged event link. (#554)
+
+<<<
+
+*Dodeca Framework Build 1201*
+
+*September 17, 2008*
+
+Session Caching (#547)
+
+The session cache is a client cache that is used to store data, such as
+resolved selector lists and SQL pass-through datasets, for the duration
+of a session. The cache uses the same backing store used for application
+caching. Session caching improves performance by reducing the number of
+client to server requests. It is enabled or disabled for an application
+by the application's _SessionCachingEnabled_ metadata setting. It is
+enabled by default.
+
+When session caching is enabled for an application, the administrator
+controls whether or not an individual SQL pass-through dataset or
+selector list uses the session cache through the metadata instance's
+_SessionCachingEnabled_ setting.
+
+By default, a SQL pass-through dataset's _SessionCachingEnabled_ setting
+is False. When the query results are data-driven (i.e. when the query
+results are likely to change over the course of a session), then session
+caching should be disabled.
+
+_Please note that a SQL pass-through dataset that contains a tokenized
+query does not necessarily imply that the results are data-driven. When
+the query is tokenized, the cache can contain multiple occurrences of
+the dataset, each representing a unique post-'token replacement' query
+statement._
+
+Session caching is also supported for Essbase selector lists:
+
+The EssbaseDelimitedString, EssbaseMemberQuery, and EssbaseReportScript
+selector list items are optionally cached based on the selector list's
+_SessionCachingEnabled_ setting. By default, session caching is enabled
+for an EssbaseDelimitedString and EssbaseMemberQuery, but is disabled
+for an EssbaseReportScript. Session caching should be disabled for an
+EssbaseReportScript selector list when the members generated by the
+report are data-dependent, such as when the script suppresses missing.
+
+The EssbaseSQLPassthroughDataSet selector list items are optionally
+cached based on the associated SQL pass-through dataset's
+_SessionCachingEnabled_ setting.
+
+When session caching is enabled for an Essbase selector list and the
+selector list's _SelectorControlObjectTypeID_ is set to
+EssbaseSelectorTreeView, then the session cache is also used to store
+outline information that is used to populate the treeview.
+
+Generally speaking, session caching should be disabled for any selector
+list that represents a dimension whose member hierarchy changes
+frequently. However, when a dimension is fairly static, enabling session
+caching is an excellent way to improve overall performance.
+
+Session caching is also used to store Essbase member information that's
+retrieved for the following:
+
+* An EssbaseSelectorTreeView's member tips when the
+MemberToolTipContentOptions include UDAs, Comment, and/or Formula
+* An ExcelEssbaseView when member filters are defined by the
+DataCellDoubleClickMemberFilters
+* An OpenViewForDataCellToolController when member filters are defined
+by the MemberFilters tool argument
+* A workbook script that uses any of the member functions, such as
+MemberAlias, MemberChildCount, MemberDImension, etc.
+* A workbook script that uses any of the DataPoint functions, such as
+DataPointDimGeneration, DataPointDimLevel, etc.
+
+An administrator can view the contents of the session cache using the
+Cache Viewer tool, which is located in the default admin toolbars
+configuration's Admin menu.
+
+Workbook Scripting
+
+* New Event Link: BeforeSelectorListItemsResolved (#552)
+* New Event Link: BeforeInitializeUI (#549)
+* New Functions: @IsDataCell() and @IsMemberCell() (#550)
+
+Save View Tool
+
+* When a saved view's AfterBuildCaption is assigned a value, the value
+is used as the view's caption even when the value is different than the
+saved view's name. This is because the AfterBuildCaption is typically
+tokenized in order for the view's caption to reflect the current
+selections. Then, when the user re-saves the previously saved view by
+clicking the Save View button, if the view's caption is different than
+the saved view's name, the user is prompted and can choose to update the
+existing name to the current caption, or use the existing saved name, or
+specify another name. (#548)
+
+image::image518.jpeg[image,width=350,height=285]
+
+View Metadata Editor
+
+* Resolved the issue that prevented an administrator from being able to
+navigate to the Binary Artifact Metadata Editor by clicking an Excel
+View's ExcelTemplateBinaryArtifact setting with the right mouse button
+and selecting the "Open Binary Artifacts" or "Edit <Excel template
+binary artifact ID>" option from the context menu. (#553)
+* Resolved the issue that prevented an administrator from being able to
+navigate to the Workbook Script Metadata Editor by clicking an Excel
+View's WorkbookScriptID setting with the right mouse button and
+selecting the "Open Workbook Scripts" or "Edit <workbook script ID>"
+option from the context menu. (#553)
+
+<<<
+
+*Dodeca Framework Build 1187*
+
+*September 8, 2008*
+
+ClickOnce Prep Utility
+
+* A new setting, ApplicationLaunchMode, has been added to the ClickOnce
+Prep Utility. After installing the SmartClient application on a client,
+the setting controls whether or not the application can be started 1)
+from either the URL or the client's start menu OR 2) from the URL only.
+(#542)
+
+The application launch mode _LaunchFromURLOnly_ is especially useful
+when there are multiple applications installed on a client machine that
+are defined within the same tenant. Since the tenant, application ID,
+and path are specified by the URL's query string parameters, using the
+link ensures that the correct application is started.
+
+Excel Essbase View
+
+* Comments -- Fixed issue where a CommentRange's CommentType could not be
+changed to OnSheet. (#543)
+* Comments -- Modified to raise the Before/AfterCommentSetup events only
+when there are CommentRanges defined. (#541)
+* When the AllowEssbaseOperationsOnRetrieveRange is True, the Essbase
+operations-related tools, including Zoom In/Out, Remove/Keep Only, and
+Pivot, are disabled when the active sheet contains multiple retrieve
+ranges. (#540)
+* When retrieving a sheet, tokens are now replaced before the
+BeforeSheetRetrieve event is raised. (#544)
+
+The event sequence when building an Excel Essbase View is as follows:
+
+BeforeBuild
+
+BeforeWorkbookClose
+
+AfterWorkbookClose
+
+BeforeTemplatePullToClient
+
+AfterTemplatePullToClient
+
+BeforeWorkbookOpen
+
+AfterWorkbookOpen
+
+For a cascade view
+
+BeforeCascadeSheetsBuild
+
+If the SummarySheetAdd setting is true
+
+BeforeCascadeSummarySheetBuild
+
+End If
+
+AfterCascadeSheetsBuild
+
+End For
+
+BeforeWorkbookRetrieve
+
+For each sheet
+
+BeforeSheetReplaceTokens
+
+AfterSheetReplaceTokens
+
+BeforeSheetRetrieve
+
+For each retrieve range on the sheet
+
+BeforeRangeRetrieve
+
+AfterSheetRetrieve
+
+End For each
+
+AfterSheetRetrieve
+
+End For each
+
+AfterWorkbookRetrieve
+
+If the view has CommentRanges
+
+BeforeCommentsSetup
+
+AfterCommentsSetup
+
+End If
+
+AfterBuild
+
+<<<
+
+*Dodeca Framework Build 1183*
+
+*September 3, 2008*
+
+ClickOncePrepUtilityForm
+
+* The default UpdateMode has been changed from Background to Foreground.
+(#539)
+
+Comments
+
+* Added new comment range CommitPolicy option: User. The new option can
+be used in conjunction with the new Comments Save tool to allow the user
+to explicitly save comments instead of the comments being automatically
+saved on input. When the CommitPolicy is set to User, the comment edits
+are buffered until the user clicks the Comments Save tool or until the
+view is built, refreshed, or closed, at which time the user is prompted
+for whether or not to save the unsaved comments. (#536)
+
+Workbook Scripting
+
+* Fixed issue where the methods that support an EssbaseConnectionID,
+Username, and Password arguments were not using the specified Username
+and Password. (#537)
+
+EssbaseLoginDialog
+
+* The EssbaseLoginDialog, which can be specified as an Essbase view's
+EssbaseLoginServiceObjectTypeID, now retains the last valid specified
+username. The value is used as the default when the login dialog is
+displayed. The value is cached and retained across sessions. (#535)
++
+View Selectors
+* In Build 1173, new behavior was implemented that allowed for multiple
+hierarchies to be merged in the view selector. The ViewSelectorTree did
+not handle the merging of duplicate hierarchy items correctly (i.e. when
+the same ID is used for a hierarchy item in different hierarchies.) This
+has been corrected. Now, a hierarchy item with an ID that is included in
+multiple hierarchies will only appear once in the view selector. The
+location and parent of the hierarchy item is determined by the first
+hierarchy in which it is included. The hierarchies are added to the view
+selector in the same order as they appear in the HierarchyToRoleMapping
+collection. (#538)
++
+Excel Essbase View
+* The Essbase operation tools (Zoom In/Out, Remove/Keep Only, and Pivot)
+are disabled when the active sheet contains multiple retrieve ranges
+even when the AllowEssbaseOperationsOnRetrieveRange setting is true.
+Performing these operations using the mouse (i.e. double click for
+retrieve and right mouse drag for pivot) is also disallowed. (#540)
+
+<<<
+
+*Dodeca Framework Build 1173*
+
+*August 26, 2008*
+
+Database structural changes
+
+Three changes were made to the database structure in this release which
+will require an update to the database schema. Two of the changes were
+made to accommodate longer hash key values necessary to comply with the
+government 'FIPS' ("Federal Information Processing Standards") standards
+required for Federal government computing systems. Dodeca formerly used
+MD5 hashing algorithms and has been updated to the FIPS-compliant SHA-1
+standard. The changes are:
+
+[cols=",",options="header",]
+|================================================================
+a|
+*Table*
+
+ a|
+*Description of Change*
+
+a|
+BINARY_ARTIFACTS
+
+ a|
+The CHECKSUM column width was changed from '50' to '128'.
+
+a|
+COMMENTS
+
+ a|
+The COMMENT_KEY_HASH column width was changed from '32' to '128'.
+
+a|
+COMMENT_ATTACHMENTS
+
+ a|
+The MIME_TYPE column was added to the table.
+
+|================================================================
+
+The changes to the hashing algorithms will require that customers with
+existing metadata run a one-time update to their metadata using our new
+HashcodeUpdateUtility. This command-line utility will convert the values
+in the BINARY_ARTIFACTS.CHECKSUM and COMMENTS.COMMENT_KEY_HASH columns
+from MD5 to SHA-1 hash codes. We expect to help our customers make this
+change via webcast. *IF YOU ARE AN EXISTING CUSTOMER WITH EXISTING
+METADATA, DO NOT INSTALL THIS BUILD UNTIL YOU DISCUSS THIS CHANGE WITH
+US AND YOU HAVE BACKED UP YOUR EXISTING DATABASE INCLUDING METADATA AND
+COMMENTS*.
+
+User Audit Report
+
+The Dodeca metadata service now has a User Audit report. This report can
+help you manage your license compliance and can also help you determine
+who is using your system. To run the report, open a browser instance and
+type in the location of your metadata service (ex.
+'http://<server>:<port>/dodeca/metadata-service'). You can then select
+to run the report for a specific tenant code or for all tenant codes.
+
+Hibernate Properties
+
+The C3P0 Connection Pool settings have been changed in the
+hibernate.properties file. The default values were increased for
+hibernate.c3p0.max_size, hibernate.c3p0.min_size, and
+hibernate.c3p0.acquire_increment to 100, 10, and 5, respectively. (#530)
+
+New Caching Configuration Options (#518)
+
+Two new configuration options were added to the app.config file to
+support differing needs for caching user settings at runtime.
+
+DataDirectoryBackingStore
+
+The _DataDirectoryBackingStore_ was added to support local storage that
+uses FIPS compliant algorithms for hashing and encryption. It is also a
+good choice for customers who do not want to use .NET isolated storage.
+Further, this backing store is a good choice for customers who would
+like to encrypt their user settings using FIPS compliant TripleDES
+encryption. This backing store stores settings by creating files in the
+ClickOnce Data Directory. To configure the DataDirectoryBackingStore,
+follow these steps before building your deployment:
+
+1.  Locate the AppliedOLAP.Dodeca.SmartClient.exe.config.deploy file in
+your DODECA_HOME\staging\smartclient\4.1.0.0 directory. Note: The
+filename may be different if you have previously renamed your exe using
+the ClickOncePrepUtilityForm.
+2.  Open the file in a text editor.
+3.  Locate the backingStores section of the xml and comment out entire
+<add> node with the name attribute "Isolated Storage".
+4.  Uncomment the entire <add> node with the name attribute " Data
+Directory Cache Storage ".
+5.  In the <cacheManagers> node, find the <add> node with the attribute
+name="Cache Manager". In this node, change the attribute value for the
+backingStoreName from "Isolated Storage" to "Data Directory Cache
+Storage".
+
+DataBackingStore
+
+The _DataBackingStore_ was added to support storage of user settings in
+a SQL Server database. It is a good choice for customers who would like
+to have their settings be persisted across multiple computers. It is
+also the backing store that is supported when using Citrix server in a
+distributed server farm environment. This backing store stores settings
+in a database table in a SQL Server database. To configure the
+DataDirectoryBackingStore, follow these steps before building your
+deployment:
+
+1.  Locate the AppliedOLAP.Dodeca.SmartClient.exe.config.deploy file in
+your DODECA_HOME\staging\smartclient\4.1.0.0 directory. Note: The
+filename may be different if you have previously renamed your exe using
+the ClickOncePrepUtilityForm.
+2.  Open the file in a text editor.
+3.  Locate the backingStores section of the xml and comment out entire
+<add> node with the name attribute "Isolated Storage".
+4.  Uncomment the entire <add> node with the name attribute "Relational
+Cache Storage".
+5.  In the <cacheManagers> node, find the <add> node with the attribute
+name="Cache Manager". In this node, change the attribute value for the
+backingStoreName from "Isolated Storage" to "Relational Cache Storage".
+6.  Find the node <dataConfiguration> and uncomment it. Note the
+defaultDatabase attribute value is "CachingConnection".
+7.  Find the <configSections> child <add> node with the name attribute
+equal to "dataConfiguration" and uncomment it.
+8.  Find the node <connectionStrings> and uncomment it if necessary.
+9.  Find the <connectionStrings> child <add> node with the name
+attribute equal to "CachingConnection". Adjust the accompanying
+connectionString attribute to be a valid .NET connection string to the
+database where you want to store the settings.
+10. Locate the DODECA_HOME\docs subdirectory and find the
+CreateCachingDb.cmd command file and the CreateCachingDatabase.sql file.
+11. Edit the CreateCachingDb.cmd file and replace the --S parameter with
+the name of the server you specified in the connection string above.
+Save and close the cmd file.
+12. Doubleclick on the CreateCachingDb.cmd file to execute the sql
+script that builds the necessary tables.
+
+After these steps are complete for the respective backing store, save
+and close the .config file. Run the ClickOncePrepUtilityForm and
+generate a new deployment. When a user installs Dodeca on their machine,
+the new setting storage mechanism will start.
+
+Note: We do not support conversion of previously stored local settings
+to use a different backing store. Further, as the metadata service
+location, tenant and application keywords were previously stored solely
+in the backing store, if the user was previously deployed from a URL, it
+is mandatory for that user to reinstall from a URL in order to have
+those values available for processing. If they initially attempt to
+launch/update from a menu shortcut, they may see an error indicating the
+tenant or other key pieces of information is missing.
+
+Note: Beginning with this build, a backup copy of the the metadata
+service location, tenant and application keywords, which are essential
+to Dodeca startup, are also stored in the client deployment metadata
+subdirectory. As these values are passed on the querystring upon the
+original installation and startup, the backup copy of these values are
+stored unencrypted.
+
+ClickOncePrepUtilityForm
+
+The ClickOncePrepUtilityForm now uses the data directory backing store
+(instead of isolated storage) to store saved settings. If you previously
+saved settings, you will need to re-enter and re-save the settings.
+(#531)
+
+Application Setup Utility
+
+The Application Setup Utility also now uses the data directory backing
+store (instead of isolated storage) to store saved settings. If you
+previously saved settings, you will need to re-enter the settings.
+
+Session State
+
+The application's size, location, and whether the application is
+maximized is now retained between sessions and restored on startup.
+(#497)
+
+View Selector
+
+* Support for multiple hierarchies (#515)
+
+Previously, when a view selector's _HierarchyToRoleMapping_ setting was
+used to map a hierarchy to a role, the first hierarchy that the
+authenticated user qualified for (based on role membership) was
+presented in the view selector. Since a user may actually have several
+roles (i.e. belong to several groups), the functionality has been
+changed in this build to display all the hierarchies that the user
+qualifies for.
+
+The ViewSelectorExplorerBar merges multiple hierarchies based on
+hierarchy item ID's.
+
+With the ViewSelectorTree, the _HierarchyRootNodeDisplayPolicy_ setting
+controls whether the root nodes represent the hierarchies OR represent
+the top level items of each hierarchy. The policy options include the
+following:
+
+* _Hierarchy_ -- A root node is displayed for each hierarchy.
+* _TopLevelItems_ -- The root nodes represent the top level items of each
+hierarchy. Hierarchy items are merged based on hierarchy item ID's.
+* _TopLevelItemsForSingleHierarchy_ -- When a single hierarchy is
+presented by the tree, the root nodes represent the hierarchy's top
+level items. When multiple hierarchies are presented by the tree, a root
+node is displayed for each hierarchy. This is the default setting.
+
+* Support for hierarchy item filtering (#500)
+
+The ability to filter hierarchy items before a hierarchy is displayed is
+now supported through extensibility by way of a custom filter service.
+This allows an application to restrict which hierarchy items are
+presented based on the user's access. The ViewSelectorExplorerBar and
+ViewSelectorTree settings now include a
+_HierarchyItemsFilterObjectTypeID_ setting, which identifies the
+service.
+
+Please contact us for more information about how to implement a
+hierarchy item filter service.
+
+* Support locking the view selector in the default docked location
+(#512)
+
+A new application setting, _ViewSelectorLocked_, allows an administrator
+to prevent a user from moving the view selector from the default docked
+location, which is specified by the _ViewSelectorDockedLocation_
+setting.
+
+Selectors
+
+* Fixed an issue with the Selector TreeView control (#513)
+
+When the control was undocked and then the Find section was expanded,
+the Search results covered the "Select" button.
+
+* Support locking a selector treeview or listbox control in the
+configured docked location (#511)
+
+The view setting _SelectorControlDisplayMode_ now supports a new option,
+_LockedDockedControl_, which can be used to prevent a user from moving
+the treeview or listbox selector from the default docked location, which
+is specified by the _SelectorControlDockedLocation_ setting.
+
+* Floating selectors are automatically hidden/displayed when the view is
+deactivated/activated (#526)
+
+Workbook Scripting
+
+* Workbook Script Tool Controller (#508)
+
+Previously, multiple WorkbookScriptToolController instances could only
+share the same workbook script if all the instances used the view's
+workbook script. This required that the logic for the workbook
+script-based tools be embedded in the view's workbook script (or be
+included as an external script in the view's workbook script.)
+
+With this build, workbook script-based tools that provide related
+functionality, such as tools that support spreading, can use the same
+workbook script instance without having to use the view's workbook
+script. This is handled automatically when the /s tool argument is used
+and the specified ID is a different ID than the view's WorkbookScriptID
+setting.
+
+A WorkbookScriptToolController can still use the view's workbook script
+by not including the /s tool argument or by using the /s tool argument
+and specifying the same value as the view's workbook script ID.
+
+* New Event Link: AfterInitializeUI (#505)
+
+The _AfterInitializeUI_ event link is raised after the view UI is
+initialized.
+
+This event link was added to address a customer's specific requirement,
+which was to be able to set a dependent selector's selection to null
+when the user changes the "depended on" selector's selection, but only
+after the dependent selector's default selection was set based on the
+default selection policy. The _AfterInitializeUI_ event link can be used
+to add a view token that sets the dependent selector's token to "null".
+When the "depended on" selector's selection changes, the dependent
+selector will have a null selection.
+
+This event link will be useful whenever you need to insert logic after
+the view's user-interface is initialized, but before the view is
+actually displayed.
+
+* New Event Links: BeforeCommentsSetup / AfterCommentsSetup (#516)
+* New Event Links: BeforeOpenInExcel / AfterOpenInExcel (#519)
+* New Event Links: BeforeSaveAsExcel / AfterSaveAsExcel (#519)
+* New Event Links: ClipboardPasting / ClipboardPasted (#529)
+* New Event Link: EssbaseExceptionOccurred (#493)
++
+This event link allows a workbook script to intercept an Essbase error
+and, for example, display a message box. The event properties include an
+ErrorCode, Message, and Details.
+* New Method: OpenView (#496)
+* Modified Workbook Script Editor to always show drop-down buttons on
+cells that have lists. (#495)
+* Modified Workbook Script Editor to continue to display tooltips while
+the mouse is hovering. In other words, the tooltips do not disappear
+after 5 seconds. (#528)
+* Modified SetViewStatus method to throw an exception if an image is not
+specified. (#494)
+* Modified SortRange method to use the SortRangeAddress argument. (#517)
+* Optimized pasting of rows in very large scripts. Also, the first
+procedure in the Procedures section is automatically scrolled to when
+the script is loaded. (#499)
+
+* Fixed an issue with the EssbaseRunCalc method. (#522)
+
+When the ConnectionID argument was specified, the script was not using
+the username and password settings that were configured by the
+connection's metadata. Instead, the script was using the view's Essbase
+connection's username and password.
+
+With this build, the script's behavior is as follows:
+
+If the Username and Password script arguments are specified, the
+specified values are used. Otherwise, if the Essbase connection's
+metadata Username and Password settings are specified, the specified
+values are used. Otherwise, the username and password of the view's
+connection are used.
+
+Saved Views
+
+* Duplicate saved view name detection (#514)
+
+The Save View As command now checks to determine whether the name
+specified by the user is the name of another view previously saved by
+the user. If so, the user is prompted as follows: "The saved view name
+"<view name>" already exists. Do you want to replace the existing saved
+view?" If the user clicks "Yes", the existing saved view is replaced
+with the current view.
+
+In addition, the saved view name is now always used as the view caption
+even when the view's _CaptionAfterBuild_ setting is specified.
+
+SQLPassthroughDataSet Enhancements (#503)
+
+* New Timeout property
+
+The SQLPassThroughDataset has a new Timeout property that is used to
+limit the amount of time a query can run on the server. The property
+value is configurable for each distinct SQLPassthoughDataSet object and
+is expressed in seconds. A value of 0 or less indicates no timeout will
+be set.
+
+* ConnectString Format
+
+The ConnectString property has been changed to make it easier to
+specify. Previously, the ConnectString was specified using a space
+delimited format and was sensitive to the insertion of extra spaces. The
+format has been changed to support newline delimiters between different
+properties with a space delimiter between the property name and the
+property value. Here is an example of the new format:
+
+hibernate.dialect org.hibernate.dialect.SQLServerDialect
+
+hibernate.connection.username sa
+
+hibernate.connection.password password
+
+hibernate.connection.driver_class
+com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+hibernate.connection.url
+jdbc:sqlserver://localhost;DatabaseName=AdventureWorks;SelectMethod=cursor
+
+This format is the format used in the hibernate.properties file and
+makes it possible to use properties that do not have a name/value pair
+such as 'hibernate.jdbc.wrap_result_sets'.
+
+The SQLPassthroughDataSet functionality continues to support the old
+format
+
+ConnectString but we recommend customers update their ConnectString
+definitions to use the new format.
+
+* Tokenized Connect String (#509)
+
+The connect string can be tokenized. Token replacement is performed
+before the query is executed.
+
+* Column Mapping
+
+The column names returned by a query, along with their data type, are
+now automatically mapped from the resultset. Column definitions are no
+longer necessary nor are they used if created in the metadata editor.
+
+* ConnectString Encryption
+
+The ConnectString property is now encrypted using the TripleDES
+encryption algorithm when it is transported across the network. This
+change was made to prevent passwords from being transmitted across the
+network in clear text format. Note: The encryption was also implemented
+in the older SQLPassthroughDataSetService.
+
+* Connection Caching
+
+The server initializes connections using a Hibernate SessionFactory
+object. In the previous implementation of the SQLPassthroughDataSet
+service, a SessionFactory was created for each call to the service which
+was inefficient. The service has been updated to cache the
+SessionFactory on the server. The SessionFactory cache is keyed on an
+SHA-1 hash of the encrypted ConnectString. The new connection caching
+functionality enables support for Hibernate connection pooling for
+SQLPassthroughDataSet functionality which should increase performance.
+
+Backwards Compatibility Note:
+
+The original SQLPassthroughDataSet service implementation has been
+retained on the server but is scheduled to be removed after existing
+customers confirm they have updated their SQLPassthroughDataSet
+definitions. To enable the older SQLPassthroughDataSet service on the
+server, find the following line in the dodeca.properties file:
+
+dodeca.metadata.service.SQLPassthroughDataSet=com.appliedolap.dodeca.server.metadata.selectors.SQLPassthroughDataSetService2
+
+and replace it with:
+
+dodeca.metadata.service.SQLPassthroughDataSet=com.appliedolap.dodeca.server.metadata.selectors.SQLPassthroughDataSetService
+
+Open In Excel Tool (#510)
+
+Previously, when a view was opened in Excel, the view's name was used as
+the Excel filename. In this build, the view's caption is used as the
+Excel filename.
+
+Page Setup Tool (#524)
+
+The non-PageSetup nodes are no longer displayed and the caption is set
+to "Page Setup'. Also, the Page Setup node for the active worksheet is
+automatically selected.
+
+New Tools
+
+* About Dodeca Application Framework (#501)
+
+The _About_ tool has been added to the default Administrator toolbars
+configuration. It displays the version and build number.
+
+* Cut, Copy, and Paste (#523)
+
+The tools can be added to a toolbar and context menu.
+
+The Paste options include All, All (except cell borders), Formats,
+Formulas, Formulas and Number Formats, Values, Values and Number Formats
+
+* Send To Mail Recipient (As Excel Attachment) (#521)
+
+The tool saves the view's workbook as an Excel file and adds the Excel
+file as an attachment to an email that is then displayed using the
+default email client UI. The user can add recipients and edit the email
+before sending. The tool has been added to the appropriate Sample
+tenant's view toolbars configurations.
+
+* Spreadsheet Formatting Tools (#525)
+
+The following formatting tools are now supported: AlignLeft, AlignRight,
+Bold, Borders (Popup menu), BordersList (12 different borders buttons),
+Center, CommaStyle, CurrencyStyle, DecreaseDecimal, DecreaseFontSize,
+DecreaseIndent, Explorer, FillColor,
+
+Font, FontColor, FontSize, IncreaseDecimal, IncreaseFontSize,
+IncreaseIndent, Italic,
+
+MergeAndCenter, PercentStyle, Underline
+
+* Print All Tool (#507)
+
+The Print All tool prints all the worksheets in the workbook.
+
+ExcelEssbaseView
+
+* Fixed issue encountered with a cascading view when a member name
+contained an apostrophe. The view threw an exception during retrieve.
+Member names (as well as template sheet names) that contain an
+apostrophe are now supported.
+
+<<<
+
+*Dodeca Framework Build 1110*
+
+*July 18, 2008*
+
+Essbase Selector Metadata Editor
+
+A default selector list can now be automatically created for each new
+selector when committed. The default selector list ID is
+<SelectorID>_Default, such as Market_Default. The default control is an
+EssbaseSelectorTreeView and the default list is an
+EssbaseDelimitedString. The SelectorListProperties are set as follows:
+
+* DefaultSelectionPolicy = LastUsedItem
+* DelimitedString = <Selector.Source>, which is the dimension name.
+* NullSelectionText = "Select a(n) <Selector Source>
+
+Metadata Editors
+
+For the metadata editors that display properties in a property grid, any
+property that represents another metadata instance can be right clicked
+to display a context menu that allows the metadata editor (associated
+with the instance's type) to be opened.
+
+For example, in the View Metadata Editor, if an Excel Essbase View is
+selected, clicking the WorkbookScriptID property name with the left
+mouse button (to activate the item) and then clicking the right mouse
+button displays a context menu. If the WorkbookScriptID is set to the ID
+of a workbook script, such as MyWorkbookScript, the context menu
+contains an "Edit MyWorkbookScript" item. Clicking the item opens the
+Workbook Scripts Metadata Editor (or activates the editor if already
+open) and the MyWorkbookScript instance is automatically selected. If
+the ID is not assigned a value, the context menu displays "Open Workbook
+Scripts", which also opens or activates the Workbook Script Metadata
+Editor, but without automatically selecting an instance.
+
+Import Essbase Connections
+
+A new utility is available that supports importing multiple Essbase
+Connections. The Import Essbase Connections utility is available from
+within the Essbase Connections Metadata Editor and can be launched from
+Admin / Quick Start Utilities and from the Quick Start task pane, which
+can be displayed from the Help menu.
+
+image::image519.jpeg[image,width=591,height=507]
+
+Import Dimensions
+
+The Import Dimensions utility, which is available from within the
+Essbase Selectors Metadata Editor, can now be launched from Admin /
+Quick Start Utilities and from the Quick Start task pane, which can be
+displayed from the Help menu.
+
+image::image520.jpeg[image,width=624,height=424]
+
+Selector and Selector List Changes and Bug Fixes
+
+1.  When an Essbase selector treeview's default selection is a member
+that has shared members, the handling of the default selection has
+changed. When the selector is configured to allow only a single item to
+be selected, the base member is selected (instead of the first matching
+member). When the selector is configured to allow multiple selections,
+only the base member is selected (instead of the base member and all
+shared members.)
+2.  Previously, a "dependent" selector would attempt to restore the
+previous selection when the "depended on" selector's selection changed.
+If unable to do so, the default selection would be used. Now, the
+selector does not attempt to restore the previous selection, and the
+default selection, if any, is always used. It is still recommended that
+the selector list assigned to the "dependent" selector be configured to
+validate the default selection.
+3.  Selector TreeView and ListBox docked controls would sometimes
+automatically re-display when the active sheet changed even though the
+control was explicitly closed by the user (by clicking the "X" button.)
+Now, when a selector control is closed by the user, it remains closed
+until the user clicks the "Show" button in the selector tool.
+4.  The issue with tokenized delimited string selector lists not being
+resolved has been fixed.
+
+Workbook Script Tool Controller
+
+The workbook script tool controller now supports a Tool Caption
+argument.
+
+Selector Control Dialog
+
+When a view's SelectorControlDisplayMode is set to ModalDialog, the
+dialog's location centered within the bounds of the application instead
+of relative to the selector tool. The size of the dialog has also been
+made larger.
+
+Import View from Excel
+
+The issue with the import of a view from Excel failing when an optional
+selector has a null selection when the view was exported has been fixed.
+
+<<<
+
+*Dodeca Framework Build 1088*
+
+*June 30, 2008*
+
+Essbase Connections
+
+1.  Stateful Essbase connections are now released when the application
+exits.
+2.  When an Essbase connection metadata instance is modified, it is no
+longer necessary to exit and restart the application.
+
+Send Tool
+
+1.  The message box displayed when a build, refresh, or Essbase
+operation is performed that could potentially overwrite imported or
+modified data now only displays the Yes and No buttons. The Cancel
+button has been removed, since there was no difference between the
+effect of clicking the No and Cancel buttons. The Yes, No, and Cancel
+buttons are all displayed when the user attempts to close the view
+before sending changes, since No and Cancel have different meanings.
+
+Workbook Scripting
+
+1.  The event name is displayed in Method error messages.
+2.  Added the Active property to the EventLink. The property can be set
+by a workbook script using the SetEventLink method. The property
+controls whether or not an EventLink's Procedure runs. For example, you
+may want an EventLink that functions after the view is built, but not
+while the event is building. For instance, you may want to prevent the
+script associated with the RangeChanged event from running while the
+view is building.
+3.  Added SetViewStatus method, which supports a Text and an Image
+argument.
+4.  Fixed issue with WorkbookView methods not working from events that
+occur before the view's workbook is opened.
+
+<<<
+
+*Dodeca Framework Build 1070*
+
+*June 23, 2008*
+
+Essbase Send Tool
+
+1.  A change to a cell value that is the result of a workbook script is
+now detected and causes the sheet to be flagged as dirty.
+2.  When a retrieve range does not intersect a dirty send range, the
+user is not prompted to confirm the operation when a retrieve is
+performed.
+3.  When a sheet contains multiple dirty send ranges and a retrieve
+operation is performed for the sheet, the user is only prompted when the
+first dirty send range (that is intersected by a retrieve range) is
+retrieved. The user's response to the prompt is applied to all
+subsequent retrieve ranges on the sheet.
+
+Workbook Scripting
+
+1.  Added ExcelEssbaseView _BeforeRangeRetrieve_ and
+_AfterRangeRetrieve_ event links
+2.  Added trace logging
+
+A workbook script now has a _DoTracing_ property, which defaults to
+False. The _DoTracing_ property can be turned On and Off via the
+_SetTracing_ workbook script method. This method supports the logging of
+a specific message. When tracing is On, each executed procedure is
+logged in the WorkbookScriptTrace.log file. This file is delimited, so
+it can easily be viewed in Excel.
+
+1.  Modified error messages raised from Functions and Methods to be more
+consistent and informational.
+2.  Fixed issue with formula parser when delimiters are in the formula.
+
+The function parser now supports quoted strings. If a string within a
+function's arguments is quoted with double quotes, then everything
+within the quotes is treated as a single argument and the parser will
+not parse characters within the quotes.
+
+1.  Fixed ReleaseLock() error, which occurred when a workbook was closed
+via a workbook script method.
+
+Selectors
+
+1.  Fixed issue encountered when a selector list is configured with the
+ToolVisibleInToolbar value as False and an Essbase view has multiple
+sheets. Changing the active sheet caused the hidden selector to be
+displayed. With the fix, the selector remains hidden when the active
+sheet changes.
+2.  Fixed issue with Essbase selector treeview that was encountered when
+the user changed the alias table and a member represented by a root node
+does have an alias defined in the selected alias table. This resulted in
+an empty treeview.
+
+SpreadsheetGear WorkbookView
+
+1.  When the WorkbookView control displays a message box, such as when
+the user attempts to edit a locked cell, the caption is now the name of
+the view, instead of the string "SpreadsheetGear".

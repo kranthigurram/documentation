@@ -1,0 +1,42 @@
+= Version 5.0.1.2283
+// if an {imagesdir} attribute is not defined, define it relative to this file.
+ifndef::imagesdir[:imagesdir: ../images]
+
+[discrete]
+== Dodeca Framework
+
+[discrete]
+== July 6, 2010
+'''
+
+This release addresses a couple of issues, including an issue with the
+application-level request and response logging (#835) and an issue
+encountered with using Excel outlining and relational groups when
+outlining was enabled for more than two levels of grouping (#834).
+
+We also discovered a typo in the New Vertical Tab Group tool caption.
+This has been corrected in the default Admin toolbars configuration, in
+the Standard Tools, and in the Starter Kit's View Console toolbars
+configuration.
+
+image::image449.jpeg[image,width=417,height=339]
+
+The correction will need to be made to any toolbars configuration that
+is assigned to an application as the ToolbarsConfigurationID. Since most
+Admin applications use the default Admin toolbars configuration (i.e.
+UseDefaultAdminToolbarsConfiguration is set to True), then only the
+toolbars configurations assigned to user applications will likely need
+to be changed.
+
+image::image450.jpeg[image,width=535,height=329]
+
+To correct the typo, select the toolbars configuration in the Toolbars
+Configuration Metadata Editor, then open the Toolbars Designer.
+
+image::image451.jpeg[image,width=533,height=364]
+
+Next, select the New Vertical Tab Group tool and edit the Caption.
+
+image::image452.jpeg[image,width=555,height=333]
+
+Close the Toolbars Designer and commit the change.

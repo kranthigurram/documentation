@@ -1,0 +1,235 @@
+= Version 5.1.0.2320
+// if an {imagesdir} attribute is not defined, define it relative to this file.
+ifndef::imagesdir[:imagesdir: ../images]
+
+[discrete]
+== Dodeca Framework
+
+[discrete]
+== August 4, 2010
+'''
+
+This version uses SpreadsheetGear 2010 (6.0.3.136). which was upgraded
+from SpreadsheetGear 2009 (5.1.1.112), and NetAdvantage 10.1.20101.1007.
+
+SpreadsheetGear 2010
+
+SpreadsheetGear's WorkbookView spreadsheet control includes several new
+capabilities that are now supported within Dodeca:
+
+* AutoFilter support, Including:
+** Top or bottom--n items
+** Top--or bottom n--percent
+** Above or below average
+** Last day, month, quarter, week or year
+** This day, month, quarter, week or year
+** Next day, month, quarter, week or year
+** Specific day, month, year, hour, minute or second
+** Year to date
+** Filter by font color or interior color
+** Custom criteria such as ">50"
+** Filter by specific list of values
+** Support for the *SUBTOTAL* function which works in conjunction with
+autofilters to return various statistics--for filtered items including
+average, count, max, min, product, standard deviation, sum and variance.
+** AutoFilter support in many commands including cell formatting, copy &
+paste,--fill,--delete and more.
+
+_Dodeca supports auto-filtering for Excel and SQL Excel views. Refer to
+the section on AutoFiltering below for more details._
+
+* Excel charting enhancements include the following:
+** Radar charts
+** Logarithmic scales
+** Date scales
+** Error bars, including error amounts as fixed values, percentage,
+standard deviation, standard error and custom formulas
+** Trendlines, including linear, logarithmic, exponential, power,
+polynomial and moving average
+** Series line smoothing based on the Catmull-Rom spline
+** Minor tick and gridline rendering
+** Dashed line style rendering and APIs
+** AxisCrosses.Minimum option
+
+* Support for Alt+Up / Alt+Down arrow keys with a data validation drop
+down.
+* Support for the ability to autofill up and to the left.
+
+There are few SpreadsheetGear limitations that should be taken into
+account when designing a view:
+
+* Cell comments and form controls (such as buttons, checkboxes, list
+boxes, etc,) are not read from or written to Excel 2007 (.xlsx) files.
+
+_This means that when a view is configured to support commentary and the
+comments are displayed as Excel comments, the Excel comments are not
+retained when the view is opened in Excel 2007 or saved as an .xlsx
+file. The format used to save a view to Excel is the same format as the
+view's Excel template, so using an Excel 2003 file as the template is
+recommended when the view configuration is as described. _
+
+* When reading conditional formats, only Excel 2003 features are
+supported. Conditional formats which use Excel 2007-2010 features are
+ignored (deleted). Also, SpreadsheetGear does not support Excel
+2007-2010's new ability to have different conditional formats which
+overlap, so when a conditional format is read which overlaps a previous
+conditional format, the cells in the previous conditional format are
+removed from the newly read conditional format.
+* Table references in formulas such as [Sales] are converted to #REF!
+SpreadsheetGear does not support Excel--tables. With no table to refer
+to, there is no way to preserve these formulas in their original state
+or Excel will generate a warning when reading the workbook.
+
+AutoFiltering
+
+Excel and SQL Excel views now support auto-filtering. The auto-filtering
+functionality can be made available to users by 1) including the
+auto-filter tool in a view's toolbar, 2) enabling auto-filtering in the
+view's Excel template, or 3) for a SQL Excel view, by configuring the
+view to automatically enable auto-filtering for a data table range. (A
+_data table range_ represents the results of a given relational query.)
+
+Three auto-filtering related tools are supported, including: 1) The
+Auto-Filter tool, which enables auto-filtering, 2) The Clear Filter
+tool, which clears existing filters, and 3) The Reapply Filter tool,
+which allows the user to reapply the filters after data is edited. The
+functionality is almost identical to the auto-filtering functionality in
+Excel.
+
+image::image441.jpeg[image,width=624,height=239]
+
+When one or more filters are defined, the Clear Filter tool is used to
+clear the existing filters.
+
+image::image442.jpeg[image,width=624,height=252]
+
+The following limitations apply:
+
+* As in Excel, auto-filtering cannot be enabled on a protected sheet.
+* Auto-filtering is not currently supported for Essbase views.
+
+*How to add the auto-filter tools to a toolbars configuration*
+
+To add the auto-filter tools to an existing toolbars configuration,
+perform the following steps:
+
+1.  Open the Toolbars Configuration Metadata Editor from the Admin menu.
+2.  Open the Toolbars Designer.
+3.  Open the Import Standard Tools and Toolbar Wizard.
+4.  On the Select Toolbars tab, check AutoFilter. The AutoFilter toolbar
+contains the three auto-filter related tools.
++
+image::image443.jpeg[image,width=480,height=342]
+5.  Click Next on the Select Popup Menu Tools tab.
+6.  The auto-filter tools are automatically checked on the Select Tools
+tab. If you don't intend for a user to enable auto-filtering using the
+auto-filter tool, uncheck the AutoFilterRange tool. Click Finish.
++
+image::image444.jpeg[image,width=480,height=342]
+7.  Close the Toolbars Designer dialog.
+8.  The AutoFilter toolbar will be positioned at the bottom.
++
+image::image445.jpeg[image,width=487,height=123]
+9.  Drag the AutoFilter toolbar to the desired location.
++
+image::image446.jpeg[image,width=568,height=96]
+10. Commit the changes.
+
+*How to enable auto-filtering in a view's Excel template*
+
+You can use the Excel auto-filter tool to enable auto-filtering for a
+range within the view's Excel template. *It is important to ensure that
+any columns that are to be hidden are included in the auto-filter
+range.* This is especially important for a SQL Excel view that allows
+users to write-back changes to the database. If the hidden column(s)
+contain the primary key and the columns are not included in the
+auto-filter range, unintended changes to the data can result from the
+user sorting the rows and then saving.
+
+image::image447.jpeg[image,width=624,height=194]
+
+*How to automatically enable auto-filtering in a SQL Excel view*
+
+In a SQL Excel view, a data table range can be configured to
+automatically enable auto-filtering for the data range or, if defined,
+for the data block.
+
+_An explanation of data ranges and data blocks is included in the Dodeca
+Administrator's Guide, Using Relational Data with SQL Excel and Essbase
+Excel Views section._
+
+image::image448.jpeg[image,width=624,height=426]
+
+Excel, SQL Excel, and Essbase Excel Views
+
+* All of the Excel-based view types now allow Excel outlining of row and
+column groups on a protected sheet. (Previously, outlining could only be
+enabled on an unprotected sheet.) This is particularly relevant for the
+relational functionality, which supports the ability to group rows and
+to optionally enable Excel outlining for each level of groups. (#836)
+
+Essbase Views
+
+* Fixed issue introduced in Build 2260 that causes the non-default
+values assigned to the EssProperties settings in a named property set
+associated with a view to not be applied to the view at runtime. The
+result is that the view's EssProperties values are used instead. (#844)
+
+Relational Functionality
+
+* Added support for formulas within a data range. (#842)
+* Fixed issue encountered when the columns or parameters specified in a
+SQL statement were separated by a comma that was not followed by a
+space. (#837)
+* Fixed issue with the improper mapping of JDBC REAL and NUMERIC data
+types to Java types. The JDBC REAL type was being improperly mapped to a
+Java BigDecimal and was corrected to be mapped to a Java Float. The JDBC
+NUMERIC type was being improperly mapped to a Java Float, and was
+corrected to be mapped to a Java BigDecimal. (#838)
+* Fixed issue encountered when attempting to set a JDBC TinyInt value.
+Valid values are between 0 and 255, but an error was generated when the
+specified value was outside the bounds of a signed byte, which is
+between -128 and +127. (#839)
+* Fixed issue encountered when attempting to set a BIT column value to
+False. (#840)
+* Modified which setting is used to obtain the relational data source
+connection information for a SQLPassthroughDataSet's Query when both the
+Hibernate _ConnectString_ and the JDBC _SQLConnectionID_ properties are
+specified. The _SQLConnectionID_ setting is now used instead of the
+_ConnectString_ when both are specified. The _SQLConnectionID_ is also
+the preferred setting.
+
+The _ConnectString_ property was used in pre-5.0 Dodeca versions to
+specify connection information using Hibernate syntax. The
+_SQLConnectionID_ property was introduced in Dodeca 5.0 to define a
+reusable object that specifies the connection information. When the
+_SQLConnectionID_ property is specified, the Dodeca server connects
+directly to the relational data source using JDBC instead of using the
+Hibernate layer to manage the connection.
+
+An issue was reported in version 5.0.0.2260 that occurred when the
+_ConnectString_ property was not empty and when doing repetitive
+operations. The issue caused the JDBC operation to hang which, in turn,
+caused the client to possibly hang. This appears to be an issue within
+the Hibernate layer, and can be avoided by using the _SQLConnectionID_.
+(#841)
+
+* Fixed issue encountered when an INSERT or UPDATE statement contains a
+constant as a value. Although the issue was addressed, due to a
+limitation in the JDBC driver, when constants are passed as values, the
+constants must be positioned as the last arguments in the values clause
+of an INSERT statement or as the last specified values in an UPDATE
+statement. (#845)
+
+View Metadata Editor
+
+* Added a Preview button that allows a view developer to open a view
+from the editor to see the effect of the changes made to the metadata of
+a new or existing view before committing the changes to the database.
+This also allows a developer to create and test a view before deploying
+the view on a view hierarchy. (#846)
+
+Workbook Scripting
+
+* New function: @TextBoxValue(<textbox name>), which returns the value
+of a textbox. (#843)

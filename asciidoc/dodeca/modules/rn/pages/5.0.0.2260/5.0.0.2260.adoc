@@ -1,0 +1,1125 @@
+= Version 5.0.0.2260
+// if an {imagesdir} attribute is not defined, define it relative to this file.
+ifndef::imagesdir[:imagesdir: ../images]
+
+[discrete]
+== Dodeca Framework
+
+[discrete]
+== June 17, 2010
+'''
+
+*This version of the framework requires an upgrade to the dodeca-essbase
+service.*
+
+_Please contact support@appliedolap.com to request a compatible
+version(s) of the servlet for the installed version(s) of Essbase._
+
+This version uses SpreadsheetGear 5.1.1.188 and NetAdvantage
+10.1.20101.1007.
+
+The release notes for this build contain the following sections:
+
+Binary Artifact Metadata Editor
+
+ClickOnce Deployment
+
+ClickOnce Prep Utility
+
+Comments
+
+Culture Settings for Essbase Views, Excel Views, and SQL Excel Views
+
+dodeca-essbase Servlet
+
+Essbase Clustering
+
+Essbase Connections
+
+Excel Formatting Tools
+
+Essbase Performance Logging
+
+Essbase Selector Tree
+
+Essbase Send Tool
+
+Essbase Views
+
+Excel Essbase View
+
+JDBC Test Utility
+
+Metadata Editors
+
+Relational Database Support
+
+Request and Response Logging
+
+Save Layout as Binary Artifact Tool
+
+Script Essbase View
+
+SSL Support
+
+Workbook Scripting
+
+Binary Artifact Metadata Editor
+
+* Fixed Issue: When a binary artifact file is imported, the Commit
+button is enabled, but the "modified" icon is not displayed to the left
+of the item in the metadata list. (#769)
+
+ClickOnce Deployment
+
+* Fixed Issue: If a user had a version of Dodeca installed via ClickOnce
+on their machine and later installed a newer version of Dodeca via
+ClickOnce, on some occasions the updated versions of dependent dlls,
+such as AppliedOLAP.Dodeca.Windows.Common.dll, would not get updated.
+This could lead to various errors, such as 'Unable to get type XYZ from
+assembly ABC'.
+
+Resolution: The underlying cause appears to be that the file version
+stamp was not being updated on the Dodeca dlls. This was by design in
+order to accommodate our plug-in architecture. As a result, we slightly
+modified the design and put automated processes in place to update the
+file version stamp with each build.
+
+The file versions of the Dodeca assemblies now reflect the build number.
+(#788)
+
+ClickOnce Prep Utility
+
+* Three prerequisites for building the ClickOnce deployment have been
+eliminated: 1) having the .NET 2.0 SDK installed, 2) having the JDK
+installed, and 3) importing the digital signing certificate into the
+personal certificate store.
+
+The elimination of the requirement for the .NET 2.0 SDK addresses an
+issue encountered on 64 bit machines (i.e. Windows 7, Windows 2003,
+etc.) that have the 32 bit .NET 2.0 SDK installed. Attempting to build
+the deployment would result in the error: "The installation directory
+for the .NET Framework 2.0 SDK was not found" and the build would stop.
+This prevented an administrator from deploying Dodeca from a 64 bit
+desktop. (#741 and #811)
+
+* The ClickOnce Prep Utility now defaults the various path settings,
+such as the CertificatePath, Assembly Path, etc., to the Dodeca
+framework installation directory. (#742)
+* The password for the delivered digital signing certificate,
+dodeca_temp.pfx, was changed from "not_for_production_use" to
+"password". *Saved settings that use the delivered certificate will need
+to be changed to reflect the new password.* (#778)
+* Fixed Issue: The dialog for retrieving, saving, or removing settings
+responds to the Escape key as if the user had pressed the OK button.
+(#782)
+
+Comments
+
+* When the comments associated with a cell are displayed as an Excel
+comment, the Excel comment now 1) uses non-bold text, 2) contains the
+name/date on a separate line from the comment content, 3) does not
+contain a semi-colon at the end of each comment, and 4) contains a blank
+line between comments. (#787)
+
+Culture Settings for Essbase Views, Excel Views, and SQL Excel Views
+
+Added a *CulturePolicy* property, which controls how a view's regional
+settings are obtained. A view can be configured to either use 1) the
+regional settings that are defined for a specific culture, or 2) the
+regional settings that are defined for the culture of the user's Windows
+environment. (#822, #826)
+
+When the *CulturePolicy* is set to _UseSpecifiedCulture_, the culture
+specified by the *CultureName* property is used to get the regional
+settings. When set to _UseWindowsCulture_, the culture of the local
+Windows operating system is used.
+
+image::image453.jpeg[image,width=514,height=316]
+
+By default, the *CulturePolicy* is set to _UseSpecifiedCulture_ and the
+*CultureName* is set to "English (United States)".
+
+If a view is to be used by users in different countries, then
+configuring the view to obtain the regional settings from a user's
+Windows operating system is preferable. The formatting used in the
+view's spreadsheet as well as the argument separator used in Excel
+functions will be consistent with what a user is accustomed to when
+using Excel.
+
+The regional settings affect the following:
+
+* Excel formula function arguments separator
+
+In Excel, function arguments in formulas are separated by the character
+defined as the List Separator in the Regional Options settings for the
+local Windows environment. The character is typically a comma or a
+semicolon. Excel automatically converts the argument separator in an
+Excel file to the list separator in effect when the file is opened.
+
+In Dodeca, a view's culture setting determines the list separator that
+is used for functions in Excel formulas for the view. The list separator
+that is defined for the view's culture, such as English (United States)
+or French (France), is handled by the view in the same way that Excel
+handles the list separator defined by the local system's regional
+settings.
+
+Any formulas defined in the view's Excel template are automatically
+converted to use the list separator defined for the view's culture as
+the function argument separator.
+
+Any formulas entered by the user into the view's spreadsheet must use
+the view culture's list separator. Any Excel formulas in the workbook
+scripts that are used by the view must also use the view culture's list
+separator as the function argument separator.
+
+* Excel cell number formats
+
+In Excel, the symbols and separators used in cell number formats are
+defined by values in the Regional Options settings for the local Windows
+environment. Number formats can include any of the following: the
+decimals used in numeric, currency, and percent values; the strings used
+to separate groups of digits to the left of the decimal in numeric,
+currency, and percent values; the currency symbol; the negative sign
+symbol; the string used to separate the day, month, and year in a date
+value; and the string used to separate the hour, minutes, and second in
+a time value.
+
+In Dodeca, a view's culture setting determines the regional settings,
+and therefore the symbols and separators used in cell number formats for
+the view. Any cell number formats defined in the view's Excel template
+are automatically converted to the appropriate equivalent formats for
+the view's culture. Any custom number formats assigned to cells in a
+workbook script that is used by the view must use the symbols and
+separators that are appropriate for the view's culture.
+
+* Essbase numeric data formats
+
+For Essbase views, the culture-specific formatting used for Essbase
+numeric data values is based on the view's culture. For instance, the
+data value 1,234.56 in the English (United States) culture is 1 234,56
+the French (France) culture.
+
+*How to Create a Culture-Neutral Workbook Script*
+
+When the *CulturePolicy* is set to _UseWindowsCulture_, it is important
+to create workbook scripts that are not written for a specific culture,
+meaning that the scripts do not use culture-specific symbols,
+separators, etc.
+
+* Use the @SEP() function in place of function argument separators in
+Excel formulas.
+
+For example, instead of using a comma as the argument separator in the
+Address formula: =Address(@LRow(), @LCol())
+
+Use the @Sep() function, which is replaced at runtime with the list
+separator for the view's culture: =Address(@LRow()@Sep()@LCol())
+
+* Use the following functions when constructing a custom number format
+to assign to cells:
++
+ViewCultureNumberDecimal @NDEC()
++
+Returns the decimal separator used in numeric values.
++
+ViewCultureNumberGroupSeparator @NSEP()
++
+Returns the string that separates groups of digits to the left of the
+decimal in numeric values.
++
+ViewCultureNegativeSign @NEG()
++
+Returns the string that denotes that a number is negative.
++
+ViewCultureCurrencyDecimal @CDEC()
++
+Returns the decimal separator used in currency values.
++
+ViewCultureCurrencySymbol @CSYM()
++
+Returns the currency symbol.
++
+ViewCultureCurrencyGroupSeparator @CSEP()
++
+Returns the string that separates groups of digits to the left of the
+decimal in currency values.
++
+ViewCulturePercentDecimal @PDEC()
++
+Returns the decimal separator used in percent values.
++
+ViewCultureDateSeparator @DSEP()
++
+Returns the string that separates the components of a date (year, month,
+and day).
++
+ViewCultureTimeSeparator @TSEP()
++
+Returns the string that separates the components of time (hours,
+minutes, and seconds).
+
+For example, the SetNumberFormat() method can be used to set the number
+format for cells within a range. A number format string that uses
+decimals and thousands separators that are appropriate for the English
+(United States) culture is:
+
++_($* #,##0.00_);_($* (#,##0.00);_($* "-"??_);_(@_)+
+
+The equivalent format string for the French (France) culture is:
+
++_($* # ##0,00_);_($* (# ##0,00);_($* "-"??_);_(@_)+
+
+The equivalent format string to use in a culture-neutral script uses the
+@NSEP() and @NDEC() functions:
+
++_($* #@NSEP()##0@NDEC()00_);_($* (#@NSEP()##0@NDEC()00);_($*"-"??_);_(@_)+
+
+Caveats:
+
+* The Regional Options do not affect the language used for Excel
+function names. All the Excel function names must be the English
+version.
+* The character used to separate workbook script function arguments must
+always be a comma.
++
+dodeca-essbase Servlet
+
+*This version of the framework requires an upgrade to the dodeca-essbase
+service. *
+
+_Please contact support@appliedolap.com to request a compatible
+version(s) of the servlet for the installed version(s) of Essbase._
+
+* The dodeca-essbase service is now available for Essbase 11.1.2 and APS
+11.1.2 (#815)
++
+Essbase Clustering
+
+This release includes new support for Essbase server clustering (#806).
+Prior to Essbase 9.3.0, support for Essbase clustering was built into
+the Essbase Deployment Services/Analytic High Availability Services
+server infrastructure. Starting in Analytic Provider Services ("APS")
+version 9.3.0, Essbase clusters may be defined in APS, but APS no longer
+implements clustering functionality.
+
+The clustering functionality in the dodeca-essbase servlet leverages APS
+for the cluster definitions. Cluster definitions are initialized by the
+Dodeca Cluster Manager upon the first connection to Essbase. Changes to
+the cluster definitions are not recognized until the dodeca-essbase
+server is restarted.
+
+Clustering is supported for both stateful and stateless Essbase
+connections and is implemented using a round-robin algorithm.
+Additionally, stateful connections may optionally be configured to
+return an exception to the client if the cluster item to which it is
+connected becomes unavailable.
+
+[cols=",,,",options="header",]
+|=======================================================================
+| |*Stateful * |*Stateless* |
+|*Initial Essbase Operation* |The operation connects to the Essbase
+server, application and database defined by the next available component
+on the named cluster. |The operation connects to the Essbase server,
+application and database defined by the next available component on the
+named cluster. |
+
+|*Subsequent Essbase Operations* |The operation connects to the same
+Essbase server, application and database as the initial operation. |The
+operation connects to the Essbase server, application and database
+defined by the next available component on the named cluster. |
+
+|*When a cluster item is removed from service* |The operation connects
+to the next Essbase server, application and database available on the
+named cluster for all subsequent connections. If, however, the
+*NotifyOnStatefulClusterNodeFailure* property is True, the operation
+will return an exception to the client machine. In this case, the user
+can either disconnect / reconnect using the appropriate toolbar buttons
+or the disconnect / reconnect may occur via workbook script methods.
+|The operation connects to the Essbase server, application and database
+defined by the next available component on the named cluster. |
+|=======================================================================
+
+When cluster items are removed from service, they may be handled
+differently from the dodeca-essbase servlet based on their
+configuration. The servlet configuration allows the administrator to
+configure the Essbase error numbers which may occur when connecting to
+component nodes on the cluster. Error numbers can be configured to
+handle node failures in three different ways:
+
+* Retry on the same component -- Used when error number indicates the
+user has been logged out by the administrator or due to inactivity.
+* Mark component temporarily unavailable -- Used when the error number
+indicates the component has been taken offline by an administrator or
+other errors temporarily in nature have occurred. The component is
+removed from the round-robin algorithm until a configurable timeout
+period has occurred.
+* Mark component permanently unavailable -- Used when the error number
+indicates the component has a serious error or has been defined
+incorrectly. The component is removed from the round-robin algorithm
+until APS restarts.
+
+The Essbase error numbers and how they are handled, the timeout period
+and the interval between timeout checks are configurable in the
+dodeca-essbase web.xml file. The Timeout period is configured using the
+*clusterItemTimeoutInterval* init-param and the check interval is
+configured using the *clusterItemCheckInterval*. The error numbers are
+configured via the *clustering.retryOnSameSvcComp.errorCodes*,
+*clustering.markSvcCompUnavailableTemporarily.errorCodes*, and
+*clustering.markSvcCompUnavailablePermanently.errorCodes* init-params.
+Here is a screenshot from the web.xml:
+
+image::image454.jpeg[image,width=624,height=158]
+
+Essbase Connections also need to be configured to use a cluster. The
+*ClusterName* property signifies the cluster to use for obtaining
+server, application and database information. The
+*NotifyOnStatefulClusterNodeFailure* property is used to signify a
+failure of a node on a stateful connection will notify the Dodeca client
+so appropriate action can be taken. The example connection show below is
+configured to use the cluster named 'ProductionCluster' with stateful
+transactions.
+
+image::image455.jpeg[image,width=528,height=300]
+
+Essbase Connections
+
+* Fixed Issue: The Essbase Username and Password specified for an
+Essbase connection metadata instance were previously stored in clear
+text. On the metadata server, the metadata was previously stored in a
+gzipped base64-encoded string and not in clear text, but is still
+relatively easily exposed. On a client machine, the username and
+password were stored in clear text in the data cache.
+
+Resolution: Updated the storage mechanism to use the Triple DES
+encryption algorithm whenever the username and password are stored.
+
+Note: Many customer deployments do not use a stored username/password,
+commonly known as a phantom username/password combination, in their
+deployments. Other customers use this mechanism to allow end users
+access to data using their own credentials, but conduct all
+send/calculate operations using a phantom username/password. The
+internal code change was implemented such that current customer
+deployments will work using their existing phantom username/password
+combinations. *We do recommend that customers edit these connections,
+make a change, then commit the updated Essbase connection to the
+server.* The updated EssConnection will automatically encrypt the
+username and password. (#775)
+
+Excel Formatting Tools
+
+* Increase / Decrease Indent Tools
++
+Modified to allow for a decimal in a numeric value to not be a period,
+which is the decimal separator defined by the English (United States)
+culture. (#827)
+* Comma Style and Currency Style Tools
++
+Modified to use the view's regional settings to determine the decimal
+and thousands separators when setting cell formats. (#828)
+
+Essbase Performance Logging
+
+Added an Essbase Performance logging capability to the Dodeca-Essbase
+service. The performance logging functionality stores performance
+metrics for all, or selected, Essbase transactions executed on the
+Dodeca-Essbase service. The metrics are stored in the Dodeca relational
+metadata database in the ESSBASE_PERFORMANCE_LOG table.
+
+The ESSBASE_PERFORMANCE_LOG table is defined in SQL Server DDL as:
+
+create table ESSBASE_PERFORMANCE_LOG ( +
+PERFORMANCE_LOG_RECORD_NUMBER numeric(19,0) identity not null, +
+TENANT varchar(50) null, +
+APP_SERVER_PROFILE varchar(255) null, +
+SERVER varchar(50) null, +
+APPLICATION varchar(50) null, +
+CUBE varchar(50) null, +
+ESSBASE_USER_ID varchar(50) null, +
+WORKSTATION_USER_ID varchar(50) null, +
+WORKSTATION_ID varchar(50) null, +
+TIMESTAMP varchar(25) null, +
+SEQUENCE_NUMBER numeric(19,0) null, +
+THREAD_COUNT int null, +
+OPERATION varchar(50) null, +
+DURATION int null, +
+REQUEST_GRID_SIZE int null, +
+RESPONSE_GRID_SIZE int null, +
+REQUEST_CELL_COUNT int null, +
+RESPONSE_CELL_COUNT int null, +
+MEMBER_COUNT int null, +
+primary key (PERFORMANCE_LOG_RECORD_NUMBER) +
+)
+
+You can generate the DDL in the syntax of your installed database by
+typing the metadata-service address, for example,
+'http://mustang:13080/dodeca/metadata-service' into a browser, then
+selecting the Generate DDL option. If you are upgrading from a previous
+version of Dodeca, you can run the DDL to create just this table against
+your database.
+
+Note: If you are upgrading from a previous version of Dodeca and do not
+update the database schema to add the new table, you must edit the
+dodeca.properties file and set the
+dodeca.essbase.performance.log.enabled property to false.
+
+The fields stored in the data are:
+
+[cols=",",options="header",]
+|=======================================================================
+|ESSBASE_USER_ID |The Essbase username used for the request.
+|WORKSTATION_USER_ID |The Windows username from the requesting
+workstation.
+
+|WORKSTATION_ID |The name of the workstation making the request.
+
+|TIMESTAMP |The date and time of the request in UTC format.
+
+|SEQUENCE_NUMBER |The sequential number of requests processed through
+the running instance of the filter.
+
+|THREAD_COUNT |The number of threads active within the service when this
+request begins.
+
+|OPERATION |The Essbase operation name.
+
+|DURATION |The amount of time required to complete the operation in
+milliseconds.
+
+|REQUEST_GRID_SIZE |The size of the grid passed into the service.
+
+|RESPONSE_GRID_SIZE |The size of the grid after the operation.
+
+|REQUEST_CELL_COUNT |The number of filled cells passed into the service.
+
+|RESPONSE_CELL_COUNT |The number of filled cells returned from the
+service.
+
+|MEMBER_COUNT |The number of members returned from the service.
+|=======================================================================
+
+The grid sizes and cell counts will normally contain non-zero numbers,
+and the member count will contain zero, for most data retrieval
+operations. The grid sizes and cell counts will contain zero, and the
+member count will normally contain non-zero numbers, for most member
+query operations.
+
+The performance logging functionality is comprised of two components:
+the servlet filter and the client properties. The servlet filter for the
+Dodeca-Essbase service is configurable via parameters in the web.xml
+file. The performance logging filter requires no mandatory parameter
+configurations to function properly. Optional parameters, their purpose
+and guidance for usage are documented in the filter section of the
+web.xml file.
+
+A client must also be configured for performance logging to work.
+Performance logging is specific to a single Essbase connection and is
+configured in one of two ways depending on whether logging should be
+enabled for all clients or for only the current client and session.
+
+_*Warning*: Logging can quickly generate a large number of records in
+the ESSBASE_PERFORMANCE_LOG table. Performance logging should only be
+enabled on an as needed basis._
+
+To enable Essbase performance logging for the current client during the
+current session only, use the _Utilities -> Log Essbase Performance_
+tool, which expands to show a list of the Essbase connection ID's.
+Performance logging can be enabled or disabled on a per connection
+basis.
+
+image::image456.jpeg[image,width=624,height=323]
+
+To enable Essbase performance logging for all clients, use the Essbase
+Connections metadata editor to set the new *DoEssbasePerformanceLogging*
+property. When set to _True_, all clients signal the Dodeca-Essbase
+service to gather performance information for this connection and pass
+it to the Dodeca service for relational storage.
+
+image::image457.jpeg[image,width=624,height=323]
+
+Essbase Selector Tree
+
+* Fixed Issue: When multiple instances of a shared member are restored
+as the default selection and the view is then built, the following error
+is encountered: "An item with same key already added." This issue was
+introduced just prior to the release of Build 1749. (#773)
+* Optimized to improve the performance of selector initialization as
+well as the search capability. The search performance improvements are
+particularly noticeable when the dimension contains a large number of
+members and the search returns a large number of hits. (#790 and #792)
+* Added a _MemberToolTipContentOptions_ option, _Attributes_, which
+displays a member's associated attributes in the tool tip. (#799)
+
+By default, the tooltip contains the member name, alias, generation,
+level, and whether or not the member is shared. The content can also
+contain the UDA's associated with the member, the member comment,
+formula, consolidation operation, and associated attributes. The size of
+the tooltip as well as the amount of time required to display the
+tooltip are both a factor of the size of the content. The possible
+number of UDA's and associated attributes as well as the length of the
+comment and the formula should be taken into account when deciding
+whether or not to include any of these options. You can specify the
+member information displayed by the tooltip by checking and unchecking
+options.
+
+image::image458.jpeg[image,width=624,height=409]
+
+The format used for an attribute is _"<attribute dimension name>:
+<attribute name>"._
+
+image::image459.jpeg[image,width=348,height=384]
+
+The associated attributes are also displayed in the Member Information
+dialog.
+
+Essbase Send Tool
+
+* Fixed Issue: Using some of the Excel formatting tools, such as the
+Increase / Decrease Decimal tools, on an Essbase numeric data cell
+causes the tool to incorrectly detect that a change has occurred, which
+results in the user being prompted when attempting to build or close the
+view or perform an Essbase operation. The same issue could also occur
+when a workbook script changes the cell number format. (#829)
++
+Essbase Views
+
+* Fixed Issue: When an Essbase outline contains more than 32 dimensions,
+there are various issues that can be encountered when the dimensions
+that have a dimension number greater than 32 are referenced by the
+client. (#807)
+* Added support for Essbase 11 Date and Text measures, aka SmartLists. A
+"Use SmartLists" option is available as an EssProperties setting and is
+also present on the Essbase Options dialog. (#791)
+
+Excel Essbase View
+
+* Fixed Issue: When _CascadeDoCascade_ is True, but no _CascadeSources_
+are defined, the view generates the following error: "Object reference
+not set to an instance of an object."
+
+Resolution: The error was changed to the following: "Unable to build the
+view. Unable to do cascading. No CascadeSources are defined." (#765)
+
+* Added _CascadeSheetNameMaxLength_ property, which controls the maximum
+length of a cascade sheet name. The default setting is 0, which imposes
+no limit on the number of characters in a cascade sheet name. If the
+view can be saved to an Excel file or opened in Excel, the recommended
+value is 31, which is the maximum number of characters allowed by Excel
+for a sheet name. (#766)
+
+JDBC Test Utility
+
+The JDBC Test Utility is used to test and validate the
+hibernate.properties settings for a given database. After the database
+is selected from the Database Platform dropdown list, the related
+settings are loaded from the properties file. The settings can be tested
+and edited, as necessary, and then written back to the file by selecting
+"Update hibernate.properties" from the Tools menu. (#812)
+
+Note: The utility requires that the Java environment is installed and
+that the appropriate JDBC drivers are also available.
+
+image::image460.jpeg[image,width=436,height=477]
+
+Metadata Editors
+
+* The Application, View, View Property Set, and Select List Metadata
+Editors support the ability to show all the properties in the property
+grid or to show only the properties that are required or only those that
+are the most common. This capability is referred to as _property
+filtering_. Three filter buttons have been added to the property grid's
+toolbar: All, Required, and Common. (#800)
+
+image::image461.jpeg[image,width=554,height=421]
+
+* The following metadata editor subforms support the ability to copy an
+existing instance: Comment Range, Comment Key Items, SQLPassthrough
+DataSet Query, and Essbase Chart Info. (#770)
+* The following metadata editor subforms support the ability to assign
+an item by double-clicking the item in the list on the left and to
+unassign an item by double-clicking the in the list on the right:
+Selector Configuration, Cascade Source Configuration, and Named Property
+Sets (#786)
+
+Paste Type Options Tool
+
+The following paste type options are now supported: All, Formulas,
+Values, Formats, Comments, Validation, All Except Borders, Column
+Widths, Formulas and Number Formats, and Values and Number Formats.
+
+The new paste type options include: Comments, Validation, All Except
+Borders, and Column Widths.
+
+The *PastePolicy* property, which is supported for all Essbase views,
+generic Excel views, and SQL Excel views, controls the paste type used
+when the Ctrl+V keys are pressed to initiate a paste operation. The
+property is also used to set the default paste type option in the Paste
+tool. When the clipboard does not contain Excel data*, all options
+except the Values option are disabled and the Values option is
+automatically used to paste text data. When the clipboard contains Excel
+data, the option is set to either the previously selected option or the
+default. (#824, #825)
+
+*Data copied from Excel (or from the SpreadsheetGear WorkbookView grid
+control) uses the Excel file format, which is called BIFF (Binary
+Interchange File Format).
+
+image::image462.jpeg[image,width=545,height=365]
+
+image::image463.jpeg[image,width=624,height=365]
+
+To add the new options to an existing menu that already contains the
+Paste Options tool, perform the following steps.
+
+1.  From the Toolbars Configuration Metadata Editor, open the Toolbars
+Designer for the selected toolbars configuration.
+
+image::image464.jpeg[image,width=624,height=339]
+
+1.  Delete the existing Paste Options tool.
+
+image::image465.jpeg[image,width=624,height=388]
+
+1.  Open the Import Standard Tools and Toolbars wizard.
+
+image::image466.jpeg[image,width=468,height=211]
+
+1.  Advance to the "Select Tools" page, check the Paste Options tool
+button, and click the Finish button.
+
+image::image467.jpeg[image,width=624,height=395]
+
+1.  At this point, the toolbars configuration contains the new Paste
+Options tool, but the Paste menu no longer contains the tool. To add the
+tool to the menu, select the Popup Menu Designer tab, and then select
+the Paste menu from the Popup Menu Tool dropdown list. Then, drag the
+Paste Options tool from the right pane to the left pane.
++
+image::image468.jpeg[image,width=442,height=180]
+2.  Close the Toolbars Designer.
+3.  The Paste Options tool should now include all the paste type
+options.
++
+image::image469.jpeg[image,width=459,height=333]
++
+Note: To exclude any of the paste type options, use the Toolbar Designer
+to remove options. Select the Paste Options tool on the Tools tab, then
+click the button to the right of the ListToolItems (Collection) label to
+open the ListToolItem Collection Editor.
++
+image::image470.jpeg[image,width=549,height=371]
+
+Relational Database Support
+
+This release includes enhanced support for displaying and updating
+relational data.
+
+A new view type, SQL Excel, as well as the Essbase Excel view
+type supports the ability to display relational data as rows in a
+spreadsheet. The data can also be edited in the spreadsheet, and then
+written back to the database. The view content can contain data from
+multiple tables within a single database or from multiple databases. The
+databases can be the same or different types, such as Oracle and SQL
+Server, as well as different versions of the same database type.
+
+The following capabilities are supported:
+
+* Viewing, adding, deleting, and editing relational data.
+* Multiple levels of row groupings. Each level of grouping or sub
+grouping can be based on a single column, multiple columns, or filter
+expressions.
+* Excel grouping and outlining of row groups.
+* Cascading relational data based on one or more selectors as well as
+the ability to include non-cascade sheets that also contain relational
+data.
+* Excel sheet-level protection to lock cells that contain data that
+cannot be edited.
+* Workbook scripting, including event links for before and after the
+relational data is built or saved and methods for building and saving
+the relational data.
+
+For an Essbase Excel view, additional capabilities include:
+
+* Combining Essbase and relational data on the same worksheet, including
+the ability to write back changes to the relational database.
+* Cascading Essbase and/or relational data as well as the ability to
+include non-cascade sheets that contain Essbase and/or relational data.
+
+The introduction of the SQL Excel view type expands the Excel-based view
+types to three, including the generic Excel, Essbase Excel, and SQL
+Excel view types. The following table shows the key functionality
+supported by these view types:
+
+[cols=",,,",options="header",]
+|=======================================================================
+| |Generic Excel |Essbase Excel |SQL Excel
+|Relational Data |Supported using the SQLPassthroughDataSet overload of
+the BuildRangeFromScript method |Supported using the new relational
+functionality |Supported using the new relational functionality
+
+|Relational write-back |N/A |Supported using the new relational
+functionality |Supported using the new relational functionality
+
+|Essbase Data |N/A |Supported as default data type |N/A
+
+|Comments |_Supported for Generic, Essbase, and SQL types_ | |
+
+|Cascadin | |Supported for both Essbase and relational data |Supported
+for relational data
+
+|Grid Properties* |_Supported for Generic, Essbase, and SQL types_ | |
+
+|Workbook Scripting |_Supported for Generic, Essbase, and SQL types_ | |
+|=======================================================================
+
+* Grid Properties include the GridLinesVisible,
+HorizontalScrollBarVisible, RowAndColumnHeadersVisible, TabsVisible, and
+VerticalScrollBarVisible properties.
+
+Request and Response Logging
+
+Added Request and Response logging to the Dodeca and Dodeca-Essbase
+services. The logging functionality captures all, or selected, xml
+transactions between the Smart Client and server tiers. The transactions
+are then stored in files in a given directory on the server. The files
+may then be used to better understand how the Dodeca tiers communicate
+with each other and are very useful in debugging operations.
+
+_*Warning*: The logging capability is not intended to be used at all
+times but rather on an as needed basis to capture the information
+entering and leaving the server primarily for debugging services.
+Logging can quickly generate a large number of files._
+
+The logging functionality is comprised of two components: the servlet
+filter and the client properties. The servlet filter for each service is
+configurable via parameters in the web.xml file for the respective
+service. The *output.directory* parameter must be configured to enable
+logging as it specifies the directory where the xml files will be
+written on the server. If the output.directory is not properly
+configured, or the directory does not exist, logging will be disabled
+until the parameter is corrected and the service is restarted. The
+parameters, their purpose and guidance for usage are documented in the
+filter section of the web.xml file.
+
+The client must also be configured for logging to work. An administrator
+can enable or disable logging for an application and/or for individual
+Essbase connections for all clients or for only the local client. A
+client is configured in one of two ways depending on whether logging
+should be enabled for all clients or for only the current client and
+session.
+
+To enable request/response application logging (i.e. the Dodeca service)
+for the current client during the current session only, use the
+_Utilities -> Log Application Request and Response XML_ tool.
+
+image::image471.jpeg[image,width=624,height=323]
+
+To enable request/response application logging for all clients, use the
+Applications metadata editor to set the new *DoRequestResponseLogging*
+property. When set to _True_, all clients signal the Dodeca service to
+log requests and responses.
+
+image::image472.jpeg[image,width=624,height=409]
+
+Essbase request/response logging is specific to a single Essbase.
+
+To enable Essbase request/response logging for the current client during
+the current session only, use the _Utilities -> Log Essbase Request and
+Response XML_ tool, which expands to show a list of the Essbase
+connection ID's. Request/response logging can be enabled or disabled on
+a per connection basis.
+
+image::image473.jpeg[image,width=624,height=323]
+
+To enable Essbase request/response logging for all clients, use the
+Essbase Connections metadata editor to set the new
+*DoRequestResponseLogging* property. When set to _True_, all clients
+signal the Dodeca-Essbase service log requests and responses.
+
+image::image474.jpeg[image,width=624,height=323]
+
+Save Layout as Binary Artifact Tool
+
+* When saving a workspace layout as a binary artifact, the view
+selector's docked window location, size, and pin state, can be excluded
+from the saved workspace layout. When the view selector's layout is not
+included in the workspace layout, the location, size, and pin state
+remain unchanged when the workspace layout is opened. This is useful
+when a workspace layout is to be included in a view hierarchy and can be
+opened from the view selector. (#780)
+
+image::image475.jpeg[image,width=300,height=236]
+
+Script Essbase View
+
+* Fixed Issue: An error is generated by the server when numeric member
+names/aliases are contained in the report. (#774)
+
+SSL Support
+
+* The dodeca servlet path, which is either derived from the deployment
+path or is specified explicitly in the URL path, did not previously
+allow the use of "https". This has been corrected to allow either "http"
+or "https". (#796)
+* The Application Setup Utility has also been modified to allow for an
+SSL-enabled servlet path. (#797)
+
+Workbook Scripting
+
+* New Function: SectionBreakRowOrColumnCount
+
+Many customers are interested in creating dynamic reports with formulas
+that compute the totals across multiple levels. This functionality is
+normally accomplished using dynamic ranges computed using the Excel
+OFFSET function to compute ranges used in the SUMIF function to
+conditionally summarize data. The most difficult part of accomplishing
+these dynamic formulas is determining the number of rows in a section.
+This task is made easier using the @SectionBreakRowOrColumnCount()
+function.
+
+In the spreadsheet below, the number in cell A14 represents the number
+of rows since the last level 1 item in column B or the top of the range
+if no previous level 1 items exist in the range being evaluated in
+column B.
+
+image::image476.jpeg[image,width=525,height=312]
+
+The @SectionBreakRowOrColumnCount() function takes as arguments 1) the
+range to search up or left for the previous item, 2) the starting cell
+to search in the range, 3) the range containing the value to search, and
+4) a flag indicating whether to evaluate row or column values.
+
+In the example shown, the function that calculated the value '5' in cell
+A14 as called within workbook script with the following parameters:
+
+@SectionBreakRowOrColumnCount(Built.Rows, @ACell(), @ACell(), "row")
+
+which resolved to the following ranges:
+
+@SectionBreakRowOrColumnCount($B$9:$B$33, $B$14, $B$14, "row")
+
+The value was then placed into cell A14 using the SetEntry workbook
+script method. (#819)
+
+* New culture-related functions:
++
+ViewCultureNumberDecimal @NDEC()
++
+Returns the decimal separator used in numeric values.
++
+ViewCultureNumberGroupSeparator @NSEP()
++
+Returns the string that separates groups of digits to the left of the
+decimal in numeric values.
++
+ViewCultureNegativeSign @NEG()
++
+Returns the string that denotes that a number is negative.
++
+ViewCultureCurrencyDecimal @CDEC()
++
+Returns the decimal separator used in currency values.
++
+ViewCultureCurrencySymbol @CSYM()
++
+Returns the currency symbol.
++
+ViewCultureCurrencyGroupSeparator @CSEP()
++
+Returns the string that separates groups of digits to the left of the
+decimal in currency values.
++
+ViewCulturePercentDecimal @PDEC()
++
+Returns the decimal separator used in percent values.
++
+ViewCultureDateSeparator @DSEP()
++
+Returns the string that separates the components of a date (year, month,
+and day).
++
+ViewCultureTimeSepartor @TSEP()
++
+Returns the string that separates the components of time (hours,
+minutes, and seconds). (#826)
+* [BuildRangeFromScript Method, _SQLPassthroughDataSet_ Overload] Added
+ExecuteQueryAsynchronous Argument:
+
+The _ExecuteQueryAsynchronous_ argument controls whether the specified
+SQLPassthroughDataSet's query is executed asynchronously. When set to
+TRUE, the query is processed on a background thread. If the query is
+configured to limit the number of rows returned at a time (using the
+query's _IncrementalMaxRow_ setting) and the total number of rows
+generated by the query exceeds the limit, then the results are processed
+incrementally. As the results are received, the data is copied to the
+view, which occurs on the main UI thread.
+
+The progress text in the status bar indicates when the view is waiting
+for results, _"Retrieving view data"_, and when results are being copied
+to the view, _"Populating view data"_. The status icon is animated when
+the view is waiting for results. The progress bar at the right of the
+status bar visually represents the percentage complete.
+
+During processing, the view's toolbars and selectors are disabled. When
+the view is waiting for query results, the application's UI can be
+accessed, which allows other views to be activated, opened, built, etc.
+
+image::image477.jpeg[image,width=624,height=421]
+
+In the workbook script, the calling procedure waits until the
+BuildRangeFromScript is complete, meaning when all the query results
+have been copied to the view, before executing any remaining methods in
+the procedure.
+
+* One important caveat is related to whether or not there are other
+methods that are executed after the BuildRangeFromScript and whether or
+not those methods alter the content of the view. When processing the
+BuildRangeFromScript on a background thread, control is returned to the
+main UI thread. So, if the BuildRangeFromScript is called within the
+context of an event that is raised during the build of the view, then
+the view is not covered during the processing of the
+BuildRangeFromScript and the proceeding methods. In many cases, this is
+actually the preferred behavior, since the user is able to see the
+incremental results; however, it may be problematic if the other methods
+that are executed after the BuildRangeFromScript alter the content of
+the view.
+
+The _ExecuteQueryAsynchronous_ allows the processing to be optimized and
+designed appropriately based on the nature and requirements of the view.
+(#820)
+
+* New Method: EssbaseReport
+
+This method runs the specified Essbase report script and copies the
+results to a sheet.
+
+The _ServerBased_ overload supports a _ReportScript_ argument that
+specifies the name of a report script on the server. The _TextBased_
+overload supports a _ReportSpec_ argument that specifies the report
+script.
+
+When dodeca-essbase service executes the report, it automatically
+performs a retrieve on the report results and applies the view's or the
+specified Essbase option settings. To avoid unnecessarily generating the
+data with the report, the <preview tag should be specified in the report
+script.
+
+In addition to the standard method arguments, both overloads also
+support the following arguments:
+
+_*DoTokenReplacement*_
+
+Optional. Indicates whether token replacement should be performed on the
+script before it is run.
+
+_*StartCell*_
+
+Optional. A defined range name or a range reference that designates
+where to copy the results. If none is specified, A1 is used as the start
+cell.
+
+_*OutputRangeName*_
+
+Optional. If specified, a defined range is created that contains the
+report results. Typically, the name uses the retrieve range naming
+convention, such as Ess.Retrieve.Range.1; however, the implications of
+doing so should be taken into consideration when writing the script. For
+instance, if this method is called in the AfterWorkbookOpen event link,
+setting the _NavigateWithoutData_ argument to True, and setting the
+view's _RetrievePolicy_ to _RetrieveRanges_ allows the default retrieve
+logic to retrieve the data based on the member layout generated by the
+script.
+
+_*SynchronizeCharts*_
+
+Optional. Indicates whether to synchronize the chart, if any, with the
+output range data.
+
+_*ConnectionID, Username, and Password*_
+
+Optional. Allows an Essbase connection other than the view's connection
+to be specified. By default, the Essbase connection associated with the
+view is used.
+
+And, the relevant *EssProperties* settings are supported, including
+_AliasTableName, EnableHybridAnalysis, Indentation, MissingLabel,
+NavigateWithoutData, NoAccessLabel, RepreatMemberLabels,
+RetrieveUpdateMode, SuppressMissingRows, SuppressUnderscoreCharacters,
+SuppressZeroRows, UseAliases,_ and _UseMembernamesAndAliasesForRows_ The
+default value for each of these settings is derived from the view's
+corresponding runtime property. (#776)
+
+* [DataPointIsBlank, DataPointIsDouble, DataPointIsError,
+DataPointIsMissing, DataPointIsNoAccess, DataPointIsZero,
+DataPointIsReadOnly, DataPointIsReadWrite Functions] Fixed Issue: A bug
+was introduced in Build 1749 that caused these functions to error when
+the specified cell (or default cell) was not a data cell. (#794)
+* [EssbaseAddDataCache, EssbaseAddTokensForSubstVars,
+EssbaseBuildRangeFromScript, and EssbaseRunCalc Methods] Fixed Issue:
+
+When the _ConnectionID_ argument value is specified that refers to an
+Essbase connection that has a Username and a Password explicitly defined
+for the connection, the EssbaseRunCalc method does not use the specified
+credentials. The credentials used for the view's connection are used
+instead.
+
+Resolution: These methods were modified to use the phantom Username and
+Password, when available, instead of defaulting to the view connection's
+Username and Password. (#772)
+
+* New Methods: EssbaseConnect and EssbaseDisconnect
+
+These methods can be used when multiple operations need to be performed
+on the same connection. They are intended for use only with Essbase
+connections that are configured as stateful (i.e. the _Stateless_
+property is set to _False_.) The workbook script can open the connection
+by calling the _EssbaseConnect_ method, then call the appropriate
+Essbase methods to perform the operations and specify the connection
+using the _ConnectionID_ argument, and then call the _EssbaseDisconnect_
+method to close the connection. (#801)
+
+* New Method: EssbaseUpdate
++
+This method supports updates to an Essbase database using data formats
+that do not need an Essbase rules file. An example of a valid data
+format:
++
+Sales "100-10" Ohio Jan Actual 25
++
+Sales "100-20" Ohio Jan Actual 25
++
+Sales "100-30" Ohio Jan Actual 25
++
+Please note that the EssbaseUpdate method does not currently support
+Dodeca data audit logging. (#801)
+* New Functions: FirstColumn, @FCOL(), and FirstRow, @FROW()
++
+These functions provide the same functionality as the Excel functions
+ROW and COLUMN, but can be used as argument values for other workbook
+script functions.
++
+Workbook script functions cannot use an Excel function as an argument
+value, but it is common for a workbook script to specify the first/last
+row/column as a workbook script function argument. (#809)
++
+For example, the following script, which uses the Excel function COLUMN
+as an argument to the workbook script function @ColL() , cannot be
+resolved:
++
+=@ColL(Column(Ess.Retrieve.Range.1))
++
+By replacing the COLUMN function with the workbook script function
+@FCOL, the workbook script can be resolved:
++
+@ColL(@FCol(Ess.Retrieve.Range.1))
+
+* [OpenView Method] Added _Close_ argument, which supports automatically
+closing the view after opening. (#768)
+* [SelectorDisplayedValue, @SDVal, and SelectorValue, @SVal, Functions]
+Fixed Issue: If the _SelectorID_ argument is not the ID of an existing
+selector, the functions incorrectly return the value of the last
+selector configured for the view. (#764)
+* [SetHyperlink Method, _ThisWorkbook_ Overload] Fixed Issue: The sheet
+name is dropped from the resolved LinkToAddress value, which causes the
+link to reference the same sheet as the link even when the specified
+sheet is a different sheet. (#795)
