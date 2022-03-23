@@ -1,10 +1,10 @@
+= Version 5.0.0.2260
 // if an {imagesdir} attribute is not defined, define it relative to this file.
 ifndef::imagesdir[:imagesdir: ../images]
 
 [discrete]
 == Dodeca Framework
-[#Version_5_0_0_2260]
-== Version 5.0.0.2260
+
 [discrete]
 == June 17, 2010
 '''
