@@ -1,6 +1,6 @@
 name: dodeca
 title: Dodeca
-version: Wbs-Docs
+version: ~
 start_page: ROOT:8.0/wbs-documentation-8.0.adoc
 asciidoc:
   attributes:
