@@ -1,7 +1,7 @@
 name: dodeca
 title: Dodeca
 version: ~
-start_page: ROOT:8.0/wbs-documentation-8.0.adoc
+start_page: wbs:8.0/wbs-documentation-8.0.adoc
 asciidoc:
   attributes:
     source-language: asciidoc@
