@@ -1,6 +1,6 @@
 name: dodeca
 title: Dodeca
-version: 1.0.0
+version: All
 start_page: ROOT:inline-text-formatting.adoc
 asciidoc:
   attributes:
